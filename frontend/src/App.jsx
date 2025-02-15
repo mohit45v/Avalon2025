@@ -8,10 +8,24 @@ import Navbar from "./components/navbar";
 import Prize from "./components/Prize";
 import Sponsers from "./components/Sponsers";
 import video from "./components/bgvd.mp4";
+import RegistrationForm from "./components/RegistrationForm";
+import Timeline from "./components/Timeline";
+import AdminLogin from "./components/AdminLogin";
+import Dashboard from "./components/Dashboard";
+import { BrowserRouter as Router, Route , Routes } from "react-router-dom";
 
 function App() {
   return (
-    <div className="relative w-full h-screen overflow-hidden">
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/register" element={<RegistrationForm />} />
+        
+        <Route path="*" element = {<h1>404 Not Found</h1>} />
+        <Route path="/confidential" element={<AdminLogin />} />
+        
+      </Routes>
+    <div className="relative w-full  overflow-hidden">
       {/* Background Video */}
       <video
         autoPlay
@@ -28,17 +42,21 @@ function App() {
       <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50"></div>
 
       {/* Foreground Content */}
-      <div className="relative z-10">
+      {/* <div className="relative z-10">
         <Navbar />
-        <Home />
+        <RegistrationForm />
+        <Domains />       
+        <Timeline />
         <About />
-        <Domains />
+        <Dashboard />
         <Prize />
         <Sponsers />
         <Galary />
         <Footer />
-      </div>
+        
+      </div> */}
     </div>
+    </Router>
   );
 }
 
