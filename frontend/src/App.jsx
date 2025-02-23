@@ -5,39 +5,26 @@ import Footer from "./components/Footer";
 import Galary from "./components/Galary";
 import Home from "./components/Home";
 import Navbar from "./components/navbar";
-import Prize from "./components/Prize";
 import Sponsers from "./components/Sponsers";
-import video from "./components/bgvd.mp4";
+import Timeline from "./components/Timeline";
+import TechBoxes from "./components/Techboxes";
+import Prizes from "./components/Prize";
+
 
 function App() {
   return (
-    <div className="relative w-full h-screen overflow-hidden">
-      {/* Background Video */}
-      <video
-        autoPlay
-        muted
-        loop
-        playsInline
-        className="absolute top-0 left-0 w-full h-full object-cover"
-      >
-        <source src={video} type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
+    <div className="relative w-full min-h-screen overflow-y-auto bg-black">
 
-      {/* Dark Overlay for better readability */}
-      <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50"></div>
-
-      {/* Foreground Content */}
-      <div className="relative z-10">
-        <Navbar />
-        <Home />
-        <About />
-        <Domains />
-        <Prize />
-        <Sponsers />
-        <Galary />
-        <Footer />
-      </div>
+      <Navbar />
+      <Home />
+     <TechBoxes/>
+      <About />
+      <Domains />
+      <Timeline />
+      <Prizes/>
+      <Sponsers />
+      <Galary />
+      <Footer />
     </div>
   );
 }
