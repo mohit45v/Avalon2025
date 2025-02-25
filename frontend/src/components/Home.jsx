@@ -12,7 +12,7 @@ const Home = () => {
 
       {/* Background: 3D Robot Animation */}
       <iframe
-        src="https://my.spline.design/robotfollowcursorforlandingpage-ae16a1df68be64bf5c67c5766ea36612/"
+        src="https://my.spline.design/robotfollowcursorforlandingpage-d5e503f9b1f0c60091f2def7ac1c4b3a/"
         frameBorder="0"
         width="100%"
         height="100%"
