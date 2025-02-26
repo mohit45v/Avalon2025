@@ -16,7 +16,7 @@ import Prizes from "./Prize";
 import Sponsers from "./Sponsers";
 import Galary from "./Galary";
 import Footer from "./Footer";
-import Navbar from "./Navbar";
+import Navbar from "./navbar";
 
 const Home = () => {
   const [loading, setLoading] = useState(true);
