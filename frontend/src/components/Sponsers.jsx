@@ -11,8 +11,12 @@ const sponsors = [
   "https://avatars.sched.co/8/53/18912119/avatar.jpg?d2e",
   "https://cdn.prod.website-files.com/6245dcc971d30346418991c5/63489231b0aa8b18c17a94a3_WhatisFilecoin.png",
 ];
-// In Sponsors component
 
+const Sponsors = () => {
+  const [ref, inView] = useInView({
+    triggerOnce: true,
+    threshold: 0.1
+  });
 
   return (
     <section ref={ref} className="relative min-h-screen bg-[#030014] py-20 px-8">
@@ -109,4 +113,7 @@ const sponsors = [
       </div>
     </section>
   );
+};
+
+export default Sponsors;
 
