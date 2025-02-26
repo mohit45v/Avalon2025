@@ -1,5 +1,7 @@
 
 
+import { motion } from "framer-motion";
+import { useInView } from "react-intersection-observer";
 import { useState } from "react";
 
 const faqs = [
@@ -21,50 +23,101 @@ const contacts = [
   { title: "Address", phone: "Terna Engineering College, Nerul, Navi Mumbai, India", email: "info@hackathon.com" },
 ];
 
-export default function HackathonFAQ() {
+export default function Footer() {
   const [activeIndex, setActiveIndex] = useState(null);
+  const [ref, inView] = useInView({
+    threshold: 0.1,
+    triggerOnce: true
+  });
 
   return (
-    <div className="bg-black text-gray-300 min-h-screen flex flex-col items-center px-4 py-8">
-      <h1 className="text-cyan-400 text-4xl md:text-5xl font-bold mb-6 glitch">Hackathon FAQ</h1>
-      <div className="max-w-4xl w-full bg-gray-900 p-6 rounded-lg shadow-lg">
+    <footer ref={ref} className="relative bg-[#030014] text-gray-300 min-h-screen">
+    {/* Background Effects */}
+    <div className="absolute inset-0">
+      <div className="absolute inset-0 bg-grid-white/10 bg-[size:50px_50px] opacity-5" />
+      <div className="absolute inset-0 bg-gradient-to-b from-purple-900/20 via-transparent to-orange-900/20" />
+    </div>
+
+    <div className="relative z-10 container mx-auto px-4 py-16">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={inView ? { opacity: 1, y: 0 } : {}}
+        className="text-center mb-16"
+      >
+        <h2 className="text-4xl md:text-5xl font-bold mb-6">
+          <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 via-fuchsia-500 to-purple-600">
+            Frequently Asked Questions
+          </span>
+        </h2>
+      </motion.div>
+
+      <div className="max-w-4xl mx-auto space-y-4">
         {faqs.map((faq, index) => (
-          <div key={index} className="mb-4">
+          <motion.div
+            key={index}
+            initial={{ opacity: 0, y: 20 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ delay: index * 0.1 }}
+          >
             <button
               onClick={() => setActiveIndex(activeIndex === index ? null : index)}
-              className="w-full text-left bg-cyan-600 hover:bg-cyan-700 p-3 rounded-lg text-lg font-bold relative"
+              className="w-full text-left p-4 rounded-lg bg-white/5 hover:bg-white/10 backdrop-blur-sm border border-purple-500/20 transition-all duration-300"
             >
-              {faq.question}
-              <span className="absolute right-4">{activeIndex === index ? "▲" : "▼"}</span>
+              <div className="flex justify-between items-center">
+                <span className="text-lg font-semibold text-white">{faq.question}</span>
+                <span className="text-purple-400 transition-transform duration-300 transform">
+                  {activeIndex === index ? '−' : '+'}
+                </span>
+              </div>
+              {activeIndex === index && (
+                <p className="mt-3 text-gray-300 text-sm">{faq.answer}</p>
+              )}
             </button>
-            {activeIndex === index && (
-              <p className="bg-cyan-800 p-3 mt-2 rounded-lg">{faq.answer}</p>
-            )}
-          </div>
+          </motion.div>
         ))}
       </div>
-      <section className="mt-12 text-center">
-        <h1 className="text-cyan-400 text-3xl md:text-4xl font-bold mb-6">Contact Us</h1>
-        <div className="flex flex-wrap justify-center gap-6">
+
+      <motion.section
+        initial={{ opacity: 0, y: 20 }}
+        animate={inView ? { opacity: 1, y: 0 } : {}}
+        className="mt-20 text-center"
+      >
+        <h2 className="text-4xl md:text-5xl font-bold mb-12">
+          <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 via-fuchsia-500 to-purple-600">
+            Contact Us
+          </span>
+        </h2>
+        <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
           {contacts.map((contact, index) => (
-            <div key={index} className="bg-gray-900 p-6 rounded-lg shadow-lg w-80">
-              <h2 className="text-cyan-400 text-2xl mb-2">{contact.title}</h2>
-              <p>{contact.phone}</p>
-              <p>{contact.email}</p>
-            </div>
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ delay: index * 0.2 }}
+              className="p-6 rounded-xl bg-white/5 backdrop-blur-sm border border-purple-500/20 hover:border-purple-500/40 transition-all duration-300"
+            >
+              <div className="text-4xl mb-4">{contact.icon}</div>
+              <h3 className="text-xl font-semibold text-white mb-4">{contact.title}</h3>
+              <p className="text-gray-400">{contact.phone}</p>
+              <p className="text-gray-400">{contact.email}</p>
+            </motion.div>
           ))}
         </div>
-        <div className="mt-8 w-full max-w-4xl h-80 rounded-lg overflow-hidden">
+
+        <div className="mt-16 rounded-xl overflow-hidden border border-purple-500/20">
           <iframe
-            className="w-full h-full"
-            style={{ border: 0, filter: "invert(90%) hue-rotate(180deg)" }}
-            src="https://www.google.com/maps?q=Terna+Engineering+College,Nerul&output=embed"
+            className="w-full h-[400px]"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3771.908227746073!2d73.02152661469864!3d19.03494478710719!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c3db5e2c85cd%3A0xf0562c8c4ee11853!2sTerna%20Engineering%20College!5e0!3m2!1sen!2sin!4v1647887574811!5m2!1sen!2sin"
             loading="lazy"
-            allowFullScreen
             referrerPolicy="no-referrer-when-downgrade"
           ></iframe>
         </div>
-      </section>
+
+        <div className="mt-16 text-center text-sm text-gray-500">
+          <p>© 2024 Avalon. All rights reserved.</p>
+        </div>
+      </motion.section>
     </div>
+  </footer>
   );
 }

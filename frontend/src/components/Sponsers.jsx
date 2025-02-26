@@ -60,16 +60,18 @@ const Sponsors = () => {
           animate={inView ? { opacity: 1, y: 0 } : {}}
           className="text-center mb-16"
         >
-          <h2 className="text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-orange-400 mb-6">
-            Our Sponsors
+          <h2 className="text-6xl font-bold mb-6">
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 via-fuchsia-500 to-purple-600">
+              Our Sponsors
+            </span>
           </h2>
-          <p className="text-xl text-gray-400">
-            Partnering with industry leaders to foster innovation
+          <p className="text-xl text-gray-300">
+            Empowering Innovation Together
           </p>
         </motion.div>
 
         <motion.div 
-          className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-8"
+          className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-12 max-w-5xl mx-auto"
           initial={{ opacity: 0 }}
           animate={inView ? { opacity: 1 } : {}}
           transition={{ duration: 1 }}
@@ -80,19 +82,24 @@ const Sponsors = () => {
               initial={{ opacity: 0, y: 50 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: index * 0.1 }}
-              className="relative group"
+              whileHover={{ scale: 1.1, rotate: [0, -5, 5, 0] }}
+              className="flex items-center justify-center p-4"
             >
-              <div className="absolute -inset-0.5 bg-gradient-to-r from-purple-600 to-orange-600 rounded-lg blur opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200" />
-              <div className="relative p-6 bg-black/40 backdrop-blur-sm rounded-lg border border-white/10 hover:border-purple-500/50 transition-all duration-300">
-                <motion.img
-                  src={sponsor}
-                  alt={`Sponsor ${index + 1}`}
-                  className="w-32 sm:w-36 md:w-44 lg:w-52 object-contain filter hover:brightness-125 transition-all duration-300"
-                  whileHover={{ scale: 1.05 }}
-                  animate={{ y: [0, -5, 0] }}
-                  transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
-                />
-              </div>
+              <motion.img
+                src={sponsor}
+                alt={`Sponsor ${index + 1}`}
+                className="w-32 sm:w-36 md:w-40 object-contain drop-shadow-[0_0_15px_rgba(147,51,234,0.2)]"
+                animate={{ 
+                  filter: ["brightness(1)", "brightness(1.2)", "brightness(1)"],
+                  scale: [1, 1.02, 1]
+                }}
+                transition={{ 
+                  repeat: Infinity, 
+                  duration: 2, 
+                  ease: "easeInOut",
+                  delay: index * 0.2 
+                }}
+              />
             </motion.div>
           ))}
         </motion.div>
@@ -101,11 +108,11 @@ const Sponsors = () => {
           initial={{ opacity: 0 }}
           animate={inView ? { opacity: 1 } : {}}
           transition={{ delay: 1 }}
-          className="text-center mt-16"
+          className="text-center mt-20"
         >
           <a 
             href="#contact" 
-            className="inline-block px-8 py-4 bg-gradient-to-r from-purple-600 to-orange-600 rounded-full text-white font-bold hover:opacity-90 transition duration-300"
+            className="inline-block px-8 py-4 bg-gradient-to-r from-purple-600 to-orange-600 rounded-full text-white font-bold hover:opacity-90 transition-all duration-300 hover:scale-105 hover:shadow-[0_0_20px_rgba(147,51,234,0.3)]"
           >
             Become a Sponsor
           </a>

@@ -4,8 +4,6 @@ import { TypeAnimation } from "react-type-animation";
 import { motion } from "framer-motion";
 import { Progress } from "@/components/ui/progress";
 import { Player } from "@lottiefiles/react-lottie-player";
-import Particles from "react-tsparticles";
-import { loadSlim } from "tsparticles-slim";
 
 import logo from "./logo.png";
 import TechBoxes from "./Techboxes";
@@ -17,6 +15,9 @@ import Sponsers from "./Sponsers";
 import Galary from "./Galary";
 import Footer from "./Footer";
 import Navbar from "./Navbar";
+import Gallery from "./Gallery";
+
+import { Link } from "react-scroll";
 
 const Home = () => {
   const [loading, setLoading] = useState(true);
@@ -78,88 +79,61 @@ const Home = () => {
   return (
     <>
       <Navbar toggleMobileMenu={toggleMobileMenu} isMobileMenuOpen={isMobileMenuOpen} />
-      <div className="relative flex flex-col items-center justify-center min-h-screen bg-[#030014] overflow-hidden">
-        <Particles
-          id="tsparticles"
-          init={particlesInit}
-          options={{
-            particles: {
-              number: { value: 100, density: { enable: true, value_area: 800 } },
-              color: { value: "#ffffff" },
-              shape: { type: "circle" },
-              opacity: {
-                value: 0.5,
-                random: true,
-                animation: {
-                  enable: true,
-                  speed: 1,
-                  minimumValue: 0.1,
-                  sync: false
-                }
-              },
-              size: {
-                value: 3,
-                random: true,
-                animation: {
-                  enable: true,
-                  speed: 2,
-                  minimumValue: 0.1,
-                  sync: false
-                }
-              },
-              move: {
-                enable: true,
-                speed: 0.5,
-                direction: "none",
-                random: true,
-                straight: false,
-                outModes: { default: "out" },
-                attract: { enable: false, rotateX: 600, rotateY: 1200 }
-              },
-              links: {
-                enable: true,
-                distance: 150,
-                color: "#ffffff",
-                opacity: 0.2,
-                width: 1
-              },
-            },
-            interactivity: {
-              events: {
-                onHover: { enable: true, mode: "grab" },
-                onClick: { enable: true, mode: "push" },
-              },
-              modes: {
-                grab: { distance: 140, links: { opacity: 0.5 } },
-                push: { quantity: 4 },
-              }
-            }
-          }}
-          className="absolute inset-0"
-        />
-        <div className="relative z-10 flex flex-col items-center px-4 pt-16 sm:pt-20 text-center w-full max-w-4xl">
+      <div id="home" className="relative flex flex-col items-center justify-center min-h-screen bg-[#030014] overflow-hidden">
+        {/* Dynamic Background Effects */}
+        <div className="absolute inset-0">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-purple-900/20 via-[#030014] to-[#030014]" />
+          <div className="absolute inset-0 bg-grid-white/10 bg-[size:50px_50px] opacity-10" />
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="h-[500px] w-[500px] bg-purple-500/30 rounded-full blur-[120px] animate-pulse" />
+          </div>
+        </div>
+
+        {/* Main Content */}
+        <div className="relative z-[3] flex flex-col items-center px-4 pt-16 sm:pt-20 text-center w-full max-w-6xl">
+          {/* Logo with enhanced effects */}
           <motion.div
-            className="relative h-20 w-32 mb-8"
-            variants={fadeIn}
+            className="relative h-24 w-40 mb-12"
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
           >
-            <div className="absolute inset-0 blur-2xl bg-purple-500/30 rounded-full animate-pulse" />
+            <div className="absolute inset-0 blur-3xl bg-purple-500/30 rounded-full animate-pulse" />
             <img 
               src={logo} 
               alt="TechFest Logo" 
-              className="relative h-full w-auto object-contain drop-shadow-[0_0_15px_rgba(147,51,234,0.5)]" 
+              className="relative h-full w-auto object-contain drop-shadow-[0_0_25px_rgba(147,51,234,0.5)]" 
             />
           </motion.div>
 
+          {/* Main Title with enhanced styling */}
           <motion.h1
-            className="font-['Orbitron'] text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-fuchsia-500 to-purple-600 text-3xl sm:text-5xl font-bold mb-6 tracking-wider"
-            variants={fadeIn}
+            className="font-['Orbitron'] text-4xl sm:text-6xl lg:text-7xl font-bold mb-8 tracking-wider"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
           >
-            AVALON 2025
+            <span className="inline-block text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-fuchsia-500 to-purple-600">
+              AVALON 2025
+            </span>
           </motion.h1>
 
+          {/* Subtitle */}
+          <motion.p
+            className="text-gray-400 text-lg sm:text-xl mb-8 max-w-2xl"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+          >
+            Where Technology Meets Innovation
+          </motion.p>
+
+          {/* Type Animation with enhanced container */}
           <motion.div
-            className="mb-12 px-4"
-            variants={fadeIn}
+            className="mb-12 px-4 py-6 backdrop-blur-sm bg-white/5 rounded-2xl border border-white/10"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.6 }}
           >
             <TypeAnimation
               sequence={[
@@ -173,18 +147,72 @@ const Home = () => {
               wrapper="span"
               speed={50}
               repeat={Infinity}
-              className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 via-pink-500 to-orange-600 text-xl sm:text-3xl lg:text-4xl font-bold font-mono"
+              className="text-transparent bg-clip-text bg-gradient-to-r from-orange-400 via-pink-500 to-orange-600 text-2xl sm:text-4xl lg:text-5xl font-bold font-mono"
             />
+          </motion.div>{/* Type Animation container ends */}
+          {/* CTA Button */}
+          <motion.div
+            className="flex flex-col sm:flex-row gap-4 items-center mb-24" // Increased bottom margin
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.8 }}
+          >
+            <Link
+              to="about"
+              spy={true}
+              smooth={true}
+              offset={-70}
+              duration={500}
+              className="px-6 py-4 bg-gradient-to-r from-purple-600 to-orange-600 rounded-full text-white text-md font-medium hover:opacity-90 transition-opacity cursor-pointer"
+            >
+              Know More
+            </Link>
+          </motion.div>
+          {/* Tech Keywords with enhanced styling */}
+          <motion.div
+            className="absolute bottom-4 left-0 right-0 px-4" // Adjusted bottom spacing
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 1 }}
+          >
+            <div className="flex flex-wrap justify-center gap-3 max-w-3xl mx-auto">
+              {['AI', 'Blockchain', 'IoT', 'Cloud', 'ML', 'Web3'].map((tech, index) => (
+                <motion.span
+                  key={tech}
+                  initial={{ scale: 0.9, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  transition={{ duration: 0.3, delay: index * 0.1 }}
+                  whileHover={{ scale: 1.05, y: -2 }}
+                  className="px-6 py-2.5 text-sm font-medium text-white bg-gradient-to-r from-purple-600/20 to-orange-600/20 rounded-full border border-purple-500/30 backdrop-blur-md hover:border-purple-500/50 transition-all duration-300 shadow-lg shadow-purple-500/5"
+                >
+                  {tech}
+                </motion.span>
+              ))}
+            </div>
           </motion.div>
         </div>
       </div>
-      <TechBoxes/>
-      <About />
-      <Domains />
-      <Timeline />
-      <Prizes/>
-      <Sponsers />
-      <Galary />
+      <div id="techboxes">
+        <TechBoxes/>
+      </div>
+      <div id="about">
+        <About />
+      </div>
+      <div id="domains">
+        <Domains />
+      </div>
+      <div id="timeline">
+        <Timeline />
+      </div>
+      <div id="prizes">
+        <Prizes/>
+      </div>
+      <div id="sponsors">
+        <Sponsers />
+      </div>
+      <div id="gallery">
+        <Gallery />
+      </div>
       <Footer />
     </>
   );

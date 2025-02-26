@@ -154,12 +154,14 @@ const Prize = () => {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
-          className="text-center mb-20"
+          className="text-center mb-8" // Changed from mb-20 to mb-8
         >
-          <h2 className="text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-orange-400 mb-6">
-            Prizes & Rewards
+          <h2 className="text-6xl font-bold mb-6">
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 via-fuchsia-500 to-purple-600">
+              Prizes & Rewards
+            </span>
           </h2>
-          <div className="w-40 h-40 mx-auto">
+          <div className="w-32 h-32 mx-auto"> {/* Reduced from w-40 h-40 */}
             <Lottie 
               animationData={trophyAnimation} 
               loop={true}
