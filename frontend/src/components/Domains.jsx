@@ -2,6 +2,7 @@ import React, { useState, Suspense } from "react";
 import { motion } from "framer-motion";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, useGLTF, Float, Environment } from "@react-three/drei";
+import { useNavigate } from "react-router-dom";
 import Hackathon from "./HackathonPage";
 import ProjectCompetitions from "./ProjectCompetitionPage";
 import Robotics from "./RoboticsCompetitionPage";
@@ -15,22 +16,25 @@ const domains = [
   {
     title: "Hackathon",
     description: "24-hour coding marathon to build innovative solutions. Compete with the best minds in technology.",
-    modelPath: "/models/laptop.glb", // Replace with your model
+    modelPath: "/models/laptop.glb",
     gradient: "from-purple-600 to-blue-500",
+    path: "/hackathon",
     component: Hackathon,
   },
   {
     title: "Project Competitions",
     description: "Showcase your groundbreaking projects and technical innovations to industry experts.",
-    modelPath: "/models/robot.glb", // Replace with your model
+    modelPath: "/models/robot.glb",
     gradient: "from-orange-500 to-red-500",
+    path: "/project",
     component: ProjectCompetitions,
   },
   {
     title: "Robotics Competition",
     description: "Battle it out in the arena with your custom-built robots and autonomous systems.",
-    modelPath: "/models/drone.glb", // Replace with your model
+    modelPath: "/models/drone.glb",
     gradient: "from-green-500 to-teal-500",
+    path: "/robotics",
     component: Robotics,
   },
 ];
@@ -76,24 +80,7 @@ const DomainCard = ({ domain, onClick }) => {
 };
 
 const Domains = () => {
-  const [activePage, setActivePage] = useState(null);
-
-  if (activePage) {
-    const PageComponent = activePage;
-    return (
-      <div className="relative">
-        <motion.button
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          onClick={() => setActivePage(null)}
-          className="fixed top-4 left-4 z-50 px-6 py-3 bg-gradient-to-r from-purple-600 to-orange-600 rounded-lg text-white font-semibold hover:opacity-90 transition duration-300"
-        >
-          ← Back to Domains
-        </motion.button>
-        <PageComponent />
-      </div>
-    );
-  }
+  const navigate = useNavigate();
 
   return (
     <section className="relative min-h-screen bg-[#030014] py-20 px-8">
@@ -118,7 +105,7 @@ const Domains = () => {
             <DomainCard
               key={index}
               domain={domain}
-              onClick={() => setActivePage(domain.component)}
+              onClick={() => navigate(domain.path)}
             />
           ))}
         </div>

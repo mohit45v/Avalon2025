@@ -3,7 +3,12 @@ import { BsGear, BsLightning, BsTools, BsPeople } from 'react-icons/bs';
 
 const RoboticsCompetitionPage = () => {
     return (
-        <div className="container mx-auto px-4 py-8 max-w-5xl">
+        <div className="container mx-auto px-4 py-8 max-w-5xl relative min-h-screen bg-[#030014]">
+            {/* Background Effects */}
+            <div className="absolute inset-0">
+                <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-10" />
+                <div className="absolute inset-0 bg-gradient-to-b from-purple-900/20 via-transparent to-orange-900/20" />
+            </div>
             <header className="mb-12 text-center">
                 <h1 className="text-4xl font-bold mb-4 text-red-700">BotBattle 2025: Robotics Competition</h1>
                 <p className="text-xl text-gray-600 max-w-3xl mx-auto">
@@ -40,7 +45,7 @@ const RoboticsCompetitionPage = () => {
             </div>
 
             {/* Timeline section */}
-            <section className="mb-16">
+            <section className="mb-24 mx-4 sm:mx-6 lg:mx-8">
                 <h2 className="text-3xl font-bold mb-8 text-center">Competition Timeline</h2>
                 <div className="relative">
                     {/* Timeline line */}
@@ -128,7 +133,7 @@ const RoboticsCompetitionPage = () => {
             </section>
 
             {/* Competition categories */}
-            <section className="mb-16">
+            <section className="mb-24 mx-4 sm:mx-6 lg:mx-8">
                 <h2 className="text-3xl font-bold mb-8 text-center">Competition Categories</h2>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     <div className="bg-white p-6 rounded-lg shadow-md border border-gray-100 hover:shadow-lg transition">
@@ -188,7 +193,7 @@ const RoboticsCompetitionPage = () => {
             </section>
 
             {/* Features section */}
-            <section className="mb-16">
+            <section className="mb-24 mx-4 sm:mx-6 lg:mx-8">
                 <h2 className="text-3xl font-bold mb-8 text-center">Why Participate?</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                     <div className="bg-white p-6 rounded-lg shadow-md border border-gray-100 hover:shadow-lg transition">
@@ -226,7 +231,7 @@ const RoboticsCompetitionPage = () => {
             </section>
 
             {/* Rules and specifications */}
-            <section className="mb-16">
+            <section className="mb-24 mx-4 sm:mx-6 lg:mx-8">
                 <h2 className="text-3xl font-bold mb-8 text-center">Rules & Technical Specifications</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div className="bg-gray-50 p-6 rounded-lg shadow-md">
@@ -276,7 +281,7 @@ const RoboticsCompetitionPage = () => {
             </section>
 
             {/* Prizes section */}
-            <section className="mb-16">
+            <section className="mb-24 mx-4 sm:mx-6 lg:mx-8">
                 <h2 className="text-3xl font-bold mb-8 text-center">Prizes & Rewards</h2>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     <div className="bg-gradient-to-b from-amber-200 to-amber-100 p-6 rounded-lg shadow-md text-center">
@@ -336,7 +341,7 @@ const RoboticsCompetitionPage = () => {
             </section>
 
             {/* FAQ section */}
-            <section className="mb-16">
+            <section className="mb-24 mx-4 sm:mx-6 lg:mx-8">
                 <h2 className="text-3xl font-bold mb-8 text-center">Frequently Asked Questions</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="bg-white p-6 rounded-lg shadow-md border border-gray-100">
@@ -362,7 +367,7 @@ const RoboticsCompetitionPage = () => {
             </section>
 
             {/* Contact section */}
-            <section className="mb-16">
+            <section className="mb-24 mx-4 sm:mx-6 lg:mx-8">
                 <h2 className="text-3xl font-bold mb-8 text-center">Contact Us</h2>
                 <div className="bg-white p-8 rounded-lg shadow-md border border-gray-100">
                     <div className="flex flex-col md:flex-row">
@@ -417,7 +422,7 @@ const RoboticsCompetitionPage = () => {
             </section>
 
             {/* Call to action */}
-            <section className="text-center mb-16">
+            <section className="text-center mb-24 mx-4 sm:mx-6 lg:mx-8">
                 <h2 className="text-3xl font-bold mb-4">Ready to Battle?</h2>
                 <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">Join teams from across the country in the ultimate robotics showdown.</p>
                 <button className="bg-red-600 text-white px-8 py-3 rounded-md text-lg font-bold hover:bg-red-700 transition">
