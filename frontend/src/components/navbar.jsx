@@ -58,6 +58,20 @@ const Navbar = () => {
             <img src={logo} alt="Avalon 2025" className="h-8 w-auto" />
           </motion.div>
 
+          {/* Hamburger Menu Button */}
+          <div className="md:hidden">
+            <button
+              onClick={toggleMobileMenu}
+              className="p-2 rounded-md text-gray-400 hover:text-white hover:bg-purple-500/20 focus:outline-none"
+            >
+              <div className="w-6 h-5 flex flex-col justify-between">
+                <span className={`w-full h-0.5 bg-current transform transition-all duration-300 ${mobileMenuOpen ? 'rotate-45 translate-y-2' : ''}`} />
+                <span className={`w-full h-0.5 bg-current transition-all duration-300 ${mobileMenuOpen ? 'opacity-0' : ''}`} />
+                <span className={`w-full h-0.5 bg-current transform transition-all duration-300 ${mobileMenuOpen ? '-rotate-45 -translate-y-2' : ''}`} />
+              </div>
+            </button>
+          </div>
+
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
             {navItems.map((item) => (
@@ -66,67 +80,40 @@ const Navbar = () => {
                 to={item.path}
                 spy={true}
                 smooth={true}
-                offset={-70}
-                duration={300}
-                className="text-gray-300 hover:text-purple-400 px-3 py-2 text-sm font-medium transition-colors duration-300 cursor-pointer"
+                offset={SCROLL_OFFSET}
+                duration={SCROLL_DURATION}
+                className="text-gray-300 hover:text-white hover:bg-purple-500/20 px-3 py-2 rounded-md text-sm font-medium cursor-pointer transition-all"
               >
                 {item.title}
               </Link>
             ))}
           </div>
+        </div>
 
-          <button className="px-4 py-2 bg-gradient-to-r from-purple-600 to-orange-600 rounded-full text-white text-sm font-medium hover:opacity-90 transition-opacity">
-            Register Now
-          </button>
-
-          {/* Mobile Menu Button */}
-          <div className="md:hidden">
-            <button 
-              onClick={toggleMobileMenu}
-              className="text-gray-300 hover:text-white p-2"
-              aria-label="Toggle mobile menu"
-            >
-              <svg
-                className="h-6 w-6"
-                fill="none"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
+        {/* Mobile Navigation Menu */}
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: mobileMenuOpen ? 1 : 0, y: mobileMenuOpen ? 0 : -20 }}
+          transition={{ duration: 0.3 }}
+          className={`${mobileMenuOpen ? 'block' : 'hidden'} md:hidden`}
+        >
+          <div className="px-2 pt-2 pb-3 space-y-1 bg-black/90 backdrop-blur-md rounded-lg mt-2 border border-purple-500/20">
+            {navItems.map((item) => (
+              <Link
+                key={item.title}
+                to={item.path}
+                spy={true}
+                smooth={true}
+                offset={SCROLL_OFFSET}
+                duration={SCROLL_DURATION}
+                onClick={closeMobileMenu}
+                className="text-gray-300 hover:text-white hover:bg-purple-500/20 block px-3 py-2 rounded-md text-base font-medium cursor-pointer transition-all"
               >
-                <path d="M4 6h16M4 12h16M4 18h16"></path>
-              </svg>
-            </button>
+                {item.title}
+              </Link>
+            ))}
           </div>
-        </div>
-      </div>
-
-      {/* Mobile Menu */}
-      <div className={`md:hidden transition-all duration-300 ${mobileMenuOpen ? 'opacity-100 visible' : 'opacity-0 invisible'}`}>
-        <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-black/90 backdrop-blur-md border-b border-purple-500/20">
-          {navItems.map((item) => (
-            <Link
-              key={item.title}
-              to={item.path}
-              spy={true}
-              smooth={true}
-              offset={SCROLL_OFFSET}
-              duration={SCROLL_DURATION}
-              onClick={closeMobileMenu}
-              className="text-gray-300 hover:text-purple-400 block px-3 py-2 text-base font-medium cursor-pointer"
-              activeClass="text-purple-400"
-            >
-              {item.title}
-            </Link>
-          ))}
-          <button 
-            onClick={closeMobileMenu}
-            className="w-full mt-4 px-4 py-2 rounded-full bg-gradient-to-r from-purple-600 to-orange-500 text-white font-medium text-sm hover:opacity-90 transition-opacity"
-          >
-            Register Now
-          </button>
-        </div>
+        </motion.div>
       </div>
     </motion.nav>
   );

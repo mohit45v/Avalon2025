@@ -183,37 +183,37 @@ const ProjectCompetitionPage = () => {
             <section className="mb-24 mx-4 sm:mx-6 lg:mx-8">
                 <h2 className="text-3xl font-bold mb-8 text-center">Past Winners</h2>
                 <div className="grid md:grid-cols-3 gap-8">
-                    <div className="glass-effect rounded-lg overflow-hidden shadow-md hover:shadow-lg transition group">
+                    <div className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition">
                         <img src="/api/placeholder/400/250" alt="Winner 2024" className="w-full h-48 object-cover" />
                         <div className="p-6">
                             <div className="flex justify-between items-center mb-2">
-                                <h3 className="text-xl font-bold text-white">EcoSmart</h3>
-                                <span className="bg-purple-500/20 text-purple-300 text-xs px-3 py-1 rounded-full border border-purple-500/30">2024 Winner</span>
+                                <h3 className="text-xl font-bold">EcoSmart</h3>
+                                <span className="bg-green-100 text-green-800 text-xs px-3 py-1 rounded-full">2024 Winner</span>
                             </div>
-                            <p className="text-gray-400 mb-4">An AI-powered waste management solution that optimizes recycling processes.</p>
-                            <button className="text-purple-400 font-semibold hover:text-orange-400 transition group-hover:translate-x-2 duration-300">View Project →</button>
+                            <p className="text-gray-600 mb-4">An AI-powered waste management solution that optimizes recycling processes.</p>
+                            <button className="text-green-600 font-semibold hover:text-green-800 transition">View Project →</button>
                         </div>
                     </div>
-                    <div className="glass-effect rounded-lg overflow-hidden shadow-md hover:shadow-lg transition group">
+                    <div className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition">
                         <img src="/api/placeholder/400/250" alt="Winner 2023" className="w-full h-48 object-cover" />
                         <div className="p-6">
                             <div className="flex justify-between items-center mb-2">
-                                <h3 className="text-xl font-bold text-white">MediConnect</h3>
-                                <span className="bg-purple-500/20 text-purple-300 text-xs px-3 py-1 rounded-full border border-purple-500/30">2023 Winner</span>
+                                <h3 className="text-xl font-bold">MediConnect</h3>
+                                <span className="bg-green-100 text-green-800 text-xs px-3 py-1 rounded-full">2023 Winner</span>
                             </div>
-                            <p className="text-gray-400 mb-4">A telehealth platform connecting rural patients with specialized healthcare.</p>
-                            <button className="text-purple-400 font-semibold hover:text-orange-400 transition group-hover:translate-x-2 duration-300">View Project →</button>
+                            <p className="text-gray-600 mb-4">A telehealth platform connecting rural patients with specialized healthcare.</p>
+                            <button className="text-green-600 font-semibold hover:text-green-800 transition">View Project →</button>
                         </div>
                     </div>
-                    <div className="glass-effect rounded-lg overflow-hidden shadow-md hover:shadow-lg transition group">
+                    <div className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition">
                         <img src="/api/placeholder/400/250" alt="Winner 2022" className="w-full h-48 object-cover" />
                         <div className="p-6">
                             <div className="flex justify-between items-center mb-2">
-                                <h3 className="text-xl font-bold text-white">FinLiteracy</h3>
-                                <span className="bg-purple-500/20 text-purple-300 text-xs px-3 py-1 rounded-full border border-purple-500/30">2022 Winner</span>
+                                <h3 className="text-xl font-bold">FinLiteracy</h3>
+                                <span className="bg-green-100 text-green-800 text-xs px-3 py-1 rounded-full">2022 Winner</span>
                             </div>
-                            <p className="text-gray-400 mb-4">A gamified platform teaching financial literacy to underserved communities.</p>
-                            <button className="text-purple-400 font-semibold hover:text-orange-400 transition group-hover:translate-x-2 duration-300">View Project →</button>
+                            <p className="text-gray-600 mb-4">A gamified platform teaching financial literacy to underserved communities.</p>
+                            <button className="text-green-600 font-semibold hover:text-green-800 transition">View Project →</button>
                         </div>
                     </div>
                 </div>

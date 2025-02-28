@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, useGLTF, Float, Environment } from "@react-three/drei";
 import { useNavigate } from "react-router-dom";
+import { Helmet } from 'react-helmet';
 import Hackathon from "./HackathonPage";
 import ProjectCompetitions from "./ProjectCompetitionPage";
 import Robotics from "./RoboticsCompetitionPage";
@@ -11,7 +12,14 @@ const Model = ({ path }) => {
   const { scene } = useGLTF(path);
   return <primitive object={scene} scale={1.5} />;
 };
-
+<div className="flex flex-col md:flex-row gap-8 px-4 sm:px-6 lg:px-8">
+  <div className="w-full md:w-1/2">
+    
+  </div>
+  <div className="w-full md:w-1/2 space-y-6">
+    
+  </div>
+</div>
 const domains = [
   {
     title: "Hackathon",
@@ -44,6 +52,8 @@ const DomainCard = ({ domain, onClick }) => {
     <motion.div
       whileHover={{ y: -10 }}
       className="relative group"
+      itemScope
+      itemType="https://schema.org/Event"
     >
       <div className="absolute -inset-0.5 bg-gradient-to-r from-purple-600 to-orange-600 rounded-lg blur opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-tilt"></div>
       <div className="relative p-6 bg-black/40 backdrop-blur-sm rounded-lg border border-white/10">
@@ -61,10 +71,16 @@ const DomainCard = ({ domain, onClick }) => {
           </Canvas>
         </div>
 
-        <h3 className={`text-2xl font-bold bg-gradient-to-r ${domain.gradient} bg-clip-text text-transparent mb-4`}>
+        <h3 
+          className={`text-2xl font-bold bg-gradient-to-r ${domain.gradient} bg-clip-text text-transparent mb-4`}
+          itemProp="name"
+        >
           {domain.title}
         </h3>
-        <p className="text-gray-400 mb-6">{domain.description}</p>
+        <p className="text-gray-400 mb-6" itemProp="description">{domain.description}</p>
+        <meta itemProp="eventStatus" content="https://schema.org/EventScheduled" />
+        <meta itemProp="eventAttendanceMode" content="https://schema.org/OfflineEventAttendanceMode" />
+        <meta itemProp="location" content="Terna Engineering College, Nerul" />
 
         <motion.button
           whileHover={{ scale: 1.05 }}
@@ -83,34 +99,52 @@ const Domains = () => {
   const navigate = useNavigate();
 
   return (
-    <section className="relative min-h-screen bg-[#030014] py-20 px-8">
-      {/* Background Effects */}
-      <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-10" />
-        <div className="absolute inset-0 bg-gradient-to-b from-purple-900/20 via-transparent to-orange-900/20" />
-      </div>
+    <>
+      <Helmet>
+        <title>Event Domains - Avalon 2025 | Hackathon, Projects & Robotics</title>
+        <meta name="description" content="Explore diverse technical competitions at Avalon 2025: 48-hour Hackathon, Project Showcase, and Robotics Battle. Join Maharashtra's biggest technical festival at Terna Engineering College." />
+        <meta name="keywords" content="Avalon hackathon, Terna engineering competitions, robotics competition Mumbai, technical project showcase, college hackathon Maharashtra" />
+        <link rel="canonical" href="https://avalon2025.in/domains" />
+      </Helmet>
 
-      {/* Content */}
-      <div className="relative max-w-7xl mx-auto">
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="text-5xl font-bold text-center mb-16 bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-orange-400"
-        >
-          Event Domains
-        </motion.h2>
-
-        <div className="grid md:grid-cols-3 gap-8">
-          {domains.map((domain, index) => (
-            <DomainCard
-              key={index}
-              domain={domain}
-              onClick={() => navigate(domain.path)}
-            />
-          ))}
+      <section 
+        className="relative min-h-screen bg-[#030014] py-20 px-8"
+        itemScope 
+        itemType="https://schema.org/Event"
+      >
+        {/* Background Effects */}
+        <div className="absolute inset-0">
+          <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-10" />
+          <div className="absolute inset-0 bg-gradient-to-b from-purple-900/20 via-transparent to-orange-900/20" />
         </div>
-      </div>
-    </section>
+
+        {/* Content */}
+        <div className="relative max-w-7xl mx-auto">
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="text-5xl font-bold text-center mb-16 bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-orange-400"
+            itemProp="name"
+          >
+            Event Domains
+          </motion.h2>
+
+          <div 
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-4 sm:px-6 lg:px-8"
+            itemProp="subEvents"
+          >
+            {domains.map((domain) => (
+              <DomainCard
+                key={domain.title}
+                domain={domain}
+                onClick={() => navigate(domain.path)}
+                className="w-full"
+              />
+            ))}
+          </div>
+        </div>
+      </section>
+    </>
   );
 };
 

@@ -86,12 +86,12 @@ const Timeline = () => {
       </div>
 
       <div className="relative flex flex-col items-center">
-        {/* Enhanced Countdown Section */}
+        {/* Countdown Section */}
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
-          className="text-5xl font-extrabold text-center mb-12 bg-clip-text text-transparent bg-gradient-to-r from-purple-400 via-fuchsia-500 to-orange-400"
+          className="text-5xl md:text-6xl font-extrabold text-center mb-12 bg-clip-text text-transparent bg-gradient-to-r from-purple-400 via-fuchsia-500 to-orange-400"
         >
           Countdown to Avalon
         </motion.h1>
@@ -100,7 +100,7 @@ const Timeline = () => {
           initial={{ opacity: 0, scale: 0.5 }}
           animate={inView ? { opacity: 1, scale: 1 } : {}}
           transition={{ duration: 0.8 }}
-          className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center mb-20"
+          className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 text-center mb-20 w-full max-w-4xl px-4"
         >
           {Object.entries(timeLeft).map(([unit, value], index) => (
             <motion.div
@@ -109,29 +109,19 @@ const Timeline = () => {
               className="relative group"
             >
               <div className="absolute -inset-0.5 bg-gradient-to-r from-purple-600 to-orange-600 rounded-lg blur opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-tilt"></div>
-              <div className="relative p-6 bg-black rounded-lg">
-                <animated.div className="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-orange-400">
+              <div className="relative p-4 md:p-6 bg-black rounded-lg">
+                <animated.div className="text-2xl md:text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-orange-400">
                   {value}
                 </animated.div>
-                <p className="text-sm uppercase text-gray-400 mt-2">{unit}</p>
+                <p className="text-xs md:text-sm uppercase text-gray-400 mt-2">{unit}</p>
               </div>
             </motion.div>
           ))}
         </motion.div>
 
-        {/* Enhanced Timeline Section */}
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
-          className="text-4xl font-bold text-center mb-16 bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-orange-400"
-        >
-          Event Timeline
-        </motion.h2>
-
-        <div className="relative max-w-6xl mx-auto">
-          {/* Zigzag line */}
-          <div className="absolute left-1/2 transform -translate-x-1/2 w-1 h-full">
+        {/* Timeline Section */}
+        <div className="relative max-w-6xl mx-auto w-full px-4">
+          <div className="absolute left-8 md:left-1/2 transform md:-translate-x-1/2 w-1 h-full">
             <motion.div
               initial={{ height: 0 }}
               animate={inView ? { height: "100%" } : {}}
@@ -146,34 +136,26 @@ const Timeline = () => {
               initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
               animate={inView ? { opacity: 1, x: 0 } : {}}
               transition={{ duration: 0.6, delay: index * 0.2 }}
-              className={`relative flex items-center mb-12 ${
-                index % 2 === 0 ? "flex-row" : "flex-row-reverse"
+              className={`relative flex flex-col md:flex-row items-start mb-12 ${
+                index % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
               }`}
             >
-              <div className={`w-1/2 ${index % 2 === 0 ? "pr-12" : "pl-12"}`}>
+              <div className={`pl-20 md:pl-0 w-full md:w-1/2 ${
+                index % 2 === 0 ? "md:pr-12" : "md:pl-12"
+              }`}>
                 <motion.div
                   whileHover={{ scale: 1.02 }}
-                  className="relative p-6 rounded-xl backdrop-blur-sm bg-black/40 border border-white/10 group hover:border-purple-500/50 transition-all duration-300"
+                  className="relative p-4 md:p-6 rounded-xl backdrop-blur-sm bg-black/40 border border-white/10 group hover:border-purple-500/50 transition-all duration-300"
                 >
-                  <div className="absolute top-0 transform -translate-y-1/2 bg-gradient-to-r from-purple-600 to-orange-600 px-4 py-1 rounded-full">
-                    <span className="text-white font-medium">{event.time}</span>
+                  <div className="absolute left-0 md:left-auto top-1/2 md:top-0 transform -translate-x-full md:-translate-y-1/2 md:translate-x-0 bg-gradient-to-r from-purple-600 to-orange-600 px-3 md:px-4 py-1 rounded-full">
+                    <span className="text-sm md:text-base text-white font-medium">{event.time}</span>
                   </div>
-                  <h3 className="text-xl font-bold text-white mt-4 group-hover:text-purple-400 transition-colors">
+                  <h3 className="text-lg md:text-xl font-bold text-white mt-2 md:mt-4 group-hover:text-purple-400 transition-colors">
                     {event.title}
                   </h3>
-                  <p className="text-gray-400 mt-2">{event.description}</p>
-                  <div className="absolute inset-0 bg-gradient-to-r from-purple-500/10 to-orange-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl" />
+                  <p className="text-sm md:text-base text-gray-400 mt-2">{event.description}</p>
                 </motion.div>
               </div>
-              
-              <motion.div
-                initial={{ scale: 0 }}
-                animate={inView ? { scale: 1 } : {}}
-                transition={{ duration: 0.4, delay: index * 0.2 }}
-                className="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 rounded-full bg-gradient-to-r from-purple-500 to-orange-500"
-              >
-                <div className="absolute inset-0 rounded-full animate-ping bg-purple-500 opacity-25" />
-              </motion.div>
             </motion.div>
           ))}
         </div>
