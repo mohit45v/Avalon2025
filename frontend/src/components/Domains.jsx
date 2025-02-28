@@ -22,24 +22,24 @@ const Model = ({ path }) => {
 </div>
 const domains = [
   {
-    title: "Hackathon",
-    description: "24-hour coding marathon to build innovative solutions. Compete with the best minds in technology.",
+    title: "Avalon 2025 Hackathon",
+    description: "Join Maharashtra's premier 24-hour coding marathon at Avalon 2025. Build innovative solutions and compete with the best minds at Terna Engineering College.",
     modelPath: "/models/laptop.glb",
     gradient: "from-purple-600 to-blue-500",
     path: "/hackathon",
     component: Hackathon,
   },
   {
-    title: "Project Competitions",
-    description: "Showcase your groundbreaking projects and technical innovations to industry experts.",
+    title: "Avalon Project Showcase",
+    description: "Present your innovations at Avalon 2025's flagship project competition. Get feedback from industry experts at Terna Engineering College.",
     modelPath: "/models/robot.glb",
     gradient: "from-orange-500 to-red-500",
     path: "/project",
     component: ProjectCompetitions,
   },
   {
-    title: "Robotics Competition",
-    description: "Battle it out in the arena with your custom-built robots and autonomous systems.",
+    title: "Avalon Robotics Battle",
+    description: "Compete in Avalon 2025's premier robotics competition. Showcase your autonomous systems at Terna Engineering's biggest tech event.",
     modelPath: "/models/drone.glb",
     gradient: "from-green-500 to-teal-500",
     path: "/robotics",
@@ -101,10 +101,36 @@ const Domains = () => {
   return (
     <>
       <Helmet>
-        <title>Event Domains - Avalon 2025 | Hackathon, Projects & Robotics</title>
-        <meta name="description" content="Explore diverse technical competitions at Avalon 2025: 48-hour Hackathon, Project Showcase, and Robotics Battle. Join Maharashtra's biggest technical festival at Terna Engineering College." />
-        <meta name="keywords" content="Avalon hackathon, Terna engineering competitions, robotics competition Mumbai, technical project showcase, college hackathon Maharashtra" />
-        <link rel="canonical" href="https://avalon2025.in/domains" />
+        <title>Avalon 2025 Events - Maharashtra's Biggest Technical Festival at Terna Engineering</title>
+        <meta name="description" content="Experience Avalon 2025 at Terna Engineering College - featuring 48-hour Hackathon, Project Showcase, and Robotics Competition. Join Maharashtra's largest technical festival." />
+        <meta name="keywords" content="Avalon, Avalon 2025, Avalon techfest, Avalon Terna, Terna Engineering College events, Mumbai hackathon, Maharashtra technical festival, Avalon hackathon, Avalon robotics" />
+        <meta property="og:title" content="Avalon 2025 - Technical Festival at Terna Engineering College" />
+        <meta property="og:description" content="Join Avalon 2025, Maharashtra's biggest technical festival at Terna Engineering College. Participate in Hackathon, Project Showcase, and Robotics competitions." />
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Event",
+            "name": "Avalon 2025",
+            "description": "Maharashtra's largest technical festival at Terna Engineering College",
+            "startDate": "2025-04-03",
+            "endDate": "2025-04-05",
+            "location": {
+              "@type": "Place",
+              "name": "Terna Engineering College",
+              "address": {
+                "@type": "PostalAddress",
+                "addressLocality": "Nerul",
+                "addressRegion": "Maharashtra",
+                "addressCountry": "IN"
+              }
+            },
+            "organizer": {
+              "@type": "Organization",
+              "name": "Terna Engineering College",
+              "url": "https://ternaengg.ac.in"
+            }
+          })}
+        </script>
       </Helmet>
 
       <section 
