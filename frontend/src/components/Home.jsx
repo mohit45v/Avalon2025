@@ -54,7 +54,9 @@ const Home = () => {
   const particlesInit = useCallback(async engine => {
     await loadSlim(engine);
   }, []);
-
+  // Replace multiple messages with one cool tech message
+  const loadingMessage = "Compiling future, please wait...";
+  
   if (loading) {
     return (
       <div className="flex flex-col items-center justify-center min-h-screen bg-[#030014] relative overflow-hidden">
@@ -62,19 +64,55 @@ const Home = () => {
           <div className="absolute inset-0 bg-grid-white/10 bg-[size:20px] opacity-10 animate-grid-flow" />
           <div className="absolute inset-0 bg-gradient-to-b from-purple-900/20 via-transparent to-orange-900/20" />
         </div>
-        <motion.img
-          src={logo}
-          alt="TechFest Logo"
-          className="h-24 w-auto mb-6"
-          initial={{ scale: 0.8, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ duration: 0.5 }}
-        />
-        <Progress value={progress} className="w-64 mb-4" />
-        <p className="text-white text-sm">Loading experience... {progress}%</p>
+        
+        <motion.div className="relative z-10 flex flex-col items-center">
+          <motion.div
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ duration: 1, ease: "easeOut" }}
+            className="relative mb-8"
+          >
+            <div className="absolute inset-0 blur-2xl bg-purple-500/30 rounded-full animate-pulse" />
+            <img
+              src={logo}
+              alt="Avalon Logo"
+              className="h-32 py-4 w-auto relative drop-shadow-[0_0_15px_rgba(147,51,234,0.5)]"
+            />
+          </motion.div>
+  
+          <div className="relative w-64 mb-6">
+            <motion.div
+              className="absolute -top-10 left-1/2 transform -translate-x-1/2"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+            >
+              <span className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-orange-400">
+                {progress}%
+              </span>
+            </motion.div>
+  
+            <div className="h-1 w-full bg-purple-900/20 rounded-full overflow-hidden">
+              <motion.div
+                className="h-full bg-gradient-to-r from-purple-600 via-fuchsia-500 to-orange-500"
+                initial={{ width: "0%" }}
+                animate={{ width: `${progress}%` }}
+                transition={{ duration: 0.5 }}
+              />
+            </div>
+          </div>
+  
+          <p className="text-gray-400 text-lg font-mono">
+            {loadingMessage}
+            <span className="animate-pulse">...</span>
+          </p>
+        </motion.div>
       </div>
     );
   }
+  
+    
+  
+    
 
   return (
     <>
