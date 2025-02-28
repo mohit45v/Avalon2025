@@ -9,12 +9,12 @@ import Sponsers from "./components/Sponsers";
 import Timeline from "./components/Timeline";
 import TechBoxes from "./components/Techboxes";
 import Prizes from "./components/Prize";
-
+import { Analytics } from "@vercel/analytics/react"
 
 function App() {
   return (
     <div className="relative w-full min-h-screen overflow-y-auto bg-black">
-
+<Analytics/>
       <Navbar />
       <Home />
      <TechBoxes/>
