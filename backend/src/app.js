@@ -10,7 +10,7 @@ app.use(express.json());
 
 app.use(
     cors({
-        origin: 'http://localhost:5173', // Allow frontend origin
+        origin: 'https://avalon2025.vercel.app',  // Allow frontend origin
         methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allowed HTTP methods
         allowedHeaders: ['Content-Type', 'Authorization'], // Allowed headers
         credentials: true, // Allow cookies/auth headers if needed
@@ -18,7 +18,7 @@ app.use(
 );
 
 app.options('*', (req, res) => {
-    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:5174');
+    res.setHeader('Access-Control-Allow-Origin', 'https://avalon2025.vercel.app');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
     res.setHeader('Access-Control-Allow-Credentials', 'true');
