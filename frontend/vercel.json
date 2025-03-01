@@ -14,6 +14,15 @@
       ]
     }
   ],
+  "rewrites": [
+    { "source": "/admin", "destination": "/" },
+    { "source": "/admin/login", "destination": "/" },
+    { "source": "/admin/participants", "destination": "/" },
+    { "source": "/admin/verified", "destination": "/" },
+    { "source": "/admin/queries", "destination": "/" },
+    { "source": "/admin/analytics", "destination": "/" },
+    { "source": "/(.*)", "destination": "/" }
+  ],
   "cleanUrls": true,
   "trailingSlash": false
 }
