@@ -12,6 +12,10 @@ import ProjectCompetitionPage from "./components/ProjectCompetitionPage";
 import RoboticsCompetitionPage from "./components/RoboticsCompetitionPage";
 
 import QueryManager from "./components/admin/QueryManager";
+import ParticipantManager from "./components/admin/ParticipantManager";
+import VerifiedParticipants from "./components/admin/VerifiedParticipants";
+import Form from "./components/Form";
+import AdminDashboard from "./components/admin/AdminDashboard";
 
 const AppRouter = () => {
     // Add scroll management
@@ -34,6 +38,11 @@ const AppRouter = () => {
                 <Route path="/robotics" element={<RoboticsCompetitionPage />} />
 
                 <Route path="/queries" element={<QueryManager />} />
+                <Route path="/participants" element={<ParticipantManager />} />
+                <Route path="/verified" element={<VerifiedParticipants />} />
+                <Route path="/admin" element={<AdminDashboard />} />
+                <Route path="/form" element={<Form/>} />
+
             </Routes>
         </Router>
     );
