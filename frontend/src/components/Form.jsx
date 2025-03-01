@@ -84,7 +84,7 @@ const Form = () => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+   
     try {
       const formDataToSend = new FormData();
       formDataToSend.append('teamMembers', JSON.stringify(teamMembers));
@@ -95,7 +95,7 @@ const Form = () => {
       formDataToSend.append('transactionId', formData.transactionId);
       formDataToSend.append('paymentScreenshot', formData.paymentScreenshot);
 
-      await axios.post(`${import.meta.env.VITE_BASE_URL}/api/v1/registration/submit`, formDataToSend);
+      await axios.post(`${import.meta.env.VITE_BASE_URL}/api/v1/user/register`, formDataToSend);
       
       Swal.fire({
         icon: 'success',

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import axios from 'axios';
+import Swal from "sweetalert2";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -15,6 +16,8 @@ const ParticipantManager = () => {
   const [filter, setFilter] = useState('all');
   const [sortBy, setSortBy] = useState('newest');
   const [searchTerm, setSearchTerm] = useState('');
+  const [selectedImage, setSelectedImage] = useState(null);
+  const [expandedId, setExpandedId] = useState(null);
 
   useEffect(() => {
     fetchParticipants();
@@ -22,10 +25,29 @@ const ParticipantManager = () => {
 
   const fetchParticipants = async () => {
     try {
-      const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/v1/admin/participants`, {
-        params: { filter, sortBy }
-      });
-      setParticipants(response.data);
+      const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/v1/user/fetchdata`);
+      let sortedData = [...response.data];
+
+      switch (sortBy) {
+        case 'newest':
+          sortedData.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+          break;
+        case 'oldest':
+          sortedData.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+          break;
+        case 'pending':
+          sortedData.sort((a, b) => (a.status === 'pending' ? -1 : 1));
+          break;
+        case 'verified':
+          sortedData.sort((a, b) => (a.status === 'verified' ? -1 : 1));
+          break;
+      }
+
+      if (filter !== 'all') {
+        sortedData = sortedData.filter(p => p.competition === filter || p.workshop === filter);
+      }
+
+      setParticipants(sortedData);
       setLoading(false);
     } catch (error) {
       console.error('Error fetching participants:', error);
@@ -56,8 +78,8 @@ const ParticipantManager = () => {
   };
 
   const filteredParticipants = participants.filter(participant =>
-    participant.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    participant.email.toLowerCase().includes(searchTerm.toLowerCase())
+    (participant?.teamMembers[0]?.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      participant?.teamMembers[0]?.email?.toLowerCase().includes(searchTerm.toLowerCase())) ?? false
   );
 
   return (
@@ -108,64 +130,122 @@ const ParticipantManager = () => {
                 key={participant._id}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="bg-white/5 border border-purple-500/20 rounded-lg p-4 flex justify-between items-center"
+                className="bg-white/5 border border-purple-500/20 rounded-lg p-4"
               >
-                <div>
-                  <h3 className="font-semibold">{participant.name}</h3>
-                  <p className="text-sm text-gray-400">{participant.email}</p>
-                  <p className="text-sm text-gray-400">Event: {participant.event}</p>
-                  <div className="flex gap-2 mt-2">
-                    {participant.status === 'verified' && (
-                      <span className="text-xs bg-green-500/20 text-green-400 px-2 py-1 rounded">
-                        Verified
-                      </span>
-                    )}
-                    {participant.status === 'pending' && (
-                      <span className="text-xs bg-yellow-500/20 text-yellow-400 px-2 py-1 rounded">
-                        Pending
-                      </span>
-                    )}
-                    {participant.markedForReview && (
-                      <span className="text-xs bg-red-500/20 text-red-400 px-2 py-1 rounded">
-                        Under Review
-                      </span>
-                    )}
+                <div
+                  className="flex justify-between items-center cursor-pointer"
+                  onClick={() => setExpandedId(expandedId === participant._id ? null : participant._id)}
+                >
+                  <div>
+                    <h3 className="font-semibold">{participant.teamMembers[0].name}</h3>
+                    <p className="text-sm text-gray-400">{participant.teamMembers[0].email}</p>
+                    <p className="text-sm text-gray-400">
+                      Event: {participant.competition.charAt(0).toUpperCase() + participant.competition.slice(1)}
+                    </p>
+                  </div>
+                  <div className="flex items-center gap-4">
+                    <div className="flex gap-2">
+                      {participant.status === 'verified' && (
+                        <span className="text-xs bg-green-500/20 text-green-400 px-2 py-1 rounded">
+                          Verified
+                        </span>
+                      )}
+                      {participant.status === 'pending' && (
+                        <span className="text-xs bg-yellow-500/20 text-yellow-400 px-2 py-1 rounded">
+                          Pending
+                        </span>
+                      )}
+                      {participant.markedForReview && (
+                        <span className="text-xs bg-red-500/20 text-red-400 px-2 py-1 rounded">
+                          Under Review
+                        </span>
+                      )}
+                    </div>
+                    <BsThreeDotsVertical />
                   </div>
                 </div>
 
-                <DropdownMenu>
-                  <DropdownMenuTrigger className="p-2 hover:bg-white/10 rounded">
-                    <BsThreeDotsVertical />
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent className="bg-gray-800 border border-purple-500/20">
-                    <DropdownMenuItem
-                      className="flex items-center gap-2 hover:bg-white/10"
-                      onClick={() => handleAction(participant._id, 'verify')}
-                    >
-                      <BsCheckCircle /> Verify
-                    </DropdownMenuItem>
-                    <DropdownMenuItem
-                      className="flex items-center gap-2 hover:bg-white/10"
-                      onClick={() => handleAction(participant._id, 'reject')}
-                    >
-                      <BsXCircle /> Reject
-                    </DropdownMenuItem>
-                    <DropdownMenuItem
-                      className="flex items-center gap-2 hover:bg-white/10"
-                      onClick={() => handleAction(participant._id, 'sendEmail')}
-                    >
-                      <BsEnvelope /> Send Email
-                    </DropdownMenuItem>
-                    <DropdownMenuItem
-                      className="flex items-center gap-2 hover:bg-white/10"
-                      onClick={() => handleAction(participant._id, 'markForReview')}
-                    >
-                      <BsFlag /> Mark for Review
-                    </DropdownMenuItem>
-                  </DropdownMenuContent>
-                </DropdownMenu>
+                {expandedId === participant._id && (
+                  <motion.div
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: "auto", opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    className="mt-4 pt-4 border-t border-purple-500/20"
+                  >
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <h4 className="font-semibold mb-2">College Details</h4>
+                        <p className="text-sm text-gray-400">Name: {participant.collegeName}</p>
+                        <p className="text-sm text-gray-400">Address: {participant.collegeAddress}</p>
+                      </div>
+                      <div>
+                        <h4 className="font-semibold mb-2">Event Details</h4>
+                        <p className="text-sm text-gray-400">Competition: {participant.competition}</p>
+                        {participant.workshop && (
+                          <p className="text-sm text-gray-400">Workshop: {participant.workshop}</p>
+                        )}
+                      </div>
+                    </div>
+
+                    <div className="mt-4">
+                      <h4 className="font-semibold mb-2">Payment Details</h4>
+                      <p className="text-sm text-gray-400">Transaction ID: {participant.transactionId}</p>
+                      {participant.paymentScreenshot && (
+                        <img
+                          src={participant.paymentScreenshot}
+                          alt="Payment Screenshot"
+                          className="w-32 h-32 object-cover rounded-lg shadow-md cursor-pointer hover:scale-105 transition mt-2"
+                          onClick={() => setSelectedImage(participant.paymentScreenshot)}
+                        />
+                      )}
+                    </div>
+
+                    <div className="mt-4 flex gap-2">
+                      <button
+                        onClick={() => handleAction(participant._id, 'verify')}
+                        className="bg-green-500/20 text-green-400 px-4 py-2 rounded-lg hover:bg-green-500/30"
+                      >
+                        Verify
+                      </button>
+                      <button
+                        onClick={() => handleAction(participant._id, 'markForReview')}
+                        className="bg-yellow-500/20 text-yellow-400 px-4 py-2 rounded-lg hover:bg-yellow-500/30"
+                      >
+                        Mark for Review
+                      </button>
+                      <button
+                        onClick={() => handleAction(participant._id, 'sendEmail')}
+                        className="bg-blue-500/20 text-blue-400 px-4 py-2 rounded-lg hover:bg-blue-500/30"
+                      >
+                        Send Email
+                      </button>
+                    </div>
+                  </motion.div>
+                )}
               </motion.div>
             ))}
+          </div>
+        )}
+
+        {/* Image Preview Modal */}
+        {selectedImage && (
+          <div
+            className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50"
+            onClick={() => setSelectedImage(null)}
+          >
+            <div className="relative bg-gray-900 p-4 rounded-lg max-w-4xl max-h-[90vh]">
+              <button
+                className="absolute top-2 right-2 text-white bg-red-500 px-3 py-1 rounded-full"
+                onClick={() => setSelectedImage(null)}
+              >
+                ✖
+              </button>
+              <img
+                src={selectedImage}
+                alt="Preview"
+                className="max-w-full max-h-[80vh] object-contain rounded-lg"
+              />
+            </div>
           </div>
         )}
       </div>
