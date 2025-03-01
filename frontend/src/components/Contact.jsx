@@ -25,7 +25,7 @@ const Contact = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post(`http://localhost:3000/api/v1/queries/submit`, formData);
+      await axios.post(`${import.meta.env.VITE_BASE_URL}/api/v1/queries/submit`, formData);
       setSubmitStatus({ show: true, isSuccess: true });
       setFormData({ name: "", email: "", message: "" });
       setTimeout(() => setSubmitStatus({ show: false, isSuccess: false }), 3000);
