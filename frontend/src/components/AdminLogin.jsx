@@ -1,22 +1,25 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
-import Dashboard from "./Dashboard";
 
 const AdminLogin = () => {
   const [formData, setFormData] = useState({ email: "", password: "" });
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     if (!formData.email || !formData.password) {
       Swal.fire({ icon: "warning", title: "Missing Fields", text: "Both fields are required!" });
+      setLoading(false);
       return;
     }
 
     try {
+      console.log('Backend URL:', import.meta.env.VITE_BASE_URL); // Debug log
       const response = await axios.post(
         `${import.meta.env.VITE_BASE_URL}/api/v1/admin/adminlogin`,
         formData
@@ -24,24 +27,35 @@ const AdminLogin = () => {
 
       if (response.data.token) {
         localStorage.setItem("token", response.data.token);
-        localStorage.setItem("role", response.data.role);
+        localStorage.setItem("role", "admin");
 
         Swal.fire({
           icon: "success",
           title: "Login Successful",
           text: "Welcome to the admin panel!",
-          timer: 1500,
-          showConfirmButton: false
+          showConfirmButton: false,
+          timer: 1500
         }).then(() => {
           navigate('/admin');
         });
       }
     } catch (error) {
+      console.error('Login error:', error);
+      
+      let errorMessage = "Login failed. ";
+      if (error.message === "Network Error") {
+        errorMessage += "Cannot connect to server. Please make sure the backend server is running.";
+      } else {
+        errorMessage += error.response?.data?.message || "Invalid credentials!";
+      }
+
       Swal.fire({
         icon: "error",
         title: "Login Failed",
-        text: error.response?.data?.message || "Invalid credentials!",
+        text: errorMessage,
       });
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -81,9 +95,10 @@ const AdminLogin = () => {
 
           <button
             type="submit"
-            className="w-full bg-indigo-500 text-white py-2 px-4 rounded-lg hover:bg-indigo-600 transition duration-300"
+            className="w-full bg-indigo-500 text-white py-2 px-4 rounded-lg hover:bg-indigo-600 transition duration-300 disabled:opacity-50"
+            disabled={loading}
           >
-            Login
+            {loading ? "Logging in..." : "Login"}
           </button>
         </form>
       </div>

@@ -9,6 +9,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { BsThreeDotsVertical, BsCheckCircle, BsXCircle, BsEnvelope, BsFlag } from 'react-icons/bs';
+import { useNavigate } from 'react-router-dom';
 
 const ParticipantManager = () => {
   const [participants, setParticipants] = useState([]);
@@ -18,6 +19,7 @@ const ParticipantManager = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedImage, setSelectedImage] = useState(null);
   const [expandedId, setExpandedId] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchParticipants();
@@ -59,21 +61,118 @@ const ParticipantManager = () => {
     try {
       switch (action) {
         case 'verify':
+          // Show loading alert
+          Swal.fire({
+            title: 'Verifying...',
+            text: 'Please wait while we verify the participant',
+            allowOutsideClick: false,
+            didOpen: () => {
+              Swal.showLoading();
+            }
+          });
+
           await axios.post(`${import.meta.env.VITE_BASE_URL}/api/v1/admin/verify/${participantId}`);
+          
+          // Show success alert
+          await Swal.fire({
+            icon: 'success',
+            title: 'Verified Successfully!',
+            text: 'Participant has been verified and email has been sent.',
+            showConfirmButton: true,
+            timer: 2000
+          });
           break;
+
         case 'reject':
           await axios.post(`${import.meta.env.VITE_BASE_URL}/api/v1/admin/reject/${participantId}`);
+          
+          await Swal.fire({
+            icon: 'info',
+            title: 'Rejected',
+            text: 'Participant has been rejected.',
+            showConfirmButton: true,
+            timer: 2000
+          });
           break;
+
         case 'sendEmail':
-          await axios.post(`${import.meta.env.VITE_BASE_URL}/api/v1/admin/send-email/${participantId}`);
+          // Show input form for email
+          const { value: emailDetails } = await Swal.fire({
+            title: 'Send Email',
+            html:
+              '<input id="swal-subject" class="swal2-input" placeholder="Email Subject">' +
+              '<textarea id="swal-message" class="swal2-textarea" placeholder="Email Message"></textarea>',
+            focusConfirm: false,
+            showCancelButton: true,
+            preConfirm: () => {
+              return {
+                subject: document.getElementById('swal-subject').value,
+                message: document.getElementById('swal-message').value
+              }
+            }
+          });
+
+          if (emailDetails) {
+            // Show loading while sending email
+            Swal.fire({
+              title: 'Sending Email...',
+              text: 'Please wait',
+              allowOutsideClick: false,
+              didOpen: () => {
+                Swal.showLoading();
+              }
+            });
+
+            await axios.post(`${import.meta.env.VITE_BASE_URL}/api/v1/admin/send-email/${participantId}`, emailDetails);
+            
+            // Show success message
+            await Swal.fire({
+              icon: 'success',
+              title: 'Email Sent!',
+              text: 'Email has been sent successfully.',
+              showConfirmButton: true,
+              timer: 2000
+            });
+          }
           break;
+
         case 'markForReview':
+          // Show loading
+          Swal.fire({
+            title: 'Marking for Review...',
+            text: 'Please wait',
+            allowOutsideClick: false,
+            didOpen: () => {
+              Swal.showLoading();
+            }
+          });
+
           await axios.post(`${import.meta.env.VITE_BASE_URL}/api/v1/admin/mark-review/${participantId}`);
+          
+          // Show success
+          await Swal.fire({
+            icon: 'info',
+            title: 'Marked for Review',
+            text: 'Participant has been marked for review.',
+            showConfirmButton: true,
+            timer: 2000
+          });
           break;
       }
-      fetchParticipants();
+
+      // Refresh the participants list after any action
+      await fetchParticipants();
+
     } catch (error) {
       console.error('Error performing action:', error);
+      
+      // Show error alert
+      Swal.fire({
+        icon: 'error',
+        title: 'Operation Failed',
+        text: error.response?.data?.message || 'Something went wrong!',
+        showConfirmButton: true
+      });
     }
   };
 
@@ -111,6 +210,21 @@ const ParticipantManager = () => {
               <option value="pending">Pending Review</option>
               <option value="verified">Verified</option>
             </select>
+            <button
+              onClick={() => navigate('/admin')}
+              className="px-4 py-2 bg-purple-500/20 text-purple-400 rounded-lg hover:bg-purple-500/30"
+            >
+              Dashboard
+            </button>
+            <button
+              onClick={() => {
+                localStorage.clear();
+                navigate('/admin/login');
+              }}
+              className="px-4 py-2 bg-red-500/20 text-red-400 rounded-lg hover:bg-red-500/30"
+            >
+              Logout
+            </button>
           </div>
         </div>
 

@@ -18,6 +18,7 @@ import Form from "./components/Form";
 import AdminDashboard from "./components/admin/AdminDashboard";
 import AdminLogin from "./components/AdminLogin";
 import ProtectedRoute from "./components/ProtectedRoute";
+import Analytics from "./components/admin/Analytics";
 
 const AppRouter = () => {
     return (
@@ -33,9 +34,9 @@ const AppRouter = () => {
                 <Route path="/project" element={<ProjectCompetitionPage />} />
                 <Route path="/robotics" element={<RoboticsCompetitionPage />} />
                 <Route path="/form" element={<Form/>} />
+                <Route path="/admin/login" element={<AdminLogin />} />
 
                 {/* Admin Routes */}
-                <Route path="/admin/login" element={<AdminLogin />} />
                 <Route path="/admin" element={
                     <ProtectedRoute>
                         <AdminDashboard />
@@ -54,6 +55,11 @@ const AppRouter = () => {
                 <Route path="/admin/verified" element={
                     <ProtectedRoute>
                         <VerifiedParticipants />
+                    </ProtectedRoute>
+                } />
+                <Route path="/admin/analytics" element={
+                    <ProtectedRoute>
+                        <Analytics />
                     </ProtectedRoute>
                 } />
             </Routes>

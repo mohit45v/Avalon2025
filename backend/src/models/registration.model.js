@@ -44,6 +44,11 @@ const registrationSchema = new Schema({
     paymentScreenshot: {
         type: String,
         required: true
+    },
+    status: {
+        type: String,
+        enum: ['pending', 'verified', 'rejected'],
+        default: 'pending'
     }
 }, { timestamps: true });
 

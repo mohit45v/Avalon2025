@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import axios from 'axios';
 import Swal from 'sweetalert2';
@@ -17,6 +17,8 @@ const Form = () => {
     transactionId: '',
     paymentScreenshot: null
   });
+  const [loading, setLoading] = useState(false);
+  const [imagePreview, setImagePreview] = useState(null);
 
   const competitions = [
     { value: 'hackathon', label: 'Hackathon', maxTeam: 4 },
@@ -63,8 +65,21 @@ const Form = () => {
     const file = e.target.files[0];
     if (file) {
       setFormData({ ...formData, paymentScreenshot: file });
+      
+      // Create preview URL
+      const previewUrl = URL.createObjectURL(file);
+      setImagePreview(previewUrl);
     }
   };
+
+  // Cleanup preview URL when component unmounts
+  useEffect(() => {
+    return () => {
+      if (imagePreview) {
+        URL.revokeObjectURL(imagePreview);
+      }
+    };
+  }, [imagePreview]);
 
   const validateStep = () => {
     if (step === 1) {
@@ -84,8 +99,9 @@ const Form = () => {
   };
 
   const handleSubmit = async (e) => {
-   
     try {
+      setLoading(true); // Start loading
+
       const formDataToSend = new FormData();
       formDataToSend.append('teamMembers', JSON.stringify(teamMembers));
       formDataToSend.append('collegeName', formData.collegeName);
@@ -95,6 +111,16 @@ const Form = () => {
       formDataToSend.append('transactionId', formData.transactionId);
       formDataToSend.append('paymentScreenshot', formData.paymentScreenshot);
 
+      // Show loading state with Swal
+      Swal.fire({
+        title: 'Submitting Registration',
+        html: 'Please wait...',
+        allowOutsideClick: false,
+        didOpen: () => {
+          Swal.showLoading();
+        }
+      });
+
       await axios.post(`${import.meta.env.VITE_BASE_URL}/api/v1/user/register`, formDataToSend);
       
       Swal.fire({
@@ -102,12 +128,28 @@ const Form = () => {
         title: 'Registration Successful!',
         text: 'You will receive a confirmation email shortly.'
       });
+
+      // Reset form after successful submission
+      setTeamMembers([{ name: '', email: '', whatsapp: '' }]);
+      setFormData({
+        collegeName: '',
+        collegeAddress: '',
+        competition: '',
+        workshop: '',
+        transactionId: '',
+        paymentScreenshot: null
+      });
+      setImagePreview(null);
+      setStep(1);
+
     } catch (error) {
       Swal.fire({
         icon: 'error',
         title: 'Registration Failed',
-        text: 'Please try again later.'
+        text: error.response?.data?.message || 'Please try again later.'
       });
+    } finally {
+      setLoading(false); // Stop loading
     }
   };
 
@@ -243,6 +285,17 @@ const Form = () => {
                     onChange={handleFileChange}
                     className="w-full bg-white/5 border border-purple-500/20 rounded-lg px-4 py-2"
                   />
+                  {imagePreview && (
+                    <div className="mt-4">
+                      <p className="text-sm text-gray-400 mb-2">Preview:</p>
+                      <img
+                        src={imagePreview}
+                        alt="Payment Screenshot Preview"
+                        className="max-w-md mx-auto rounded-lg border border-purple-500/20"
+                        style={{ maxHeight: '200px', objectFit: 'contain' }}
+                      />
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
@@ -253,6 +306,7 @@ const Form = () => {
               <button
                 onClick={() => setStep(1)}
                 className="px-6 py-2 bg-gray-600 rounded-lg hover:bg-gray-500"
+                disabled={loading}
               >
                 Back
               </button>
@@ -265,9 +319,11 @@ const Form = () => {
                   handleSubmit();
                 }
               }}
-              className="px-6 py-2 bg-gradient-to-r from-purple-600 to-orange-600 rounded-lg hover:opacity-90"
+              disabled={loading}
+              className={`px-6 py-2 bg-gradient-to-r from-purple-600 to-orange-600 rounded-lg 
+                ${loading ? 'opacity-50 cursor-not-allowed' : 'hover:opacity-90'}`}
             >
-              {step === 1 ? 'Next' : 'Submit'}
+              {loading ? 'Submitting...' : step === 1 ? 'Next' : 'Submit'}
             </button>
           </div>
         </motion.div>

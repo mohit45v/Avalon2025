@@ -1,33 +1,42 @@
-import { Navigate, useLocation } from 'react-router-dom';
-import { useEffect } from 'react';
+import { Navigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 
 const ProtectedRoute = ({ children }) => {
-  const location = useLocation();
-  
-  const checkAuth = () => {
-    const token = localStorage.getItem('token');
-    const role = localStorage.getItem('role');
-    return token && role === 'admin';
-  };
-
-  const isAuthenticated = checkAuth();
+  const [isLoading, setIsLoading] = useState(true);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
-    if (!isAuthenticated) {
-      localStorage.removeItem('token');
-      localStorage.removeItem('role');
-    }
-  }, [isAuthenticated]);
+    const token = localStorage.getItem('token');
+    const role = localStorage.getItem('role');
 
-  if (!isAuthenticated) {
-    return <Navigate 
-      to="/admin/login" 
-      state={{ from: location.pathname }}
-      replace={true}
-    />;
+    // Debug logs
+    console.log('Current token:', token);
+    console.log('Current role:', role);
+
+    if (token && role === 'admin') {
+      setIsAuthenticated(true);
+    } else {
+      setIsAuthenticated(false);
+      // Only clear if there was an invalid attempt
+      if (token || role) {
+        localStorage.removeItem('token');
+        localStorage.removeItem('role');
+      }
+    }
+    setIsLoading(false);
+  }, []); // Run only once on component mount
+
+  // Show loading state
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-[#030014]">
+        <div className="text-white text-xl">Loading...</div>
+      </div>
+    );
   }
-  
-  if (!token || role !== 'admin') {
+
+  // Redirect if not authenticated
+  if (!isAuthenticated) {
     return <Navigate to="/admin/login" replace />;
   }
 

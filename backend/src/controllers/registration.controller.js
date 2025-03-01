@@ -40,7 +40,8 @@ const registration = async (req, res) => {
             competition,
             workshop: workshop || '', // Make workshop optional
             transactionId,
-            paymentScreenshot: path.url
+            paymentScreenshot: path.url,
+            status: 'pending'
         });
 
         await newRegistration.save();
