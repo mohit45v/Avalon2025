@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Link } from "react-scroll";
+import { Link as ScrollLink } from "react-scroll";
+import { Link as RouterLink } from "react-router-dom";
 import logo from "./logo.png";
 
-const SCROLL_OFFSET = -70;
-const SCROLL_DURATION = 500;
+const SCROLL_OFFSET = -80;
+const SCROLL_DURATION = 700;
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
@@ -29,13 +30,13 @@ const Navbar = () => {
   };
 
   const navItems = [
-    { title: "Home", path: "home" },
-    { title: "About", path: "about" },
-    { title: "Domains", path: "domains" },
-    { title: "Timeline", path: "timeline" },
-    { title: "Prizes", path: "prizes" },
-    { title: "Sponsors", path: "sponsors" },
-    { title: "Gallery", path: "gallery" },
+    { title: "Home", path: "home", isScroll: true },
+    { title: "About", path: "about", isScroll: true },
+    { title: "Domains", path: "domains", isScroll: true },
+    { title: "Timeline", path: "timeline", isScroll: true },
+    { title: "Prizes", path: "prizes", isScroll: true },
+    { title: "Sponsors", path: "sponsors", isScroll: true },
+    { title: "Contact", path: "contact", isScroll: true }, 
   ];
 
   return (
@@ -75,17 +76,27 @@ const Navbar = () => {
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
             {navItems.map((item) => (
-              <Link
-                key={item.title}
-                to={item.path}
-                spy={true}
-                smooth={true}
-                offset={SCROLL_OFFSET}
-                duration={SCROLL_DURATION}
-                className="text-gray-300 hover:text-white hover:bg-purple-500/20 px-3 py-2 rounded-md text-sm font-medium cursor-pointer transition-all"
-              >
-                {item.title}
-              </Link>
+              item.isScroll ? (
+                <ScrollLink
+                  key={item.title}
+                  to={item.path}
+                  spy={true}
+                  smooth={true}
+                  offset={SCROLL_OFFSET}
+                  duration={SCROLL_DURATION}
+                  className="text-gray-300 hover:text-white hover:bg-purple-500/20 px-3 py-2 rounded-md text-sm font-medium cursor-pointer transition-all"
+                >
+                  {item.title}
+                </ScrollLink>
+              ) : (
+                <RouterLink
+                  key={item.title}
+                  to={item.path}
+                  className="text-gray-300 hover:text-white hover:bg-purple-500/20 px-3 py-2 rounded-md text-sm font-medium cursor-pointer transition-all"
+                >
+                  {item.title}
+                </RouterLink>
+              )
             ))}
           </div>
         </div>
@@ -99,18 +110,29 @@ const Navbar = () => {
         >
           <div className="px-2 pt-2 pb-3 space-y-1 bg-black/90 backdrop-blur-md rounded-lg mt-2 border border-purple-500/20">
             {navItems.map((item) => (
-              <Link
-                key={item.title}
-                to={item.path}
-                spy={true}
-                smooth={true}
-                offset={SCROLL_OFFSET}
-                duration={SCROLL_DURATION}
-                onClick={closeMobileMenu}
-                className="text-gray-300 hover:text-white hover:bg-purple-500/20 block px-3 py-2 rounded-md text-base font-medium cursor-pointer transition-all"
-              >
-                {item.title}
-              </Link>
+              item.isScroll ? (
+                <ScrollLink
+                  key={item.title}
+                  to={item.path}
+                  spy={true}
+                  smooth={true}
+                  offset={SCROLL_OFFSET}
+                  duration={SCROLL_DURATION}
+                  onClick={closeMobileMenu}
+                  className="text-gray-300 hover:text-white hover:bg-purple-500/20 block px-3 py-2 rounded-md text-base font-medium cursor-pointer transition-all"
+                >
+                  {item.title}
+                </ScrollLink>
+              ) : (
+                <RouterLink
+                  key={item.title}
+                  to={item.path}
+                  onClick={closeMobileMenu}
+                  className="text-gray-300 hover:text-white hover:bg-purple-500/20 block px-3 py-2 rounded-md text-base font-medium cursor-pointer transition-all"
+                >
+                  {item.title}
+                </RouterLink>
+              )
             ))}
           </div>
         </motion.div>

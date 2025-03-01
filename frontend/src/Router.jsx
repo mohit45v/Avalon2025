@@ -5,6 +5,7 @@ import Home from "./components/Home";
 import Register from "./components/RegistrationForm";
 import Schedule from "./components/Timeline";
 import Sponsors from "./components/Sponsers";
+import Contact from "./components/Contact";
 
 import HackathonPage from "./components/HackathonPage";
 import ProjectCompetitionPage from "./components/ProjectCompetitionPage";
@@ -25,6 +26,8 @@ const AppRouter = () => {
                 <Route path="/domains" element={<Domains />} />
                 <Route path="/schedule" element={<Schedule />} />
                 <Route path="/sponsors" element={<Sponsors />} />
+            
+
                 <Route path="/register" element={<Register />} />
                 <Route path="/hackathon" element={<HackathonPage />} />
                 <Route path="/project" element={<ProjectCompetitionPage />} />

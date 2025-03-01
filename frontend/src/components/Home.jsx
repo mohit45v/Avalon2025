@@ -15,9 +15,10 @@ import Sponsers from "./Sponsers";
 import Galary from "./Galary";
 import Footer from "./Footer";
 import Navbar from "./navbar";
-import Gallery from "./Gallery";
+import Contact from "./Contact";
 
 import { Link } from "react-scroll";
+
 
 const Home = () => {
   const [loading, setLoading] = useState(true);
@@ -248,8 +249,8 @@ const Home = () => {
       <div id="sponsors">
         <Sponsers />
       </div>
-      <div id="gallery">
-        <Gallery />
+      <div id="contact" className="w-full">
+        <Contact />
       </div>
       <Footer />
     </>
