@@ -48,6 +48,11 @@ const domains = [
 ];
 
 const DomainCard = ({ domain, onClick }) => {
+  const handleClick = (e) => {
+    e.preventDefault();
+    onClick();  // Remove the conditional check
+  };
+
   return (
     <motion.div
       whileHover={{ y: -10 }}
@@ -85,7 +90,7 @@ const DomainCard = ({ domain, onClick }) => {
         <motion.button
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          onClick={onClick}
+          onClick={handleClick}  // Updated onClick handler
           className={`w-full py-3 bg-gradient-to-r ${domain.gradient} rounded-lg text-white font-semibold`}
         >
           Explore More
@@ -97,6 +102,12 @@ const DomainCard = ({ domain, onClick }) => {
 
 const Domains = () => {
   const navigate = useNavigate();
+
+  const handleDomainClick = (path) => {
+    // Add window.scrollTo to ensure page starts from top
+    window.scrollTo(0, 0);
+    navigate(path);
+  };
 
   return (
     <>
@@ -163,7 +174,7 @@ const Domains = () => {
               <DomainCard
                 key={domain.title}
                 domain={domain}
-                onClick={() => navigate(domain.path)}
+                onClick={() => handleDomainClick(domain.path)}
                 className="w-full"
               />
             ))}

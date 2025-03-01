@@ -3,26 +3,25 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-// ✅ Configure Transporter
 const transporter = nodemailer.createTransport({
-    service: "gmail", // You can use other providers like Outlook, Yahoo, etc.
+    service: "gmail",
     host: process.env.SMTP_HOST,
     port: process.env.SMTP_PORT,
     secure: false,
     auth: {
-        user: process.env.EMAIL_USER, // Your email
-        pass: process.env.EMAIL_PASS, // Your email app password
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
     },
 });
 
-// ✅ Send Email Function
-export const sendEmail = async (to, subject, text) => {
+export const sendEmail = async (to, subject, content) => {
     try {
         const mailOptions = {
             from: process.env.EMAIL_USER,
             to,
             subject,
-            text,
+            text: content.text || '',
+            html: content.html || ''
         };
 
         await transporter.sendMail(mailOptions);

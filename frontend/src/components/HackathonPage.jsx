@@ -3,6 +3,11 @@ import { BsCode, BsLightbulb, BsTrophy, BsPeople } from 'react-icons/bs';
 import { motion } from 'framer-motion';
 
 const HackathonPage = () => {
+    // Add useEffect to handle scroll on component mount
+    React.useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
     return (
         <div className="w-full min-h-screen bg-[#030014]">
             {/* Background Effects */}

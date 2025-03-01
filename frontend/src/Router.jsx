@@ -10,7 +10,14 @@ import HackathonPage from "./components/HackathonPage";
 import ProjectCompetitionPage from "./components/ProjectCompetitionPage";
 import RoboticsCompetitionPage from "./components/RoboticsCompetitionPage";
 
+import QueryManager from "./components/admin/QueryManager";
+
 const AppRouter = () => {
+    // Add scroll management
+    React.useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
     return (
         <Router>
             <Routes>
@@ -22,6 +29,8 @@ const AppRouter = () => {
                 <Route path="/hackathon" element={<HackathonPage />} />
                 <Route path="/project" element={<ProjectCompetitionPage />} />
                 <Route path="/robotics" element={<RoboticsCompetitionPage />} />
+
+                <Route path="/queries" element={<QueryManager />} />
             </Routes>
         </Router>
     );

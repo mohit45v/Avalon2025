@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { useState } from "react";
+import axios from "axios";
 
 const faqs = [
   { question: "What is the Hackathon?", answer: "A hackathon is a collaborative programming event where participants develop innovative projects within a limited time." },
@@ -30,6 +31,28 @@ export default function Footer() {
     triggerOnce: true
   });
 
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
+  const [submitStatus, setSubmitStatus] = useState({ show: false, isSuccess: false });
+
+  // Add form handling
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await axios.post(`http://localhost:3000/api/v1/queries/submit`, formData);
+      setSubmitStatus({ show: true, isSuccess: true });
+      setFormData({ name: "", email: "", message: "" });
+      setTimeout(() => setSubmitStatus({ show: false, isSuccess: false }), 3000);
+    } catch (error) {
+      setSubmitStatus({ show: true, isSuccess: false });
+      setTimeout(() => setSubmitStatus({ show: false, isSuccess: false }), 3000);
+    }
+  };
+
+  // Modify the contact section to include the form
   return (
     <footer ref={ref} className="relative bg-[#030014] text-gray-300 min-h-screen">
     {/* Background Effects */}
@@ -87,6 +110,62 @@ export default function Footer() {
             Contact Us
           </span>
         </h2>
+
+        {/* Add form */}
+        <div className="max-w-2xl mx-auto mb-16">
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div>
+              <input
+                type="text"
+                placeholder="Your Name"
+                value={formData.name}
+                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                className="w-full px-4 py-3 bg-white/5 border border-purple-500/20 rounded-lg focus:border-purple-500/50 text-white"
+                required
+              />
+            </div>
+            <div>
+              <input
+                type="email"
+                placeholder="Your Email"
+                value={formData.email}
+                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                className="w-full px-4 py-3 bg-white/5 border border-purple-500/20 rounded-lg focus:border-purple-500/50 text-white"
+                required
+              />
+            </div>
+            <div>
+              <textarea
+                placeholder="Your Message"
+                value={formData.message}
+                onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                className="w-full px-4 py-3 bg-white/5 border border-purple-500/20 rounded-lg focus:border-purple-500/50 text-white"
+                rows="4"
+                required
+              />
+            </div>
+            <button
+              type="submit"
+              className="w-full px-6 py-3 bg-gradient-to-r from-purple-600 to-orange-600 text-white font-semibold rounded-lg hover:opacity-90 transition-all duration-300"
+            >
+              Send Message
+            </button>
+          </form>
+
+          {/* Status message */}
+          {submitStatus.show && (
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className={`mt-4 p-3 rounded-lg ${
+                submitStatus.isSuccess ? 'bg-green-500/20 text-green-300' : 'bg-red-500/20 text-red-300'
+              }`}
+            >
+              {submitStatus.isSuccess ? 'Message sent successfully!' : 'Failed to send message. Please try again.'}
+            </motion.div>
+          )}
+        </div>
+
         <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
           {contacts.map((contact, index) => (
             <motion.div
