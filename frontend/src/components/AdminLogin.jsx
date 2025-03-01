@@ -1,15 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
 import Dashboard from "./Dashboard";
 
 const AdminLogin = () => {
   const [formData, setFormData] = useState({ email: "", password: "" });
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // Track login state
-
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -25,18 +22,20 @@ const AdminLogin = () => {
         formData
       );
 
-      // Store token & role in localStorage
-      localStorage.setItem("token", response.data.token);
-      localStorage.setItem("role", response.data.role);
+      if (response.data.token) {
+        localStorage.setItem("token", response.data.token);
+        localStorage.setItem("role", response.data.role);
 
-      Swal.fire({
-        icon: "success",
-        title: "Login Successful",
-        text: "Welcome to the admin panel!",
-        confirmButtonText: "OK",
-      }).then(() => {
-        setIsLoggedIn(true); // Set login state to true
-      });
+        Swal.fire({
+          icon: "success",
+          title: "Login Successful",
+          text: "Welcome to the admin panel!",
+          timer: 1500,
+          showConfirmButton: false
+        }).then(() => {
+          navigate('/admin');
+        });
+      }
     } catch (error) {
       Swal.fire({
         icon: "error",
@@ -46,10 +45,9 @@ const AdminLogin = () => {
     }
   };
 
-  // If logged in, render Dashboard instead of Login
-  if (isLoggedIn) {
-    return <Dashboard />;
-  }
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-900">

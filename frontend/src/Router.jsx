@@ -16,33 +16,46 @@ import ParticipantManager from "./components/admin/ParticipantManager";
 import VerifiedParticipants from "./components/admin/VerifiedParticipants";
 import Form from "./components/Form";
 import AdminDashboard from "./components/admin/AdminDashboard";
+import AdminLogin from "./components/AdminLogin";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 const AppRouter = () => {
-    // Add scroll management
-    React.useEffect(() => {
-        window.scrollTo(0, 0);
-    }, []);
-
     return (
         <Router>
             <Routes>
+                {/* Public Routes */}
                 <Route exact path="/" element={<Home />} />
                 <Route path="/domains" element={<Domains />} />
                 <Route path="/schedule" element={<Schedule />} />
                 <Route path="/sponsors" element={<Sponsors />} />
-            
-
                 <Route path="/register" element={<Register />} />
                 <Route path="/hackathon" element={<HackathonPage />} />
                 <Route path="/project" element={<ProjectCompetitionPage />} />
                 <Route path="/robotics" element={<RoboticsCompetitionPage />} />
-
-                <Route path="/queries" element={<QueryManager />} />
-                <Route path="/participants" element={<ParticipantManager />} />
-                <Route path="/verified" element={<VerifiedParticipants />} />
-                <Route path="/admin" element={<AdminDashboard />} />
                 <Route path="/form" element={<Form/>} />
 
+                {/* Admin Routes */}
+                <Route path="/admin/login" element={<AdminLogin />} />
+                <Route path="/admin" element={
+                    <ProtectedRoute>
+                        <AdminDashboard />
+                    </ProtectedRoute>
+                } />
+                <Route path="/admin/queries" element={
+                    <ProtectedRoute>
+                        <QueryManager />
+                    </ProtectedRoute>
+                } />
+                <Route path="/admin/participants" element={
+                    <ProtectedRoute>
+                        <ParticipantManager />
+                    </ProtectedRoute>
+                } />
+                <Route path="/admin/verified" element={
+                    <ProtectedRoute>
+                        <VerifiedParticipants />
+                    </ProtectedRoute>
+                } />
             </Routes>
         </Router>
     );

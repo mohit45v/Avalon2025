@@ -2,46 +2,31 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { BsPersonLinesFill, BsCheckCircle, BsInbox, BsBarChart } from 'react-icons/bs';
+import { useNavigate } from'react-router-dom';
 
 const AdminDashboard = () => {
-  const adminLinks = [
-    {
-      title: 'Participant Manager',
-      description: 'Manage and review all participant registrations',
-      icon: <BsPersonLinesFill size={24} />,
-      path: '/participants',
-      color: 'from-purple-500 to-pink-500'
-    },
-    {
-      title: 'Verified Participants',
-      description: 'View all verified participants by event',
-      icon: <BsCheckCircle size={24} />,
-      path: '/verified',
-      color: 'from-green-500 to-emerald-500'
-    },
-    {
-      title: 'Query Manager',
-      description: 'Handle user queries and support tickets',
-      icon: <BsInbox size={24} />,
-      path: '/queries',
-      color: 'from-blue-500 to-cyan-500'
-    },
-    {
-      title: 'Analytics',
-      description: 'View registration statistics and insights',
-      icon: <BsBarChart size={24} />,
-      path: '/analytics',
-      color: 'from-orange-500 to-yellow-500'
-    }
-  ];
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('role');
+    navigate('/admin/login');
+  };
 
   return (
     <div className="min-h-screen bg-[#030014] text-white p-8">
       <div className="max-w-7xl mx-auto">
-        <h1 className="text-4xl font-bold text-center mb-12 bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-orange-400">
-          Admin Dashboard
-        </h1>
-
+        <div className="flex justify-between items-center mb-8">
+          <h1 className="text-4xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-orange-400">
+            Admin Dashboard
+          </h1>
+          <button
+            onClick={handleLogout}
+            className="px-4 py-2 bg-red-500/20 text-red-400 rounded-lg hover:bg-red-500/30"
+          >
+            Logout
+          </button>
+        </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {adminLinks.map((link, index) => (
             <motion.div
