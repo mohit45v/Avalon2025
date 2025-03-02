@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Domains from "./components/Domains";
 import Home from "./components/Home";
-import Register from "./components/RegistrationForm";
+import Register from "./components/Form";
 import Schedule from "./components/Timeline";
 import Sponsors from "./components/Sponsers";
 import Contact from "./components/Contact";
@@ -33,7 +33,7 @@ const AppRouter = () => {
                 <Route path="/hackathon" element={<HackathonPage />} />
                 <Route path="/project" element={<ProjectCompetitionPage />} />
                 <Route path="/robotics" element={<RoboticsCompetitionPage />} />
-                <Route path="/form" element={<Form/>} />
+                <Route path="/form" element={<Form />} />
                 <Route path="/admin/login" element={<AdminLogin />} />
 
                 {/* Admin Routes */}

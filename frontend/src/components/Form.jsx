@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import { BsPlus, BsTrash } from 'react-icons/bs';
+import { useLocation, useSearchParams } from 'react-router-dom';
 
 const Form = () => {
   const [step, setStep] = useState(1);
@@ -19,6 +20,11 @@ const Form = () => {
   });
   const [loading, setLoading] = useState(false);
   const [imagePreview, setImagePreview] = useState(null);
+  const location = useLocation();
+  const [workshopData, setWorkshopData] = useState(null);
+  const [searchParams] = useSearchParams();
+  const workshopType = searchParams.get('workshop');
+  const workshopFee = searchParams.get('fee');
 
   const competitions = [
     { value: 'hackathon', label: 'Hackathon', maxTeam: 4 },
@@ -80,6 +86,28 @@ const Form = () => {
       }
     };
   }, [imagePreview]);
+
+  useEffect(() => {
+    // Get workshop data from localStorage
+    const savedWorkshop = localStorage.getItem('selectedWorkshop');
+    if (savedWorkshop) {
+      setWorkshopData(JSON.parse(savedWorkshop));
+      // Update form data with workshop selection
+      setFormData(prev => ({
+        ...prev,
+        workshop: JSON.parse(savedWorkshop).name.toLowerCase()
+      }));
+    }
+  }, []);
+
+  useEffect(() => {
+    if (workshopType) {
+      setFormData(prev => ({
+        ...prev,
+        workshop: workshopType
+      }));
+    }
+  }, [workshopType]);
 
   const validateStep = () => {
     if (step === 1) {
@@ -157,8 +185,23 @@ const Form = () => {
     <div className="min-h-screen bg-[#030014] text-white py-12 px-4">
       <div className="max-w-4xl mx-auto">
         <h1 className="text-4xl font-bold text-center mb-8 bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-orange-400">
-          Event Registration
+          {workshopData ? `${workshopData.name} Workshop Registration` : 'Event Registration'}
         </h1>
+
+        {workshopData && (
+          <div className="mb-8 p-4 bg-white/5 rounded-lg">
+            <p className="text-xl font-bold text-purple-400">Entry Fee: {workshopData.fee}</p>
+            <p className="text-gray-300">Difficulty: {workshopData.difficulty}</p>
+            <div className="mt-2">
+              <p className="font-semibold text-gray-300">Includes:</p>
+              <ul className="list-disc list-inside text-gray-400">
+                {workshopData.includes.map((item, index) => (
+                  <li key={index}>{item}</li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        )}
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
