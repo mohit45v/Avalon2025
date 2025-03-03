@@ -80,11 +80,9 @@ export default function Footer() {
         </div>
 
         {/* Contact section */}
-        <Contact inView={inView} />
+        
 
-        <div className="mt-16 text-center text-sm text-gray-500">
-          <p>© 2024 Avalon. All rights reserved.</p>
-        </div>
+        
       </div>
     </footer>
   );

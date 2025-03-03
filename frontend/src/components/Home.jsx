@@ -2,8 +2,6 @@ import * as React from "react";
 import { useState, useEffect, useCallback } from "react";
 import { TypeAnimation } from "react-type-animation";
 import { motion } from "framer-motion";
-import { Progress } from "@/components/ui/progress";
-import { Player } from "@lottiefiles/react-lottie-player";
 
 import logo from "./logo.png";
 import TechBoxes from "./Techboxes";
@@ -18,7 +16,7 @@ import Navbar from "./navbar";
 import Contact from "./Contact";
 
 import { Link } from "react-scroll";
-
+import {Link as RouterLink} from "react-router-dom";
 
 const Home = () => {
   const [loading, setLoading] = useState(true);
@@ -190,23 +188,30 @@ const Home = () => {
             />
           </motion.div>{/* Type Animation container ends */}
           {/* CTA Button */}
-          <motion.div
-            className="flex flex-col sm:flex-row gap-4 items-center mb-24" // Increased bottom margin
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.8 }}
-          >
-            <Link
-              to="about"
-              spy={true}
-              smooth={true}
-              offset={-70}
-              duration={500}
-              className="px-6 py-4 bg-gradient-to-r from-purple-600 to-orange-600 rounded-full text-white text-md font-medium hover:opacity-90 transition-opacity cursor-pointer"
-            >
-              Know More
-            </Link>
-          </motion.div>
+          {/* CTA Buttons */}
+                <motion.div
+                  className="flex flex-col sm:flex-row gap-4 items-center mb-24"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 0.8 }}
+                >
+                  <Link
+                    to="about"
+                    spy={true}
+                    smooth={true}
+                    offset={-70}
+                    duration={500}
+                    className="px-6 py-4 bg-gradient-to-r from-purple-600 to-orange-600 rounded-full text-white text-md font-medium hover:opacity-90 transition-opacity cursor-pointer"
+                  >
+                    Know More
+                  </Link>
+                  <RouterLink
+                    to="/register"
+                    className="px-6 py-4 border border-purple-500/50 rounded-full text-white text-md font-medium hover:bg-purple-500/10 transition-all cursor-pointer"
+                  >
+                    Register Now
+                  </RouterLink>
+                </motion.div>
           {/* Tech Keywords with enhanced styling */}
           <motion.div
             className="absolute bottom-4 left-0 right-0 px-4" // Adjusted bottom spacing
@@ -249,10 +254,11 @@ const Home = () => {
       <div id="sponsors">
         <Sponsers />
       </div>
+      
+      <Footer />
       <div id="contact" className="w-full">
         <Contact />
       </div>
-      <Footer />
     </>
   );
 };
