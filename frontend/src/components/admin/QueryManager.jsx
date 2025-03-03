@@ -26,7 +26,7 @@ const QueryManager = () => {
   useEffect(() => {
     const fetchQueries = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/api/v1/queries');
+        const response = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/v1/queries`);
         const sortedQueries = (response.data.queries || []).sort((a, b) => {
           if (sortByPending) {
             if (a.status === 'Pending' && b.status !== 'Pending') return -1;
