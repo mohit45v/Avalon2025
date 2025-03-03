@@ -1,5 +1,6 @@
 import React, { useState, Suspense } from "react";
 import { motion } from "framer-motion";
+// Remove these imports as they're no longer needed
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, useGLTF, Float, Environment } from "@react-three/drei";
 import { useNavigate } from "react-router-dom";
@@ -20,39 +21,39 @@ const Model = ({ path }) => {
     
   </div>
 </div>
+// Update the domains array
 const domains = [
   {
     title: "Avalon 2025 Hackathon",
     description: "Join Maharashtra's premier 24-hour coding marathon at Avalon 2025. Build innovative solutions and compete with the best minds at Terna Engineering College.",
-    modelPath: "/models/laptop.glb",
+    icon: "💻",
     gradient: "from-purple-600 to-blue-500",
     path: "/hackathon",
     component: Hackathon,
+    features: ["24-Hour Challenge", "Amazing Prizes", "Expert Mentorship"]
   },
   {
     title: "Avalon Project Showcase",
     description: "Present your innovations at Avalon 2025's flagship project competition. Get feedback from industry experts at Terna Engineering College.",
-    modelPath: "/models/robot.glb",
+    icon: "🚀",
     gradient: "from-orange-500 to-red-500",
     path: "/project",
     component: ProjectCompetitions,
+    features: ["Industry Exposure", "Expert Feedback", "Networking"]
   },
   {
     title: "Avalon Robotics Battle",
     description: "Compete in Avalon 2025's premier robotics competition. Showcase your autonomous systems at Terna Engineering's biggest tech event.",
-    modelPath: "/models/drone.glb",
+    icon: "🤖",
     gradient: "from-green-500 to-teal-500",
     path: "/robotics",
     component: Robotics,
+    features: ["Live Battles", "Tech Workshops", "Hardware Support"]
   },
 ];
 
+// Update the DomainCard component
 const DomainCard = ({ domain, onClick }) => {
-  const handleClick = (e) => {
-    e.preventDefault();
-    onClick();  // Remove the conditional check
-  };
-
   return (
     <motion.div
       whileHover={{ y: -10 }}
@@ -62,20 +63,12 @@ const DomainCard = ({ domain, onClick }) => {
     >
       <div className="absolute -inset-0.5 bg-gradient-to-r from-purple-600 to-orange-600 rounded-lg blur opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-tilt"></div>
       <div className="relative p-6 bg-black/40 backdrop-blur-sm rounded-lg border border-white/10">
-        <div className="h-64 w-full mb-6">
-          <Canvas camera={{ position: [0, 0, 5], fov: 45 }}>
-            <ambientLight intensity={0.5} />
-            <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} />
-            <Suspense fallback={null}>
-              <Float speed={1.5} rotationIntensity={1} floatIntensity={2}>
-                <Model path={domain.modelPath} />
-              </Float>
-              <Environment preset="city" />
-            </Suspense>
-            <OrbitControls enableZoom={false} />
-          </Canvas>
+        {/* Icon Section */}
+        <div className="flex justify-center mb-6">
+          <span className="text-7xl mb-4 animate-bounce-slow">{domain.icon}</span>
         </div>
 
+        {/* Title & Description */}
         <h3 
           className={`text-2xl font-bold bg-gradient-to-r ${domain.gradient} bg-clip-text text-transparent mb-4`}
           itemProp="name"
@@ -83,15 +76,26 @@ const DomainCard = ({ domain, onClick }) => {
           {domain.title}
         </h3>
         <p className="text-gray-400 mb-6" itemProp="description">{domain.description}</p>
-        <meta itemProp="eventStatus" content="https://schema.org/EventScheduled" />
-        <meta itemProp="eventAttendanceMode" content="https://schema.org/OfflineEventAttendanceMode" />
-        <meta itemProp="location" content="Terna Engineering College, Nerul" />
 
+        {/* Features List */}
+        <div className="mb-6">
+          <ul className="space-y-2">
+            {domain.features.map((feature, index) => (
+              <li key={index} className="flex items-center text-gray-300">
+                <span className="mr-2">•</span>
+                {feature}
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* Button */}
         <motion.button
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          onClick={handleClick}  // Updated onClick handler
-          className={`w-full py-3 bg-gradient-to-r ${domain.gradient} rounded-lg text-white font-semibold`}
+          onClick={() => onClick()}
+          className={`w-full py-3 bg-gradient-to-r ${domain.gradient} rounded-lg text-white font-semibold 
+            transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/20`}
         >
           Explore More
         </motion.button>
@@ -100,6 +104,35 @@ const DomainCard = ({ domain, onClick }) => {
   );
 };
 
+// Add this to your existing CSS or tailwind.config.js
+const customStyles = `
+  @keyframes bounce-slow {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+  .animate-bounce-slow {
+    animation: bounce-slow 3s infinite;
+  }
+`;
+
+// Update the grid layout in the Domains component
+<div 
+  className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 px-4 sm:px-6 lg:px-8"
+  itemProp="subEvents"
+>
+  {domains.map((domain) => (
+    <DomainCard
+      key={domain.title}
+      domain={domain}
+      onClick={() => handleDomainClick(domain.path)}
+      className="w-full"
+    />
+  ))}
+</div>
 const Domains = () => {
   const navigate = useNavigate();
 

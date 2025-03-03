@@ -24,7 +24,7 @@ function App() {
       <Prizes/>
       <Sponsers />
       <Galary />
-      <Footer />
+      
     </div>
   );
 }

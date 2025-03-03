@@ -40,13 +40,22 @@ const Form = () => {
 
   const addTeamMember = () => {
     const selectedComp = competitions.find(c => c.value === formData.competition);
-    if (selectedComp && teamMembers.length < selectedComp.maxTeam) {
+    if (!formData.competition) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'Select Competition',
+        text: 'Please select a competition first'
+      });
+      return;
+    }
+    
+    if (teamMembers.length < selectedComp.maxTeam) {
       setTeamMembers([...teamMembers, { name: '', email: '', whatsapp: '' }]);
     } else {
       Swal.fire({
         icon: 'warning',
         title: 'Team Size Limit',
-        text: `Maximum ${selectedComp?.maxTeam || 4} members allowed for this competition`
+        text: `Maximum ${selectedComp.maxTeam} members allowed for ${selectedComp.label}`
       });
     }
   };
