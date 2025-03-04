@@ -287,21 +287,21 @@ const Form = () => {
                 <select
                   value={formData.competition}
                   onChange={(e) => setFormData({ ...formData, competition: e.target.value })}
-                  className="bg-white/5 border border-purple-500/20 rounded-lg px-4 py-2"
+                  className="bg-white/5 border border-purple-500/20 rounded-lg px-4 py-2 text-white [&>option]:text-black"
                 >
-                  <option value="">Select Competition</option>
+                  <option value="" className="bg-[#030014]">Select Competition</option>
                   {competitions.map(comp => (
-                    <option key={comp.value} value={comp.value}>{comp.label}</option>
+                    <option key={comp.value} value={comp.value} className="bg-white">{comp.label}</option>
                   ))}
                 </select>
                 <select
                   value={formData.workshop}
                   onChange={(e) => setFormData({ ...formData, workshop: e.target.value })}
-                  className="bg-white/5 border border-purple-500/20 rounded-lg px-4 py-2"
+                  className="bg-white/5 border border-purple-500/20 rounded-lg px-4 py-2 text-white [&>option]:text-black"
                 >
-                  <option value="">Select Workshop (Optional)</option>
+                  <option value="" className="bg-[#030014]">Select Workshop (Optional)</option>
                   {workshops.map(workshop => (
-                    <option key={workshop.value} value={workshop.value}>{workshop.label}</option>
+                    <option key={workshop.value} value={workshop.value} className="bg-white">{workshop.label}</option>
                   ))}
                 </select>
               </div>
