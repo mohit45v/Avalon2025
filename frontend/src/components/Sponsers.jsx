@@ -62,7 +62,7 @@ const Sponsors = () => {
         >
           <h2 className="text-6xl font-bold mb-6">
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 via-fuchsia-500 to-purple-600">
-              Our Sponsors
+              Our Past Sponsors
             </span>
           </h2>
           <p className="text-xl text-gray-300">
