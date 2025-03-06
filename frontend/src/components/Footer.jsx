@@ -1,8 +1,8 @@
-
-
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { useState } from "react";
+import { FaInstagram, FaTwitter, FaLinkedin, FaYoutube } from 'react-icons/fa';
+import { PiThreadsLogoFill } from 'react-icons/pi';
 import Contact from "./Contact";
 
 const faqs = [
@@ -30,6 +30,39 @@ export default function Footer() {
     threshold: 0.1,
     triggerOnce: true
   });
+
+  const socialLinks = [
+    {
+      icon: FaInstagram,
+      url: "https://instagram.com/avalon2025",
+      color: "hover:text-pink-500",
+      label: "Instagram"
+    },
+    {
+      icon: FaTwitter,
+      url: "https://twitter.com/avalon2025",
+      color: "hover:text-blue-400",
+      label: "Twitter"
+    },
+    {
+      icon: FaLinkedin,
+      url: "https://linkedin.com/company/avalon2025",
+      color: "hover:text-blue-600",
+      label: "LinkedIn"
+    },
+    {
+      icon: FaYoutube,
+      url: "https://youtube.com/avalon2025",
+      color: "hover:text-red-600",
+      label: "YouTube"
+    },
+    {
+      icon: PiThreadsLogoFill,
+      url: "https://threads.net/avalon2025",
+      color: "hover:text-gray-200",
+      label: "Threads"
+    },
+  ];
 
   return (
     <footer ref={ref} className="relative bg-[#030014] text-gray-300 min-h-screen">
@@ -79,10 +112,75 @@ export default function Footer() {
           ))}
         </div>
 
-        {/* Contact section */}
-        
+        {/* Social Media and Contact Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          className="mt-20 border-t border-purple-500/20 pt-12"
+        >
+          <div className="max-w-6xl mx-auto">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {/* Contact Info */}
+              {contacts.map((contact, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={inView ? { opacity: 1, y: 0 } : {}}
+                  transition={{ delay: index * 0.1 }}
+                  className="p-6 rounded-xl bg-white/5 backdrop-blur-sm border border-purple-500/20"
+                >
+                  <h3 className="text-xl font-semibold text-purple-400 mb-4">{contact.title}</h3>
+                  <p className="text-gray-400">{contact.phone}</p>
+                  <p className="text-gray-400">{contact.email}</p>
+                </motion.div>
+              ))}
+            </div>
 
-        
+            {/* Social Media Links */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ delay: 0.3 }}
+              className="mt-12 text-center"
+            >
+              <h3 className="text-2xl font-bold mb-6 bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-orange-400">
+                Connect With Us
+              </h3>
+              <div className="flex justify-center items-center gap-4">
+                {socialLinks.map((social, index) => (
+                  <motion.a
+                    key={index}
+                    href={social.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`p-3 rounded-lg bg-white/5 border border-purple-500/20 
+                              backdrop-blur-sm transition-all duration-300
+                              hover:bg-white/10 hover:border-purple-500/40 
+                              group ${social.color}`}
+                    whileHover={{ y: -4 }}
+                    whileTap={{ scale: 0.95 }}
+                    aria-label={social.label}
+                  >
+                    <social.icon className="w-6 h-6 transition-transform duration-300 group-hover:scale-110" />
+                  </motion.a>
+                ))}
+              </div>
+            </motion.div>
+
+            {/* Copyright */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={inView ? { opacity: 1 } : {}}
+              transition={{ delay: 0.4 }}
+              className="mt-12 text-center text-sm text-gray-500"
+            >
+              <p>© 2025 Avalon. All rights reserved.</p>
+              <p className="mt-2">
+                Designed with ❤️ by Team Avalon
+              </p>
+            </motion.div>
+          </div>
+        </motion.div>
       </div>
     </footer>
   );

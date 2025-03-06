@@ -2,6 +2,8 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import axios from "axios";
 import { useInView } from "react-intersection-observer";
+import { FaInstagram, FaTwitter, FaLinkedin, FaYoutube } from 'react-icons/fa';
+import { PiThreadsLogoFill } from 'react-icons/pi';
 
 const contacts = [
   { title: "Technical Queries", phone: "+123 456 7890", email: "techsupport@hackathon.com" },
@@ -34,6 +36,39 @@ const Contact = () => {
       setTimeout(() => setSubmitStatus({ show: false, isSuccess: false }), 3000);
     }
   };
+
+  const socialLinks = [
+    {
+      icon: FaInstagram,
+      url: "https://instagram.com/avalon2025",
+      color: "hover:text-pink-500",
+      label: "Instagram"
+    },
+    {
+      icon: FaTwitter,
+      url: "https://twitter.com/avalon2025",
+      color: "hover:text-blue-400",
+      label: "Twitter"
+    },
+    {
+      icon: FaLinkedin,
+      url: "https://linkedin.com/company/avalon2025",
+      color: "hover:text-blue-600",
+      label: "LinkedIn"
+    },
+    {
+      icon: FaYoutube,
+      url: "https://youtube.com/avalon2025",
+      color: "hover:text-red-600",
+      label: "YouTube"
+    },
+    {
+      icon: PiThreadsLogoFill,
+      url: "https://threads.net/avalon2025",
+      color: "hover:text-gray-200",
+      label: "Threads"
+    },
+  ];
 
   return (
     <motion.section
@@ -124,7 +159,37 @@ const Contact = () => {
           ))}
         </div>
 
-        <div className="mt-16 rounded-xl overflow-hidden border border-purple-500/20">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ delay: 0.3 }}
+          className="my-16 text-center"
+        >
+          <h3 className="text-2xl font-bold mb-8 bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-orange-400">
+            Connect With Us
+          </h3>
+          <div className="flex flex-wrap justify-center items-center gap-6">
+            {socialLinks.map((social, index) => (
+              <motion.a
+                key={index}
+                href={social.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`p-4 rounded-lg bg-white/10 border border-purple-500/30 
+                          backdrop-blur-sm transition-all duration-300
+                          hover:bg-white/20 hover:border-purple-500/60 
+                          group ${social.color}`}
+                whileHover={{ y: -4, scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                aria-label={social.label}
+              >
+                <social.icon className="w-8 h-8 text-white group-hover:scale-110 transition-all duration-300" />
+              </motion.a>
+            ))}
+          </div>
+        </motion.div>
+
+        <div className="rounded-xl overflow-hidden border border-purple-500/20">
           <iframe
             className="w-full h-[400px]"
             src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3771.908227746073!2d73.0215266!3d19.0349448!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c3db5e2c85cd%3A0xf0562c8c4ee11853!2sTerna%20Engineering%20College!5e0!3m2!1sen!2sin!4v1707835671799!5m2!1sen!2sin"

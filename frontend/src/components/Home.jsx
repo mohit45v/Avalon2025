@@ -254,11 +254,11 @@ const Home = () => {
       <div id="sponsors">
         <Sponsers />
       </div>
-      
       <Footer />
       <div id="contact" className="w-full">
         <Contact />
       </div>
+
     </>
   );
 };
