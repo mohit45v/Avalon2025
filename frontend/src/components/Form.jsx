@@ -2,9 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import axios from 'axios';
 import Swal from 'sweetalert2';
-import { BsPlus, BsTrash } from 'react-icons/bs';
-import { useLocation, useSearchParams } from 'react-router-dom';
+import { BsPlus, BsTrash, BsArrowLeft } from 'react-icons/bs';
+import { useLocation, useSearchParams, useNavigate } from 'react-router-dom';
 import QR from "../../public/QR.jpg"
+
 const Form = () => {
   const [step, setStep] = useState(1);
   const [teamMembers, setTeamMembers] = useState([
@@ -25,6 +26,7 @@ const Form = () => {
   const [searchParams] = useSearchParams();
   const workshopType = searchParams.get('workshop');
   const workshopFee = searchParams.get('fee');
+  const navigate = useNavigate();
 
   const competitions = [
     { value: 'hackathon', label: 'Hackathon', maxTeam: 4 },
@@ -193,6 +195,14 @@ const Form = () => {
   return (
     <div className="min-h-screen bg-[#030014] text-white py-12 px-4">
       <div className="max-w-4xl mx-auto">
+        <button
+          onClick={() => navigate('/')}
+          className="flex items-center gap-2 text-purple-400 hover:text-purple-300 mb-6 group"
+        >
+          <BsArrowLeft className="group-hover:-translate-x-1 transition-transform" />
+          Back to Home
+        </button>
+
         <h1 className="text-4xl font-bold text-center mb-8 bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-orange-400">
           {workshopData ? `${workshopData.name} Workshop Registration` : 'Event Registration'}
         </h1>

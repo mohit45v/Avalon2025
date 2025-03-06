@@ -24,32 +24,71 @@ const Model = ({ path }) => {
 // Update the domains array
 const domains = [
   {
-    title: "Avalon 2025 Hackathon",
-    description: "Join Maharashtra's premier 24-hour coding marathon at Avalon 2025. Build innovative solutions and compete with the best minds at Terna Engineering College.",
+    title: "Innovate 3.0",
+    description: "Dive into a whirlwind of creativity, problem-solving, and innovation at Avalon's flagship 24-hour hackathon! Bring your coding skills, ideas – it's going to be an adrenaline-fueled journey into the world of technology. Whether you're a seasoned developer or a coding enthusiast, this hackathon is your chance to collaborate, create and code your way to victory.",
     icon: "💻",
     gradient: "from-purple-600 to-blue-500",
     path: "/hackathon",
     component: Hackathon,
-    features: ["24-Hour Challenge", "Amazing Prizes", "Expert Mentorship"]
+    features: [
+      "24-Hour Development Time",
+      "Real-World Problem Solving",
+      "Expert Mentorship Available",
+      "₹1,00,000+ Prize Pool",
+      "Industry Recognition"
+    ],
+    highlights: [
+      "Tackle real-world challenges",
+      "24 hours to ideate and build",
+      "Expert mentor guidance",
+      "Networking opportunities",
+      "Team size: 2-4 members"
+    ]
   },
   {
-    title: "Avalon Project Showcase",
-    description: "Present your innovations at Avalon 2025's flagship project competition. Get feedback from industry experts at Terna Engineering College.",
-    icon: "🚀",
+    title: "Cube Casting",
+    description: "Cube Casting is the ultimate test of precision and engineering mastery, where participants must design and fabricate intricate structures within strict constraints. This competition is a thrilling blend of creativity, strategy, and hands-on skills, pushing contestants to showcase their technical expertise and innovation.",
+    icon: "🎯",
     gradient: "from-orange-500 to-red-500",
     path: "/project",
     component: ProjectCompetitions,
-    features: ["Industry Exposure", "Expert Feedback", "Networking"]
+    features: [
+      "Precision Engineering",
+      "Material Optimization",
+      "Technical Innovation",
+      "Industry Evaluation",
+      "Professional Guidance"
+    ],
+    highlights: [
+      "Balance strength & accuracy",
+      "Showcase fabrication skills",
+      "Test precision under pressure",
+      "Win industry recognition",
+      "Team size: 1-3 members"
+    ]
   },
   {
-    title: "Avalon Robotics Battle",
-    description: "Compete in Avalon 2025's premier robotics competition. Showcase your autonomous systems at Terna Engineering's biggest tech event.",
+    title: "ROBO Race",
+    description: "Design and program a robot that can complete the given track quickly while overcoming various hurdles. The fastest and most efficient bot wins! Open to all robotics enthusiasts, engineering students, and tech lovers eager to showcase their innovation and technical skills.",
     icon: "🤖",
     gradient: "from-green-500 to-teal-500",
     path: "/robotics",
     component: Robotics,
-    features: ["Live Battles", "Tech Workshops", "Hardware Support"]
-  },
+    features: [
+      "Speed Zones Challenge",
+      "Obstacle Navigation",
+      "Technical Support",
+      "Live Competition",
+      "Equipment Access"
+    ],
+    highlights: [
+      "2-5 members per team",
+      "Size & weight constraints",
+      "Speed zones & obstacles",
+      "Shortest completion time wins",
+      "Individual participation allowed"
+    ]
+  }
 ];
 
 // Update the DomainCard component
@@ -79,11 +118,25 @@ const DomainCard = ({ domain, onClick }) => {
 
         {/* Features List */}
         <div className="mb-6">
+          <h4 className="text-lg font-semibold text-purple-400 mb-2">Key Features:</h4>
           <ul className="space-y-2">
             {domain.features.map((feature, index) => (
               <li key={index} className="flex items-center text-gray-300">
-                <span className="mr-2">•</span>
+                <span className="mr-2">✨</span>
                 {feature}
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* Highlights List */}
+        <div className="mb-6">
+          <h4 className="text-lg font-semibold text-purple-400 mb-2">Competition Highlights:</h4>
+          <ul className="space-y-2">
+            {domain.highlights.map((highlight, index) => (
+              <li key={index} className="flex items-center text-gray-300">
+                <span className="mr-2">✅</span>
+                {highlight}
               </li>
             ))}
           </ul>
@@ -97,7 +150,7 @@ const DomainCard = ({ domain, onClick }) => {
           className={`w-full py-3 bg-gradient-to-r ${domain.gradient} rounded-lg text-white font-semibold 
             transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/20`}
         >
-          Explore More
+          Learn More
         </motion.button>
       </div>
     </motion.div>

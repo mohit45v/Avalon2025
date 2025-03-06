@@ -2,7 +2,6 @@ import React from "react"
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
-import { Tilt } from "react-tilt";
 import { useWindowSize } from 'react-use';
 import Confetti from 'react-confetti';
 import Lottie from "lottie-react";
@@ -97,33 +96,6 @@ const Prize = () => {
     triggerOnce: false,
   });
   
-  const prizes = [
-    {
-      position: "1st",
-      prize: "₹50,000",
-      benefits: ["Cash Prize", "Internship Opportunities", "Industry Mentorship", "Startup Support"],
-      gradient: "from-yellow-400 via-yellow-500 to-orange-500",
-      scale: 1.1,
-      trophy: "🏆",
-    },
-    {
-      position: "2nd",
-      prize: "₹30,000",
-      benefits: ["Cash Prize", "Industry Recognition", "Networking Events"],
-      gradient: "from-gray-300 via-gray-400 to-gray-500",
-      scale: 1,
-      trophy: "🥈",
-    },
-    {
-      position: "3rd",
-      prize: "₹20,000",
-      benefits: ["Cash Prize", "Certificate of Excellence"],
-      gradient: "from-amber-700 via-amber-800 to-amber-900",
-      scale: 0.95,
-      trophy: "🥉",
-    },
-  ];
-  
   return (
     <section ref={ref} className="relative min-h-screen bg-[#030014] py-20 px-8">
       {showConfetti && <Confetti width={width} height={height} recycle={false} />}
@@ -154,14 +126,14 @@ const Prize = () => {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
-          className="text-center mb-8" // Changed from mb-20 to mb-8
+          className="text-center mb-16"
         >
           <h2 className="text-6xl font-bold mb-6">
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 via-fuchsia-500 to-purple-600">
-              Prizes & Rewards
+              Prize Pool
             </span>
           </h2>
-          <div className="w-32 h-32 mx-auto"> {/* Reduced from w-40 h-40 */}
+          <div className="w-32 h-32 mx-auto">
             <Lottie 
               animationData={trophyAnimation} 
               loop={true}
@@ -169,52 +141,73 @@ const Prize = () => {
             />
           </div>
         </motion.div>
-  
-        <div className="grid md:grid-cols-3 gap-8 items-center">
-          {prizes.map((prize, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, y: 50 }}
-              animate={inView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.6, delay: index * 0.2 }}
-            >
-              <Tilt
-                options={{
-                  max: 25,
-                  scale: prize.scale,
-                  speed: 450,
-                }}
-                className="relative group"
-              >
-                <div className={`absolute -inset-0.5 bg-gradient-to-r ${prize.gradient} rounded-lg blur opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200`} />
-                <div className="relative p-8 bg-black/40 backdrop-blur-sm rounded-lg border border-white/10">
-                  <div className="text-6xl mb-6">{prize.trophy}</div>
-                  <h3 className={`text-4xl font-bold bg-gradient-to-r ${prize.gradient} bg-clip-text text-transparent mb-4`}>
-                    {prize.position}
-                  </h3>
-                  <div className="text-3xl font-bold text-white mb-6">{prize.prize}</div>
-                  <ul className="space-y-3">
-                    {prize.benefits.map((benefit, idx) => (
-                      <li key={idx} className="flex items-center text-gray-300">
-                        <span className="mr-2">✨</span>
-                        {benefit}
+
+        {/* Single Prize Card */}
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          className="max-w-3xl mx-auto"
+        >
+          <div className="relative group">
+            <div className="absolute -inset-0.5 bg-gradient-to-r from-purple-600 to-orange-600 rounded-lg blur opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-tilt"></div>
+            <div className="relative p-8 bg-black/40 backdrop-blur-sm rounded-lg border border-white/10">
+              <div className="text-center">
+                <div className="text-7xl mb-6">🏆</div>
+                <h3 className="text-6xl font-bold bg-gradient-to-r from-yellow-400 via-orange-500 to-purple-600 bg-clip-text text-transparent mb-4">
+                  ₹1,00,000+
+                </h3>
+                <p className="text-2xl text-gray-300 mb-8">Total Prize Pool</p>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
+                  <div className="space-y-3">
+                    <h4 className="text-xl font-semibold text-purple-400">Prizes Include</h4>
+                    <ul className="space-y-2">
+                      <li className="flex items-center text-gray-300">
+                        <span className="mr-2">💰</span>
+                        Cash Prizes
                       </li>
-                    ))}
-                  </ul>
+                      <li className="flex items-center text-gray-300">
+                        <span className="mr-2">💼</span>
+                        Internship Opportunities
+                      </li>
+                      <li className="flex items-center text-gray-300">
+                        <span className="mr-2">🚀</span>
+                        Startup Support
+                      </li>
+                    </ul>
+                  </div>
+                  
+                  <div className="space-y-3">
+                    <h4 className="text-xl font-semibold text-purple-400">Additional Benefits</h4>
+                    <ul className="space-y-2">
+                      <li className="flex items-center text-gray-300">
+                        <span className="mr-2">🎯</span>
+                        Industry Mentorship
+                      </li>
+                      <li className="flex items-center text-gray-300">
+                        <span className="mr-2">🤝</span>
+                        Networking Events
+                      </li>
+                      <li className="flex items-center text-gray-300">
+                        <span className="mr-2">📜</span>
+                        Certificates of Excellence
+                      </li>
+                    </ul>
+                  </div>
                 </div>
-              </Tilt>
-            </motion.div>
-          ))}
-        </div>
-  
+              </div>
+            </div>
+          </div>
+        </motion.div>
+
         <motion.div
           initial={{ opacity: 0 }}
           animate={inView ? { opacity: 1 } : {}}
           transition={{ delay: 1 }}
-          className="text-center mt-16 text-gray-400"
+          className="text-center mt-12 text-gray-400"
         >
-          <p>Additional prizes and special mentions worth ₹20,000</p>
-          <p className="mt-2">* Terms and conditions apply</p>
+          <p className="text-lg">Special recognition and additional prizes for innovative solutions</p>
+          <p className="mt-2 text-sm">* Terms and conditions apply</p>
         </motion.div>
       </div>
     </section>

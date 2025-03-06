@@ -6,9 +6,9 @@ import { FaInstagram, FaTwitter, FaLinkedin, FaYoutube } from 'react-icons/fa';
 import { PiThreadsLogoFill } from 'react-icons/pi';
 
 const contacts = [
-  { title: "Technical Queries", phone: "+123 456 7890", email: "techsupport@hackathon.com" },
-  { title: "Other Queries", phone: "+987 654 3210", email: "info@hackathon.com" },
-  { title: "Address", phone: "Terna Engineering College, Nerul, Navi Mumbai, India", email: "info@hackathon.com" },
+  { title: "Technical Queries", name: "Sarthak Pawar", position: "Secretary", phone: "+91 9870308347", email: "avalon@ternaengg.ac.in" },
+  { title: "Other Queries", name: "Afraz Khan", position: "Deputy Secretary", phone: "+91 9987866977", email: "avalon@ternaengg.ac.in" },
+  { title: "Address", phone: "Terna Engineering College, Nerul, Navi Mumbai, India", email: "avalon@ternaengg.ac.in" },
 ];
 
 const Contact = () => {
@@ -153,6 +153,12 @@ const Contact = () => {
               className="p-6 rounded-xl bg-white/5 backdrop-blur-sm border border-purple-500/20 hover:border-purple-500/40 transition-all duration-300"
             >
               <h3 className="text-xl font-semibold text-white mb-4">{contact.title}</h3>
+              {contact.name && (
+                <>
+                  <p className="text-gray-200 font-medium mb-1">{contact.name}</p>
+                  <p className="text-purple-400 text-sm mb-2">{contact.position}</p>
+                </>
+              )}
               <p className="text-gray-400">{contact.phone}</p>
               <p className="text-gray-400">{contact.email}</p>
             </motion.div>
@@ -198,6 +204,18 @@ const Contact = () => {
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
           ></iframe>
+
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={inView ? { opacity: 1 } : {}}
+            transition={{ delay: 0.4 }}
+            className="mt-12 text-center text-sm text-gray-500"
+          >
+            <p>© 2025 Avalon. All rights reserved.</p>
+            <p className="mt-2">
+              Designed with ❤️ by Team Avalon
+            </p>
+          </motion.div>
         </div>
       </div>
     </motion.section>
