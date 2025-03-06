@@ -4,7 +4,7 @@ import axios from 'axios';
 import Swal from 'sweetalert2';
 import { BsPlus, BsTrash } from 'react-icons/bs';
 import { useLocation, useSearchParams } from 'react-router-dom';
-
+import QR from "../../public/QR.jpg"
 const Form = () => {
   const [step, setStep] = useState(1);
   const [teamMembers, setTeamMembers] = useState([
@@ -312,12 +312,12 @@ const Form = () => {
             <div className="space-y-6">
               <div className="text-center">
                 <img
-                  src="/path-to-your-qr-code.png"
+                  src= {QR}
                   alt="Payment QR"
                   className="mx-auto w-64 h-64"
                 />
                 <p className="mt-4 text-gray-400">
-                  Scan QR code to pay or use UPI ID: your-upi@bank
+                  Scan QR code to pay or use UPI ID: sarthakpawar275@oksbi
                 </p>
               </div>
 
