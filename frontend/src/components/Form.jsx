@@ -26,8 +26,8 @@ const Form = () => {
 
   const competitions = [
     { value: 'hackathon', label: 'Hackathon', maxTeam: 4 },
-    { value: 'project', label: 'Project Competition', maxTeam: 3 },
-    { value: 'robotics', label: 'Robotics Competition', maxTeam: 4 }
+    { value: 'project', label: 'Cube Casting', maxTeam: 3 },
+    { value: 'robotics', label: 'Robo Race', maxTeam: 4 }
   ];
 
   const addTeamMember = () => {
