@@ -96,44 +96,26 @@ const ParticipantManager = () => {
           break;
 
         case 'sendEmail':
-          // Show input form for email
-          const { value: emailDetails } = await Swal.fire({
-            title: 'Send Email',
-            html:
-              '<input id="swal-subject" class="swal2-input" placeholder="Email Subject">' +
-              '<textarea id="swal-message" class="swal2-textarea" placeholder="Email Message"></textarea>',
-            focusConfirm: false,
-            showCancelButton: true,
-            preConfirm: () => {
-              return {
-                subject: document.getElementById('swal-subject').value,
-                message: document.getElementById('swal-message').value
-              }
+          // Show loading while sending email
+          Swal.fire({
+            title: 'Sending Email...',
+            text: 'Please wait',
+            allowOutsideClick: false,
+            didOpen: () => {
+              Swal.showLoading();
             }
           });
 
-          if (emailDetails) {
-            // Show loading while sending email
-            Swal.fire({
-              title: 'Sending Email...',
-              text: 'Please wait',
-              allowOutsideClick: false,
-              didOpen: () => {
-                Swal.showLoading();
-              }
-            });
-
-            await axios.post(`${import.meta.env.VITE_BASE_URL}/api/v1/admin/send-email/${participantId}`, emailDetails);
-            
-            // Show success message
-            await Swal.fire({
-              icon: 'success',
-              title: 'Email Sent!',
-              text: 'Email has been sent successfully.',
-              showConfirmButton: true,
-              timer: 2000
-            });
-          }
+          await axios.post(`${import.meta.env.VITE_BASE_URL}/api/v1/admin/send-email/${participantId}`);
+          
+          // Show success message
+          await Swal.fire({
+            icon: 'success',
+            title: 'Email Sent!',
+            text: 'Email has been sent successfully.',
+            showConfirmButton: true,
+            timer: 2000
+          });
           break;
 
         case 'markForReview':
