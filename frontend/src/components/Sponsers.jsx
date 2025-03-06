@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 
 const sponsors = [
-  "../../public/idp.jpeg",
+  "https://res.cloudinary.com/dgf0khv5f/image/upload/v1741272304/idp_m5k0lk.jpg",
   "https://icoanalytics.org/wp-content/uploads/2023/11/Devfolio.png",
   "https://devfolio.co/blog/content/images/2021/04/ethindia-1.jpg",
   "https://logowik.com/content/uploads/images/replit4759.logowik.com.webp",
