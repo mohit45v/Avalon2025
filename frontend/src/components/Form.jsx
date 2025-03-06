@@ -312,12 +312,12 @@ const Form = () => {
             <div className="space-y-6">
               <div className="text-center">
                 <img
-                  src={QR}
+                  src= {QR}
                   alt="Payment QR"
                   className="mx-auto w-64 h-64"
                 />
                 <p className="mt-4 text-gray-400">
-                  Scan QR code to pay or use UPI ID: your-upi@bank
+                  Scan QR code to pay or use UPI ID: sarthakpawar275@oksbi
                 </p>
               </div>
 
