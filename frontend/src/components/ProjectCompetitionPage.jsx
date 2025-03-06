@@ -1,308 +1,228 @@
 import React from 'react';
-import { BsLightbulb, BsMegaphone, BsGraphUp, BsTrophy } from 'react-icons/bs';
+import { BsTools, BsLightbulb, BsTrophy, BsPeople } from 'react-icons/bs';
 import { motion } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
+import { Tilt } from 'react-tilt';
+import { useInView } from 'react-intersection-observer';
 
 const ProjectCompetitionPage = () => {
+    const navigate = useNavigate();
+    const { inView } = useInView();
+
+    React.useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
+    const handleRegister = () => {
+        // Store project competition data in localStorage
+        const projectData = {
+            name: "Cube Casting",
+            fee: "₹150",
+            difficulty: "Advanced",
+            includes: [
+                "Professional judging panel",
+                "Materials and equipment access",
+                "Technical guidance",
+                "Certificate of participation",
+                "Exciting prizes for winners"
+            ]
+        };
+        localStorage.setItem('selectedWorkshop', JSON.stringify(projectData));
+        navigate('/register');
+    };
+
+    // Add prizes array after existing constants
+    const prizes = [
+        {
+            position: "1st",
+            prize: "₹10,000",
+            benefits: ["Cash Prize", "Industry Recognition", "Technical Mentorship", "Project Support"],
+            gradient: "from-yellow-400 via-yellow-500 to-orange-500",
+            scale: 1.1,
+            trophy: "🏆"
+        },
+        {
+            position: "2nd",
+            prize: "₹7,000",
+            benefits: ["Cash Prize", "Technical Resources", "Recognition"],
+            gradient: "from-gray-300 via-gray-400 to-gray-500",
+            scale: 1,
+            trophy: "🥈"
+        },
+        {
+            position: "3rd",
+            prize: "₹3,000",
+            benefits: ["Cash Prize", "Certificate of Excellence"],
+            gradient: "from-amber-700 via-amber-800 to-amber-900",
+            scale: 0.95,
+            trophy: "🥉"
+        }
+    ];
+
     return (
-        <div className="container mx-auto px-4 py-8 max-w-5xl relative min-h-screen bg-[#030014]">
+        <div className="w-full min-h-screen bg-[#030014]">
             {/* Background Effects */}
             <div className="absolute inset-0">
                 <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-10" />
                 <div className="absolute inset-0 bg-gradient-to-b from-purple-900/20 via-transparent to-orange-900/20" />
             </div>
 
-            <header className="mb-12 text-center relative">
-                <h1 className="text-4xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-orange-400">InnoVenture: Project Competition</h1>
-                <p className="text-xl text-gray-400 max-w-3xl mx-auto">
-                    Showcase your innovative projects and entrepreneurial ideas in front of industry experts and potential investors.
-                </p>
-            </header>
-
-            {/* Hero section */}
-            <div className="relative p-8 mb-12 rounded-lg overflow-hidden">
-                <div className="absolute -inset-0.5 bg-gradient-to-r from-purple-600 to-orange-600 rounded-lg blur opacity-75"></div>
-                <div className="relative bg-black/40 backdrop-blur-sm rounded-lg p-8">
-                    <div className="flex flex-col md:flex-row items-center">
-                        <div className="md:w-2/3 mb-6 md:mb-0 md:pr-8">
-                            <h2 className="text-3xl font-bold mb-4 text-white">From Concept to Reality</h2>
-                            <p className="text-lg mb-6 text-gray-300">
-                                InnoVenture is your platform to transform innovative ideas into tangible projects.
-                                Present your solution to real-world problems and get feedback from industry veterans and peers.
-                            </p>
-                            <div className="flex flex-wrap gap-4">
-                                <motion.button
-                                    whileHover={{ scale: 1.05 }}
-                                    whileTap={{ scale: 0.95 }}
-                                    className="bg-gradient-to-r from-purple-600 to-orange-600 px-6 py-2 rounded-full text-white font-bold hover:opacity-90 transition">
-                                    Submit Your Project
-                                </motion.button>
-                                <motion.button
-                                    whileHover={{ scale: 1.05 }}
-                                    whileTap={{ scale: 0.95 }}
-                                    className="bg-white/10 backdrop-blur-sm border border-white/20 px-6 py-2 rounded-full text-white font-bold hover:bg-white/20 transition">
-                                    View Past Winners
-                                </motion.button>
-                            </div>
-                        </div>
-                        <div className="md:w-1/3">
-                            <div className="relative rounded-lg overflow-hidden">
-                                <div className="absolute inset-0 bg-gradient-to-r from-purple-500/20 to-orange-500/20 mix-blend-overlay"></div>
-                                <img
-                                    src="/project-hero.jpg"
-                                    alt="Project competition illustration"
-                                    className="w-full h-full object-cover rounded-lg"
-                                />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            {/* Timeline section */}
-            <section className="mb-24 mx-4 sm:mx-6 lg:mx-8">
-                <h2 className="text-3xl font-bold mb-8 text-center">Competition Timeline</h2>
-                <div className="relative">
-                    {/* Timeline line */}
-                    <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-green-200"></div>
-
-                    {/* Timeline items */}
-                    <div className="flex flex-col space-y-8">
-                        {/* Submissions */}
-                        <div className="flex flex-col md:flex-row md:items-center">
-                            <div className="md:w-1/2 md:pr-8 md:text-right order-2 md:order-1">
-                                <h3 className="text-xl font-bold text-gray-800">Project Submissions</h3>
-                                <p className="text-gray-600">Submit your project abstract and initial proposal</p>
-                            </div>
-                            <div className="md:w-12 relative flex justify-center order-1 md:order-2">
-                                <div className="h-12 w-12 bg-green-500 rounded-full flex items-center justify-center text-white text-xl z-10">
-                                    1
-                                </div>
-                            </div>
-                            <div className="md:w-1/2 md:pl-8 order-3">
-                                <div className="bg-green-50 p-4 rounded-lg shadow">
-                                    <p className="font-bold">February 1 - March 10, 2025</p>
-                                    <p>Early submissions get detailed feedback from mentors</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* Shortlisting */}
-                        <div className="flex flex-col md:flex-row md:items-center">
-                            <div className="md:w-1/2 md:pr-8 md:text-right order-2 md:order-3">
-                                <div className="bg-green-50 p-4 rounded-lg shadow">
-                                    <p className="font-bold">March 15, 2025</p>
-                                    <p>Announcement via email and website</p>
-                                </div>
-                            </div>
-                            <div className="md:w-12 relative flex justify-center order-1">
-                                <div className="h-12 w-12 bg-green-500 rounded-full flex items-center justify-center text-white text-xl z-10">
-                                    2
-                                </div>
-                            </div>
-                            <div className="md:w-1/2 md:pl-8 order-3 md:order-1">
-                                <h3 className="text-xl font-bold text-gray-800">Shortlisting</h3>
-                                <p className="text-gray-600">Top projects selected for the final round</p>
-                            </div>
-                        </div>
-
-                        {/* Mentorship */}
-                        <div className="flex flex-col md:flex-row md:items-center">
-                            <div className="md:w-1/2 md:pr-8 md:text-right order-2 md:order-1">
-                                <h3 className="text-xl font-bold text-gray-800">Mentorship Phase</h3>
-                                <p className="text-gray-600">Refine your project with industry mentors</p>
-                            </div>
-                            <div className="md:w-12 relative flex justify-center order-1 md:order-2">
-                                <div className="h-12 w-12 bg-green-500 rounded-full flex items-center justify-center text-white text-xl z-10">
-                                    3
-                                </div>
-                            </div>
-                            <div className="md:w-1/2 md:pl-8 order-3">
-                                <div className="bg-green-50 p-4 rounded-lg shadow">
-                                    <p className="font-bold">March 20 - April 15, 2025</p>
-                                    <p>Weekly check-ins and guidance sessions</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* Final Presentation */}
-                        <div className="flex flex-col md:flex-row md:items-center">
-                            <div className="md:w-1/2 md:pr-8 md:text-right order-2 md:order-3">
-                                <div className="bg-green-50 p-4 rounded-lg shadow">
-                                    <p className="font-bold">April 25, 2025</p>
-                                    <p>Live presentation at the InnoVenture Summit</p>
-                                </div>
-                            </div>
-                            <div className="md:w-12 relative flex justify-center order-1">
-                                <div className="h-12 w-12 bg-green-500 rounded-full flex items-center justify-center text-white text-xl z-10">
-                                    4
-                                </div>
-                            </div>
-                            <div className="md:w-1/2 md:pl-8 order-3 md:order-1">
-                                <h3 className="text-xl font-bold text-gray-800">Final Presentations</h3>
-                                <p className="text-gray-600">Present your project to judges and audience</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            {/* Key Features section */}
-            <section className="mb-24 mx-4 sm:mx-6 lg:mx-8">
-                <h2 className="text-3xl font-bold mb-8 text-center">Why Participate?</h2>
-                <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-                    <div className="glass-effect p-6 rounded-lg hover:shadow-lg transition group">
-                        <div className="text-purple-500 text-4xl mb-4 group-hover:text-orange-500 transition-colors">
-                            <BsLightbulb />
-                        </div>
-                        <h3 className="text-xl font-bold mb-2 text-white">Innovation Platform</h3>
-                        <p className="text-gray-400">Showcase your creative solutions and receive validation from experts in the field.</p>
-                    </div>
-                    <div className="glass-effect p-6 rounded-lg hover:shadow-lg transition group">
-                        <div className="text-purple-500 text-4xl mb-4 group-hover:text-orange-500 transition-colors">
-                            <BsMegaphone />
-                        </div>
-                        <h3 className="text-xl font-bold mb-2 text-white">Visibility</h3>
-                        <p className="text-gray-400">Get your project in front of industry leaders, investors, and potential collaborators.</p>
-                    </div>
-                    <div className="glass-effect p-6 rounded-lg hover:shadow-lg transition group">
-                        <div className="text-purple-500 text-4xl mb-4 group-hover:text-orange-500 transition-colors">
-                            <BsGraphUp />
-                        </div>
-                        <h3 className="text-xl font-bold mb-2 text-white">Growth Opportunity</h3>
-                        <p className="text-gray-400">Access mentorship, resources, and networking opportunities to scale your project.</p>
-                    </div>
-                    <div className="glass-effect p-6 rounded-lg hover:shadow-lg transition group">
-                        <div className="text-purple-500 text-4xl mb-4 group-hover:text-orange-500 transition-colors">
-                            <BsTrophy />
-                        </div>
-                        <h3 className="text-xl font-bold mb-2 text-white">Valuable Prizes</h3>
-                        <p className="text-gray-400">Win cash prizes, incubation support, and investment opportunities worth $50,000.</p>
-                    </div>
-                </div>
-            </section>
-            {/* Past Winners section */}
-            <section className="mb-24 mx-4 sm:mx-6 lg:mx-8">
-                <h2 className="text-3xl font-bold mb-8 text-center">Past Winners</h2>
-                <div className="grid md:grid-cols-3 gap-8">
-                    <div className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition">
-                        <img src="/api/placeholder/400/250" alt="Winner 2024" className="w-full h-48 object-cover" />
-                        <div className="p-6">
-                            <div className="flex justify-between items-center mb-2">
-                                <h3 className="text-xl font-bold">EcoSmart</h3>
-                                <span className="bg-green-100 text-green-800 text-xs px-3 py-1 rounded-full">2024 Winner</span>
-                            </div>
-                            <p className="text-gray-600 mb-4">An AI-powered waste management solution that optimizes recycling processes.</p>
-                            <button className="text-green-600 font-semibold hover:text-green-800 transition">View Project →</button>
-                        </div>
-                    </div>
-                    <div className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition">
-                        <img src="/api/placeholder/400/250" alt="Winner 2023" className="w-full h-48 object-cover" />
-                        <div className="p-6">
-                            <div className="flex justify-between items-center mb-2">
-                                <h3 className="text-xl font-bold">MediConnect</h3>
-                                <span className="bg-green-100 text-green-800 text-xs px-3 py-1 rounded-full">2023 Winner</span>
-                            </div>
-                            <p className="text-gray-600 mb-4">A telehealth platform connecting rural patients with specialized healthcare.</p>
-                            <button className="text-green-600 font-semibold hover:text-green-800 transition">View Project →</button>
-                        </div>
-                    </div>
-                    <div className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition">
-                        <img src="/api/placeholder/400/250" alt="Winner 2022" className="w-full h-48 object-cover" />
-                        <div className="p-6">
-                            <div className="flex justify-between items-center mb-2">
-                                <h3 className="text-xl font-bold">FinLiteracy</h3>
-                                <span className="bg-green-100 text-green-800 text-xs px-3 py-1 rounded-full">2022 Winner</span>
-                            </div>
-                            <p className="text-gray-600 mb-4">A gamified platform teaching financial literacy to underserved communities.</p>
-                            <button className="text-green-600 font-semibold hover:text-green-800 transition">View Project →</button>
-                        </div>
-                    </div>
-                </div>
-                <div className="text-center mt-8">
-                    <button className="bg-green-100 text-green-700 px-6 py-3 rounded-full font-bold hover:bg-green-200 transition">
-                        View All Past Winners
-                    </button>
-                </div>
-            </section>
-            {/* Judges section */}
-            <section className="mb-24 mx-4 sm:mx-6 lg:mx-8">
-                <h2 className="text-3xl font-bold mb-8 text-center">Meet Our Judges</h2>
-                <div className="grid md:grid-cols-4 gap-6">
-                    {[1, 2, 3, 4].map((judge) => (
-                        <div key={judge} className="bg-white p-6 rounded-lg shadow-md text-center">
-                            <div className="w-24 h-24 rounded-full mx-auto mb-4 overflow-hidden">
-                                <img
-                                    src={`/api/placeholder/100/100`}
-                                    alt={`Judge ${judge}`}
-                                    className="w-full h-full object-cover"
-                                />
-                            </div>
-                            <h3 className="text-xl font-bold mb-1">Judge Name</h3>
-                            <p className="text-green-600 mb-2">Position & Company</p>
-                            <p className="text-gray-600 text-sm">Brief description about the judge's expertise and background.</p>
-                        </div>
-                    ))}
-                </div>
-            </section>
-            {/* FAQ section */}
-            <section className="mb-24 mx-4 sm:mx-6 lg:mx-8">
-                <h2 className="text-3xl font-bold mb-8 text-center">Frequently Asked Questions</h2>
-                <div className="grid md:grid-cols-2 gap-6">
-                    <div className="bg-white p-6 rounded-lg shadow-md">
-                        <h3 className="text-xl font-bold mb-2 text-green-700">Who can participate?</h3>
-                        <p className="text-gray-600">Students, startups, and individuals with innovative project ideas can participate. Teams can have up to 4 members.</p>
-                    </div>
-                    <div className="bg-white p-6 rounded-lg shadow-md">
-                        <h3 className="text-xl font-bold mb-2 text-green-700">What types of projects are eligible?</h3>
-                        <p className="text-gray-600">Projects should address real-world problems in areas like sustainability, healthcare, education, or technology.</p>
-                    </div>
-                    <div className="bg-white p-6 rounded-lg shadow-md">
-                        <h3 className="text-xl font-bold mb-2 text-green-700">Is there an entry fee?</h3>
-                        <p className="text-gray-600">There is no entry fee. The competition is open to all eligible participants free of charge.</p>
-                    </div>
-                    <div className="bg-white p-6 rounded-lg shadow-md">
-                        <h3 className="text-xl font-bold mb-2 text-green-700">What support do participants receive?</h3>
-                        <p className="text-gray-600">Shortlisted teams receive mentorship, technical resources, and networking opportunities throughout the competition.</p>
-                    </div>
-                </div>
-                <div className="text-center mt-8">
-                    <button className="bg-green-100 text-green-700 px-6 py-3 rounded-full font-bold hover:bg-green-200 transition">
-                        View Full FAQ
-                    </button>
-                </div>
-            </section>
-            {/* CTA section */}
-            <section className="bg-gradient-to-r from-green-500 to-teal-500 rounded-lg p-8 mb-24 mx-4 sm:mx-6 lg:mx-8 text-white shadow-lg text-center">
-                <h2 className="text-3xl font-bold mb-4">Ready to Showcase Your Innovation?</h2>
-                <p className="text-lg mb-8 max-w-2xl mx-auto">
-                    Join InnoVenture 2025 and take your project to the next level. Registration is open until March 10, 2025.
-                </p>
-                <div className="flex flex-wrap justify-center gap-4">
-                    <button className="bg-white text-green-600 px-8 py-3 rounded-full font-bold hover:bg-green-50 transition">
-                        Register Now
-                    </button>
-                    <button className="bg-transparent border-2 border-white px-8 py-3 rounded-full font-bold hover:bg-white hover:text-green-600 transition">
-                        Download Guidelines
-                    </button>
-                </div>
-            </section>
-            {/* Footer */}
-            <footer className="relative text-center pt-8 glass-effect rounded-t-2xl border-t border-purple-500/20">
-                <div className="absolute inset-0 bg-gradient-to-b from-purple-900/20 via-transparent to-orange-900/20 rounded-t-2xl" />
-                <div className="relative z-10">
-                    <div className="flex justify-center space-x-6 mb-6">
-                        <a href="#" className="text-gray-400 hover:text-purple-500 transition">Twitter</a>
-                        <a href="#" className="text-gray-400 hover:text-purple-500 transition">LinkedIn</a>
-                        <a href="#" className="text-gray-400 hover:text-purple-500 transition">Instagram</a>
-                        <a href="#" className="text-gray-400 hover:text-purple-500 transition">Email</a>
-                    </div>
-                    <p className="mb-4 text-gray-400">
-                        <a href="#" className="hover:text-purple-500 transition">Privacy Policy</a> |
-                        <a href="#" className="hover:text-purple-500 transition"> Terms of Service</a> |
-                        <a href="#" className="hover:text-purple-500 transition"> Contact Us</a>
+            <div className="max-w-[2000px] mx-auto px-6 sm:px-8 lg:px-12 py-12 relative">
+                <header className="mb-12 text-center relative">
+                    <h1 className="text-4xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-orange-400">
+                        Cube Casting Challenge
+                    </h1>
+                    <p className="text-xl text-gray-400 max-w-3xl mx-auto">
+                        The ultimate test of precision and engineering mastery
                     </p>
-                    <p className="mb-6 text-gray-500">© 2025 InnoVenture. All rights reserved.</p>
+                </header>
+
+                {/* Hero section */}
+                <div className="relative p-8 mb-16 rounded-lg overflow-hidden mx-4 sm:mx-6 lg:mx-8">
+                    <div className="absolute -inset-0.5 bg-gradient-to-r from-purple-600 to-orange-600 rounded-lg blur opacity-75"></div>
+                    <div className="relative bg-black/40 backdrop-blur-sm rounded-lg p-8">
+                        <div className="flex flex-col md:flex-row items-center">
+                            <div className="md:w-2/3 mb-6 md:mb-0 md:pr-8">
+                                <h2 className="text-3xl font-bold mb-4 text-white">Master the Art of Precision</h2>
+                                <p className="text-lg mb-6 text-gray-300">
+                                    Design and fabricate intricate structures within strict constraints. Showcase your technical expertise and innovation in this thrilling competition that tests your engineering prowess.
+                                </p>
+                                <div className="flex flex-wrap gap-4">
+                                    <motion.button
+                                        whileHover={{ scale: 1.05 }}
+                                        whileTap={{ scale: 0.95 }}
+                                        onClick={handleRegister}
+                                        className="bg-gradient-to-r from-purple-600 to-orange-600 px-6 py-2 rounded-full text-white font-bold hover:opacity-90 transition"
+                                    >
+                                        Register Now - ₹150/team
+                                    </motion.button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </footer>
+
+                {/* Key Details Section */}
+                <section className="mb-24 mx-4 sm:mx-6 lg:mx-8">
+                    <h2 className="text-3xl font-bold mb-8 text-center bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-orange-400">
+                        Event Details
+                    </h2>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div className="glass-effect p-6 rounded-lg border border-purple-500/20 hover:border-purple-500/40 transition-all duration-300">
+                            <h3 className="text-xl font-bold text-gray-300 mb-2">Date & Time</h3>
+                            <p className="text-gray-400">March 17, 2025</p>
+                            <p className="text-gray-400">Full-day event</p>
+                        </div>
+
+                        <div className="glass-effect p-6 rounded-lg border border-purple-500/20 hover:border-purple-500/40 transition-all duration-300">
+                            <h3 className="text-xl font-bold text-gray-300 mb-2">Registration</h3>
+                            <p className="text-gray-400">₹150 per team</p>
+                            <p className="text-gray-400">1-3 members per team</p>
+                        </div>
+                    </div>
+                </section>
+
+                {/* Prize Section */}
+                <section className="mb-24 mx-4 sm:mx-6 lg:mx-8">
+                    <h2 className="text-3xl font-bold mb-8 text-center bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-orange-400">
+                        Prizes & Rewards
+                    </h2>
+                    <div className="grid md:grid-cols-3 gap-8 items-center">
+                        {prizes.map((prize, index) => (
+                            <motion.div
+                                key={index}
+                                initial={{ opacity: 0, y: 50 }}
+                                animate={inView ? { opacity: 1, y: 0 } : {}}
+                                transition={{ duration: 0.6, delay: index * 0.2 }}
+                            >
+                                <Tilt
+                                    options={{
+                                        max: 25,
+                                        scale: prize.scale,
+                                        speed: 450,
+                                    }}
+                                    className="relative group"
+                                >
+                                    <div className={`absolute -inset-0.5 bg-gradient-to-r ${prize.gradient} rounded-lg blur opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200`} />
+                                    <div className="relative p-8 bg-black/40 backdrop-blur-sm rounded-lg border border-white/10">
+                                        <div className="text-6xl mb-6">{prize.trophy}</div>
+                                        <h3 className={`text-4xl font-bold bg-gradient-to-r ${prize.gradient} bg-clip-text text-transparent mb-4`}>
+                                            {prize.position}
+                                        </h3>
+                                        <div className="text-3xl font-bold text-white mb-6">{prize.prize}</div>
+                                        <ul className="space-y-3">
+                                            {prize.benefits.map((benefit, idx) => (
+                                                <li key={idx} className="flex items-center text-gray-300">
+                                                    <span className="mr-2">✨</span>
+                                                    {benefit}
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                </Tilt>
+                            </motion.div>
+                        ))}
+                    </div>
+                </section>
+
+                {/* What to Expect Section */}
+                <section className="mb-24 mx-4 sm:mx-6 lg:mx-8">
+                    <h2 className="text-3xl font-bold mb-8 text-center bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-orange-400">
+                        What to Expect
+                    </h2>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <div className="glass-effect p-6 rounded-lg border border-purple-500/20 hover:border-purple-500/40 transition-all duration-300">
+                            <div className="text-4xl text-purple-500 mb-4">
+                                <BsTools />
+                            </div>
+                            <h3 className="text-xl text-gray-300 font-bold mb-2">Precision Engineering</h3>
+                            <p className="text-gray-400">Achieve the perfect balance of strength, accuracy, and durability in your cube.</p>
+                        </div>
+
+                        <div className="glass-effect p-6 rounded-lg border border-purple-500/20 hover:border-purple-500/40 transition-all duration-300">
+                            <div className="text-4xl text-purple-500 mb-4">
+                                <BsLightbulb />
+                            </div>
+                            <h3 className="text-xl text-gray-300 font-bold mb-2">Innovation</h3>
+                            <p className="text-gray-400">Showcase your creative problem-solving abilities under pressure.</p>
+                        </div>
+
+                        <div className="glass-effect p-6 rounded-lg border border-purple-500/20 hover:border-purple-500/40 transition-all duration-300">
+                            <div className="text-4xl text-purple-500 mb-4">
+                                <BsPeople />
+                            </div>
+                            <h3 className="text-xl text-gray-300 font-bold mb-2">Expert Guidance</h3>
+                            <p className="text-gray-400">Get feedback and insights from industry professionals.</p>
+                        </div>
+
+                        <div className="glass-effect p-6 rounded-lg border border-purple-500/20 hover:border-purple-500/40 transition-all duration-300">
+                            <div className="text-4xl text-purple-500 mb-4">
+                                <BsTrophy />
+                            </div>
+                            <h3 className="text-xl text-gray-300 font-bold mb-2">Recognition</h3>
+                            <p className="text-gray-400">Win exciting prizes and gain industry recognition.</p>
+                        </div>
+                    </div>
+                </section>
+
+                {/* Call to Action */}
+                <section className="text-center pb-24 mx-4 sm:mx-6 lg:mx-8">
+                    <h2 className="text-3xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-orange-400">
+                        Ready to Test Your Skills?
+                    </h2>
+                    <p className="text-xl text-gray-300 mb-6 max-w-3xl mx-auto">
+                        Join us for an exciting day of engineering excellence and innovation.
+                    </p>
+                    <motion.button 
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        onClick={handleRegister}
+                        className="bg-gradient-to-r from-purple-600 to-orange-600 text-white px-8 py-3 rounded-full text-lg font-bold hover:opacity-90 transition"
+                    >
+                        Register Now - ₹150 per team
+                    </motion.button>
+                </section>
+            </div>
         </div>
     );
 };

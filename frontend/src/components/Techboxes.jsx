@@ -1,145 +1,62 @@
 import React from "react";
 import { HeadsetIcon as VrHeadset, Cpu, Gamepad2, ShieldCheck } from "lucide-react";
-import { useNavigate } from 'react-router-dom';
-import Swal from 'sweetalert2';
 
 const techAreas = [
   {
     title: "AR/VR",
     subtitle: "Reality Redefined",
-    description: "Push the boundaries between real and virtual. Create immersive experiences that transform how we perceive and interact with digital worlds.",
+    description: "Push the boundaries between real and virtual. Create immersive experiences that transform how we perceive and interact with digital worlds. Learn about spatial computing, 3D modeling, and interactive design principles.",
     icon: VrHeadset,
     color: "from-purple-600 to-fuchsia-600",
-    entryFee: "₹499",
-    participants: "100+",
-    difficulty: "Advanced",
-    includes: [
-      "Full-day workshop",
-      "Hands-on experience",
-      "Certificate of completion",
-      "Project guidance"
+    keyPoints: [
+      "Immersive Technologies",
+      "3D Visualization",
+      "Interactive Design",
+      "Spatial Computing"
     ]
   },
   {
     title: "AI-ML",
     subtitle: "Intelligence Evolved",
-    description: "Forge the future of artificial intelligence. Build systems that think, learn, and revolutionize how machines understand our world.",
+    description: "Forge the future of artificial intelligence. Build systems that think, learn, and revolutionize how machines understand our world. Explore neural networks, deep learning, and data science.",
     icon: Cpu,
     color: "from-orange-600 to-red-600",
-    entryFee: "₹499",
-    participants: "150+",
-    difficulty: "Expert",
-    includes: [
-      "Full-day workshop",
-      "Dataset access",
-      "Certificate of completion",
-      "Project guidance"
+    keyPoints: [
+      "Machine Learning",
+      "Neural Networks",
+      "Data Science",
+      "Predictive Analytics"
     ]
   },
   {
     title: "Game Dev",
     subtitle: "Worlds Unleashed",
-    description: "Craft universes of unlimited potential. Design games that challenge, inspire, and redefine interactive entertainment.",
+    description: "Craft universes of unlimited potential. Design games that challenge, inspire, and redefine interactive entertainment. Learn game mechanics, level design, and interactive storytelling.",
     icon: Gamepad2,
     color: "from-blue-600 to-cyan-600",
-    entryFee: "₹499",
-    participants: "120+",
-    difficulty: "Intermediate",
-    includes: [
-      "Full-day workshop",
-      "Game engine basics",
-      "Certificate of completion",
-      "Project guidance"
+    keyPoints: [
+      "Game Mechanics",
+      "Level Design",
+      "Interactive Storytelling",
+      "Game Physics"
     ]
   },
   {
     title: "Cyber Security",
     subtitle: "Digital Fortress",
-    description: "Master the art of digital defense. Protect the future from emerging threats in an increasingly connected world.",
+    description: "Master the art of digital defense. Protect the future from emerging threats in an increasingly connected world. Explore network security, ethical hacking, and threat analysis.",
     icon: ShieldCheck,
     color: "from-green-600 to-emerald-600",
-    entryFee: "₹499",
-    participants: "80+",
-    difficulty: "Expert",
-    includes: [
-      "Full-day workshop",
-      "Security tools access",
-      "Certificate of completion",
-      "Project guidance"
+    keyPoints: [
+      "Network Security",
+      "Ethical Hacking",
+      "Threat Analysis",
+      "Security Protocols"
     ]
   }
 ];
 
 export default function TechBoxes() {
-  const navigate = useNavigate();
-
-  const handleRegister = (tech) => {
-    Swal.fire({
-      title: `${tech.title} Workshop Registration`,
-      html: `
-        <div class="space-y-6 text-left p-4">
-          <div class="mb-6 bg-purple-900/20 p-4 rounded-lg">
-            <p class="text-xl font-bold text-purple-400 mb-4">Workshop Details</p>
-            <div class="space-y-2">
-              <p class="text-2xl font-bold text-gradient">${tech.entryFee}</p>
-              <p class="flex items-center gap-2">
-                <span class="text-purple-400">👥</span> ${tech.participants} Expected Participants
-              </p>
-              <p class="flex items-center gap-2">
-                <span class="text-purple-400">📊</span> ${tech.difficulty} Level
-              </p>
-            </div>
-          </div>
-          
-          <div class="bg-purple-900/20 p-4 rounded-lg">
-            <p class="text-xl font-bold text-purple-400 mb-4">What's Included</p>
-            <ul class="space-y-2">
-              ${tech.includes.map(item => `
-                <li class="flex items-center gap-2">
-                  <span class="text-purple-400">✓</span>
-                  <span>${item}</span>
-                </li>
-              `).join('')}
-            </ul>
-          </div>
-
-          <div class="bg-purple-900/20 p-4 rounded-lg">
-            <p class="text-xl font-bold text-purple-400 mb-4">Description</p>
-            <p class="leading-relaxed">${tech.description}</p>
-          </div>
-        </div>
-      `,
-      showCancelButton: true,
-      confirmButtonText: 'Register Now',
-      cancelButtonText: 'Cancel',
-      customClass: {
-        container: 'tech-modal',
-        popup: 'bg-gray-900 text-white border border-purple-500/20 rounded-2xl',
-        title: 'text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-orange-400',
-        htmlContainer: 'text-gray-300',
-        confirmButton: 'bg-gradient-to-r from-purple-600 to-orange-600 text-white px-6 py-3 rounded-lg font-bold transform transition hover:scale-105',
-        cancelButton: 'bg-gray-800 text-gray-300 px-6 py-3 rounded-lg font-bold hover:bg-gray-700'
-      },
-      showClass: {
-        popup: 'animate__animated animate__fadeInUp animate__faster'
-      },
-      hideClass: {
-        popup: 'animate__animated animate__fadeOutDown animate__faster'
-      }
-    }).then((result) => {
-      if (result.isConfirmed) {
-        navigate('/register', { 
-          state: { 
-            workshop: tech.title,
-            fee: tech.entryFee,
-            includes: tech.includes,
-            difficulty: tech.difficulty
-          }
-        });
-      }
-    });
-  };
-
   return (
     <section className="min-h-screen bg-[#030014] py-24 relative overflow-hidden">
       {/* Animated background gradients */}
@@ -172,17 +89,11 @@ export default function TechBoxes() {
                             opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
 
               <div className="relative z-10">
-                <div className="flex items-start justify-between mb-6">
+                <div className="flex items-start mb-6">
                   <div className={`p-4 rounded-xl bg-gradient-to-r ${tech.color} transform group-hover:scale-110 
                                  transition-transform duration-500 shadow-lg`}>
                     <tech.icon className="w-8 h-8 text-white" />
                   </div>
-                  <span className={`text-sm font-semibold px-4 py-1 rounded-full bg-white/10 backdrop-blur-sm
-                    ${tech.difficulty === 'Expert' ? 'text-red-400' : 
-                      tech.difficulty === 'Advanced' ? 'text-orange-400' : 'text-green-400'}
-                    transform group-hover:-translate-y-1 transition-transform duration-500`}>
-                    {tech.difficulty}
-                  </span>
                 </div>
 
                 <h3 className="text-3xl font-bold text-white mb-2 group-hover:text-transparent 
@@ -195,64 +106,21 @@ export default function TechBoxes() {
                   {tech.description}
                 </p>
 
-                <div className="flex items-center justify-between mb-6">
-                  <div className="transform group-hover:-translate-y-1 transition-transform duration-500">
-                    <p className="text-sm text-gray-400">Entry Fee</p>
-                    <p className="text-2xl font-bold text-white group-hover:text-purple-400 transition-colors duration-500">
-                      {tech.entryFee}
-                    </p>
-                  </div>
-                  <div className="text-right transform group-hover:-translate-y-1 transition-transform duration-500">
-                    <p className="text-sm text-gray-400">Participants</p>
-                    <p className="text-xl text-white font-medium group-hover:text-orange-400 transition-colors duration-500">
-                      {tech.participants}
-                    </p>
-                  </div>
+                <div className="space-y-2">
+                  {tech.keyPoints.map((point, idx) => (
+                    <div key={idx} className="flex items-center text-gray-300">
+                      <span className="mr-2 text-purple-400">•</span>
+                      {point}
+                    </div>
+                  ))}
                 </div>
-
-                <button
-                  onClick={() => handleRegister(tech)}
-                  className="w-full py-3 px-6 rounded-lg bg-gradient-to-r from-purple-600 to-orange-600 
-                           text-white font-semibold transform transition-all duration-500
-                           hover:scale-105 hover:shadow-lg hover:shadow-purple-500/25
-                           active:scale-95 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-50"
-                >
-                  Register Now
-                </button>
               </div>
             </div>
           ))}
         </div>
       </div>
 
-      <style jsx global>{`
-        .tech-modal .swal2-popup {
-          background: rgba(26, 26, 46, 0.95);
-          backdrop-filter: blur(10px);
-          border: 1px solid rgba(139, 92, 246, 0.2);
-          border-radius: 1rem;
-        }
-        .tech-modal .swal2-title {
-          color: #a78bfa;
-        }
-        .tech-modal .swal2-html-container {
-          color: #e5e7eb;
-        }
-        .tech-modal .swal2-confirm {
-          background: linear-gradient(to right, #9333ea, #ea580c) !important;
-          transition: all 0.3s ease;
-        }
-        .tech-modal .swal2-confirm:hover {
-          transform: scale(1.05);
-          box-shadow: 0 0 20px rgba(147, 51, 234, 0.3);
-        }
-        .tech-modal .swal2-cancel {
-          background: #1f2937 !important;
-          transition: all 0.3s ease;
-        }
-        .tech-modal .swal2-cancel:hover {
-          background: #374151 !important;
-        }
+      <style jsx>{`
         @keyframes gradient {
           0% { background-position: 0% 50%; }
           50% { background-position: 100% 50%; }

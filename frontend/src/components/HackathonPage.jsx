@@ -2,12 +2,88 @@ import React from 'react';
 import { BsCode, BsLightbulb, BsTrophy, BsPeople } from 'react-icons/bs';
 import { motion } from 'framer-motion';
 import Contact from './Contact';
+import { useNavigate } from 'react-router-dom';
+import { Tilt } from 'react-tilt';
+import { useInView } from 'react-intersection-observer';
 
 const HackathonPage = () => {
+    const navigate = useNavigate();
+    const { ref, inView } = useInView();
+
     // Add useEffect to handle scroll on component mount
     React.useEffect(() => {
         window.scrollTo(0, 0);
     }, []);
+
+    const domains = [
+        {
+            title: "App/Web Development",
+            icon: BsCode,
+            description: "Create innovative web applications and mobile solutions using cutting-edge technologies."
+        },
+        {
+            title: "AI/ML",
+            icon: BsLightbulb,
+            description: "Develop intelligent systems and machine learning models to solve complex problems."
+        },
+        {
+            title: "WEB3",
+            icon: BsPeople,
+            description: "Build decentralized applications and explore blockchain technologies."
+        },
+        {
+            title: "AR/VR Development",
+            icon: BsTrophy,
+            description: "Create immersive experiences using augmented and virtual reality technologies."
+        }
+    ];
+
+    // Add prizes array after existing domains array
+    const prizes = [
+        {
+            position: "1st",
+            prize: "₹25,000",
+            benefits: ["Cash Prize", "Internship Opportunities", "Industry Mentorship", "Startup Support"],
+            gradient: "from-yellow-400 via-yellow-500 to-orange-500",
+            scale: 1.1,
+            trophy: "🏆"
+        },
+        {
+            position: "2nd",
+            prize: "₹15,000",
+            benefits: ["Cash Prize", "Industry Recognition", "Networking Events"],
+            gradient: "from-gray-300 via-gray-400 to-gray-500",
+            scale: 1,
+            trophy: "🥈"
+        },
+        {
+            position: "3rd",
+            prize: "₹10,000",
+            benefits: ["Cash Prize", "Certificate of Excellence"],
+            gradient: "from-amber-700 via-amber-800 to-amber-900",
+            scale: 0.95,
+            trophy: "🥉"
+        }
+    ];
+
+    // Add this function to handle registration
+    const handleRegister = () => {
+        // Store hackathon data in localStorage
+        const hackathonData = {
+            name: "Hackathon",
+            fee: "₹800",
+            difficulty: "Advanced",
+            includes: [
+                "24-hour coding challenge",
+                "Expert mentorship",
+                "Meals and refreshments",
+                "Certificate of participation",
+                "Exciting prizes for winners"
+            ]
+        };
+        localStorage.setItem('selectedWorkshop', JSON.stringify(hackathonData));
+        navigate('/register'); // Navigate to registration form
+    };
 
     return (
         <div className="w-full min-h-screen bg-[#030014]">
@@ -18,9 +94,11 @@ const HackathonPage = () => {
             </div>
             <div className="max-w-[2000px] mx-auto px-6 sm:px-8 lg:px-12 py-12 relative">
                 <header className="mb-12 text-center relative">
-                    <h1 className="text-4xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-orange-400">CodeCraft Hackathon 2025</h1>
+                    <h1 className="text-4xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-orange-400">
+                        INNOVATE 3.0
+                    </h1>
                     <p className="text-xl text-gray-400 max-w-3xl mx-auto">
-                        48 hours of coding, innovation, and problem-solving to create cutting-edge solutions for real-world challenges.
+                        24 hours of innovation, coding, and problem-solving
                     </p>
                 </header>
             </div>
@@ -30,23 +108,18 @@ const HackathonPage = () => {
                 <div className="relative bg-black/40 backdrop-blur-sm rounded-lg p-8">
                     <div className="flex flex-col md:flex-row items-center">
                         <div className="md:w-2/3 mb-6 md:mb-0 md:pr-8">
-                            <h2 className="text-3xl font-bold mb-4 text-white">Are you ready to hack the future?</h2>
+                            <h2 className="text-3xl font-bold mb-4 text-white">Ready to Code the Future?</h2>
                             <p className="text-lg mb-6 text-gray-300">
-                                Join the largest student-run hackathon on campus and showcase your coding and problem-solving skills.
-                                Work in teams, get mentored by industry experts, and compete for exciting prizes!
+                                Dive into a whirlwind of creativity, problem-solving, and innovation at Avalon's flagship 24-hour hackathon! Bring your coding skills, ideas – it's going to be an adrenaline-fueled journey into the world of technology.
                             </p>
                             <div className="flex flex-wrap gap-4">
                                 <motion.button
                                     whileHover={{ scale: 1.05 }}
                                     whileTap={{ scale: 0.95 }}
-                                    className="bg-gradient-to-r from-purple-600 to-orange-600 px-6 py-2 rounded-full text-white font-bold hover:opacity-90 transition">
-                                    Register Now
-                                </motion.button>
-                                <motion.button
-                                    whileHover={{ scale: 1.05 }}
-                                    whileTap={{ scale: 0.95 }}
-                                    className="bg-white/10 backdrop-blur-sm border border-white/20 px-6 py-2 rounded-full text-white font-bold hover:bg-white/20 transition">
-                                    View Projects
+                                    onClick={handleRegister}
+                                    className="bg-gradient-to-r from-purple-600 to-orange-600 px-6 py-2 rounded-full text-white font-bold hover:opacity-90 transition"
+                                >
+                                    Register Now - ₹800/team
                                 </motion.button>
                             </div>
                         </div>
@@ -63,195 +136,131 @@ const HackathonPage = () => {
                     </div>
                 </div>
             </div>
-            {/* Timeline section */}
+            {/* Key Details Section */}
             <section className="mb-24 mx-4 sm:mx-6 lg:mx-8">
-                <h2 className="text-3xl font-bold mb-8 text-center bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-orange-400">Event Timeline</h2>
-                <div className="relative">
-                    {/* Timeline line */}
-                    <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-blue-200"></div>
+                <h2 className="text-3xl font-bold mb-8 text-center bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-orange-400">
+                    Key Details
+                </h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="glass-effect p-6 rounded-lg border border-purple-500/20 hover:border-purple-500/40 transition-all duration-300">
+                        <h3 className="text-xl font-bold text-gray-300 mb-2">Date & Time</h3>
+                        <p className="text-gray-400">March 15-16, 2025</p>
+                        <p className="text-gray-400">24-hour continuous hackathon</p>
+                    </div>
 
-                    {/* Timeline items */}
-                    <div className="flex flex-col space-y-8">
-                        {/* Registration */}
-                        <div className="flex flex-col md:flex-row md:items-center">
-                            <div className="md:w-1/2 md:pr-8 md:text-right order-2 md:order-1">
-                                <h3 className="text-xl font-bold text-white">Registration Opens</h3>
-                                <p className="text-gray-300">Submit your team details and project idea</p>
-                            </div>
-                            <div className="md:w-12 relative flex justify-center order-1 md:order-2">
-                                <div className="h-12 w-12 bg-blue-500 rounded-full flex items-center justify-center text-white text-xl z-10">
-                                    1
-                                </div>
-                            </div>
-                            <div className="md:w-1/2 md:pl-8 order-3">
-                                <div className="bg-blue-50 p-4 rounded-lg shadow">
-                                    <p className="font-bold">March 10-25, 2025</p>
-                                    <p>Early bird registration with discounted fees</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* Kick-off */}
-                        <div className="flex flex-col md:flex-row md:items-center">
-                            <div className="md:w-1/2 md:pr-8 md:text-right order-2 md:order-3">
-                                <div className="bg-blue-50 p-4 rounded-lg shadow">
-                                    <p className="font-bold">April 2, 2025 • 6:00 PM</p>
-                                    <p>Main Auditorium, Tech Block</p>
-                                </div>
-                            </div>
-                            <div className="md:w-12 relative flex justify-center order-1">
-                                <div className="h-12 w-12 bg-blue-500 rounded-full flex items-center justify-center text-white text-xl z-10">
-                                    2
-                                </div>
-                            </div>
-                            <div className="md:w-1/2 md:pl-8 order-3 md:order-1">
-                                <h3 className="text-xl font-bold text-white">Kick-off Ceremony</h3>
-                                <p className="text-gray-300">Theme announcement and team introduction</p>
-                            </div>
-                        </div>
-
-                        {/* Hackathon */}
-                        <div className="flex flex-col md:flex-row md:items-center">
-                            <div className="md:w-1/2 md:pr-8 md:text-right order-2 md:order-1">
-                                <h3 className="text-xl font-bold text-white">Hackathon (48 hours)</h3>
-                                <p className="text-gray-300">Non-stop coding, mentoring sessions, and mini-challenges</p>
-                            </div>
-                            <div className="md:w-12 relative flex justify-center order-1 md:order-2">
-                                <div className="h-12 w-12 bg-blue-500 rounded-full flex items-center justify-center text-white text-xl z-10">
-                                    3
-                                </div>
-                            </div>
-                            <div className="md:w-1/2 md:pl-8 order-3">
-                                <div className="bg-blue-50 p-4 rounded-lg shadow">
-                                    <p className="font-bold">April 3-5, 2025</p>
-                                    <p>Begins at 7:00 PM on Friday and ends at 7:00 PM on Sunday</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        {/* Judging */}
-                        <div className="flex flex-col md:flex-row md:items-center">
-                            <div className="md:w-1/2 md:pr-8 md:text-right order-2 md:order-3">
-                                <div className="bg-blue-50 p-4 rounded-lg shadow">
-                                    <p className="font-bold">April 5, 2025 • 8:00 PM - 10:00 PM</p>
-                                    <p>Project presentations and demos</p>
-                                </div>
-                            </div>
-                            <div className="md:w-12 relative flex justify-center order-1">
-                                <div className="h-12 w-12 bg-blue-500 rounded-full flex items-center justify-center text-white text-xl z-10">
-                                    4
-                                </div>
-                            </div>
-                            <div className="md:w-1/2 md:pl-8 order-3 md:order-1">
-                                <h3 className="text-xl font-bold text-white">Judging & Results</h3>
-                                <p className="text-gray-300">Final evaluation by judges and winners announcement</p>
-                            </div>
-                        </div>
+                    <div className="glass-effect p-6 rounded-lg border border-purple-500/20 hover:border-purple-500/40 transition-all duration-300">
+                        <h3 className="text-xl font-bold text-gray-300 mb-2">Registration</h3>
+                        <p className="text-gray-400">₹800 per team</p>
+                        <p className="text-gray-400">2-4 members per team</p>
                     </div>
                 </div>
             </section>
 
-            {/* Features section */}
+            {/* Domains Section */}
             <section className="mb-24 mx-4 sm:mx-6 lg:mx-8">
-                <h2 className="text-3xl font-bold mb-8 text-center bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-orange-400">What to Expect</h2>
+                <h2 className="text-3xl font-bold mb-8 text-center bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-orange-400">
+                    Domains
+                </h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                    <div className="glass-effect p-6 rounded-lg border border-purple-500/20 hover:border-purple-500/40 transition-all duration-300">
-                        <div className="text-4xl text-blue-500 mb-4">
-                            <BsCode />
+                    {domains.map((domain, index) => (
+                        <div key={index} className="glass-effect p-6 rounded-lg border border-purple-500/20 hover:border-purple-500/40 transition-all duration-300">
+                            <div className="text-4xl text-purple-500 mb-4">
+                                <domain.icon />
+                            </div>
+                            <h3 className="text-xl text-gray-300 font-bold mb-2">{domain.title}</h3>
+                            <p className="text-gray-400">{domain.description}</p>
                         </div>
-                        <h3 className="text-xl text-gray-300 font-bold mb-2">Coding Challenge</h3>
-                        <p className="text-gray-600">Solve real-world problems using your programming skills in a time-bound environment.</p>
+                    ))}
+                </div>
+            </section>
+
+            {/* Prize Section */}
+            <section className="mb-24 mx-4 sm:mx-6 lg:mx-8">
+                <h2 className="text-3xl font-bold mb-8 text-center bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-orange-400">
+                    Prizes & Rewards
+                </h2>
+                <div className="grid md:grid-cols-3 gap-8 items-center">
+                    {prizes.map((prize, index) => (
+                        <motion.div
+                            key={index}
+                            initial={{ opacity: 0, y: 50 }}
+                            animate={inView ? { opacity: 1, y: 0 } : {}}
+                            transition={{ duration: 0.6, delay: index * 0.2 }}
+                        >
+                            <Tilt
+                                options={{
+                                    max: 25,
+                                    scale: prize.scale,
+                                    speed: 450,
+                                }}
+                                className="relative group"
+                            >
+                                <div className={`absolute -inset-0.5 bg-gradient-to-r ${prize.gradient} rounded-lg blur opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200`} />
+                                <div className="relative p-8 bg-black/40 backdrop-blur-sm rounded-lg border border-white/10">
+                                    <div className="text-6xl mb-6">{prize.trophy}</div>
+                                    <h3 className={`text-4xl font-bold bg-gradient-to-r ${prize.gradient} bg-clip-text text-transparent mb-4`}>
+                                        {prize.position}
+                                    </h3>
+                                    <div className="text-3xl font-bold text-white mb-6">{prize.prize}</div>
+                                    <ul className="space-y-3">
+                                        {prize.benefits.map((benefit, idx) => (
+                                            <li key={idx} className="flex items-center text-gray-300">
+                                                <span className="mr-2">✨</span>
+                                                {benefit}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            </Tilt>
+                        </motion.div>
+                    ))}
+                </div>
+            </section>
+
+            {/* What to Expect Section */}
+            <section className="mb-24 mx-4 sm:mx-6 lg:mx-8">
+                <h2 className="text-3xl font-bold mb-8 text-center bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-orange-400">
+                    What to Expect
+                </h2>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="glass-effect p-6 rounded-lg border border-purple-500/20 hover:border-purple-500/40 transition-all duration-300">
+                        <h3 className="text-xl text-gray-300 font-bold mb-2">Real-World Challenges</h3>
+                        <p className="text-gray-400">Tackle actual industry problems and develop innovative solutions.</p>
                     </div>
 
                     <div className="glass-effect p-6 rounded-lg border border-purple-500/20 hover:border-purple-500/40 transition-all duration-300">
-                        <div className="text-4xl text-blue-500 mb-4">
-                            <BsLightbulb />
-                        </div>
-                        <h3 className="text-xl text-gray-300 font-bold mb-2">Innovation</h3>
-                        <p className="text-gray-600">Think outside the box and create solutions that stand out for their creativity.</p>
+                        <h3 className="text-xl text-gray-300 font-bold mb-2">Expert Mentorship</h3>
+                        <p className="text-gray-400">Get guidance and feedback from industry professionals throughout the event.</p>
                     </div>
 
                     <div className="glass-effect p-6 rounded-lg border border-purple-500/20 hover:border-purple-500/40 transition-all duration-300">
-                        <div className="text-4xl text-blue-500 mb-4">
-                            <BsPeople />
-                        </div>
+                        <h3 className="text-xl text-gray-300 font-bold mb-2">Exciting Prizes</h3>
+                        <p className="text-gray-400">Win recognition, prizes, and opportunities on Avalon's official platforms.</p>
+                    </div>
+
+                    <div className="glass-effect p-6 rounded-lg border border-purple-500/20 hover:border-purple-500/40 transition-all duration-300">
                         <h3 className="text-xl text-gray-300 font-bold mb-2">Networking</h3>
-                        <p className="text-gray-600">Connect with like-minded peers, mentors, and industry professionals.</p>
-                    </div>
-
-                    <div className="glass-effect p-6 rounded-lg border border-purple-500/20 hover:border-purple-500/40 transition-all duration-300">
-                        <div className="text-4xl text-blue-500 mb-4">
-                            <BsTrophy />
-                        </div>
-                        <h3 className="text-xl text-gray-300 font-bold mb-2">Prizes</h3>
-                        <p className="text-gray-600">Win exciting prizes, internship opportunities, and recognition for your talent.</p>
-                    </div>
-                </div>
-            </section>
-
-            {/* Rules and guidelines */}
-            <section className="mb-24 mx-4 sm:mx-6 lg:mx-8">
-                <h2 className="text-3xl font-bold mb-8 text-center bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-orange-400">Rules & Guidelines</h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div className="glass-effect p-6 rounded-lg border border-purple-500/20 hover:border-purple-500/40 transition-all duration-300">
-                        <h3 className="text-xl font-bold text-gray-300 mb-2">Team Size</h3>
-                        <p className="text-gray-600">2-4 members per team. All team members must be enrolled students.</p>
-                    </div>
-
-                    <div className="glass-effect p-6 rounded-lg border border-purple-500/20 hover:border-purple-500/40 transition-all duration-300">
-                        <h3 className="text-xl font-bold text-gray-300 mb-2">Original Work</h3>
-                        <p className="text-gray-600">All code must be written during the hackathon. Using open-source libraries and APIs is allowed.</p>
-                    </div>
-
-                    <div className="glass-effect p-6 rounded-lg border border-purple-500/20 hover:border-purple-500/40 transition-all duration-300">
-                        <h3 className="text-xl font-bold text-gray-300 mb-2">Submissions</h3>
-                        <p className="text-gray-600">Projects must be submitted on our platform by the deadline with a working demo and source code.</p>
-                    </div>
-
-                    <div className="glass-effect p-6 rounded-lg border border-purple-500/20 hover:border-purple-500/40 transition-all duration-300">
-                        <h3 className="text-xl font-bold text-gray-300 mb-2">Judging Criteria</h3>
-                        <p className="text-gray-600">Projects will be judged based on innovation, technical complexity, practical application, and presentation.</p>
-                    </div>
-                </div>
-            </section>
-
-            {/* FAQ section */}
-            <section className="mb-24 mx-4 sm:mx-6 lg:mx-8">
-                <h2 className="text-3xl font-bold mb-8 text-center bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-orange-400">Frequently Asked Questions</h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div className="glass-effect p-6 rounded-lg border border-purple-500/20 hover:border-purple-500/40 transition-all duration-300">
-                        <h3 className="text-xl text-gray-300 font-bold mb-2">Do I need to be a CS student?</h3>
-                        <p className="text-gray-600">No, we welcome students from all disciplines. You just need a passion for problem-solving and basic coding knowledge.</p>
-                    </div>
-
-                    <div className="glass-effect p-6 rounded-lg border border-purple-500/20 hover:border-purple-500/40 transition-all duration-300">
-                        <h3 className="text-xl font-bold text-gray-300 mb-2">What should I bring?</h3>
-                        <p className="text-gray-600">Your laptop, charger, student ID, and any peripherals you need. We'll provide food, drinks, and a workspace.</p>
-                    </div>
-
-                    <div className="glass-effect p-6 rounded-lg border border-purple-500/20 hover:border-purple-500/40 transition-all duration-300">
-                        <h3 className="text-xl font-bold text-gray-300 mb-2">Can I start working on my idea before the event?</h3>
-                        <p className="text-gray-600">You can brainstorm ideas, but all coding must be done during the hackathon. Existing projects are not allowed.</p>
-                    </div>
-
-                    <div className="glass-effect p-6 rounded-lg border border-purple-500/20 hover:border-purple-500/40 transition-all duration-300">
-                        <h3 className="text-xl font-bold text-gray-300 mb-2">Will there be food provided?</h3>
-                        <p className="text-gray-600">Yes, we'll provide meals, snacks, and beverages throughout the event. Vegetarian and vegan options will be available.</p>
+                        <p className="text-gray-400">Connect with like-minded developers and industry experts.</p>
                     </div>
                 </div>
             </section>
 
             <Contact/>
-            {/* Call to action */}
-            <section className="text-center pb-4 mx-4 sm:mx-6 lg:mx-8">
-                <h2 className="text-3xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-orange-400">Ready to Showcase Your Skills?</h2>
-                <p className="text-xl text-gray-300 mb-6 max-w-3xl mx-auto">Join us for an unforgettable weekend of coding, learning, and networking.</p>
+            {/* Call to Action */}
+            <section className="text-center pb-24 mx-4 sm:mx-6 lg:mx-8">
+                <h2 className="text-3xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-orange-400">
+                    Ready to Hack?
+                </h2>
+                <p className="text-xl text-gray-300 mb-6 max-w-3xl mx-auto">
+                    Join us for an unforgettable 24-hour journey of innovation and coding excellence.
+                </p>
                 <motion.button 
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
+                    onClick={handleRegister}
                     className="bg-gradient-to-r from-purple-600 to-orange-600 text-white px-8 py-3 rounded-full text-lg font-bold hover:opacity-90 transition"
                 >
-                    Register for the Hackathon
+                    Register Now - ₹800 per team
                 </motion.button>
             </section>
         </div>
