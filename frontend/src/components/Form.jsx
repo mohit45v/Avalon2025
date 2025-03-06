@@ -58,14 +58,31 @@ const Form = () => {
     }
   };
 
+  const validatePhoneNumber = (number) => {
+    const phoneRegex = /^\d{0,10}$/;
+    return phoneRegex.test(number);
+  };
+
   const handleTeamMemberChange = (index, field, value) => {
-    const updatedMembers = teamMembers.map((member, i) => {
-      if (i === index) {
-        return { ...member, [field]: value };
+    if (field === 'whatsapp') {
+      if (validatePhoneNumber(value)) {
+        const updatedMembers = teamMembers.map((member, i) => {
+          if (i === index) {
+            return { ...member, [field]: value };
+          }
+          return member;
+        });
+        setTeamMembers(updatedMembers);
       }
-      return member;
-    });
-    setTeamMembers(updatedMembers);
+    } else {
+      const updatedMembers = teamMembers.map((member, i) => {
+        if (i === index) {
+          return { ...member, [field]: value };
+        }
+        return member;
+      });
+      setTeamMembers(updatedMembers);
+    }
   };
 
   const handleFileChange = (e) => {
@@ -91,13 +108,16 @@ const Form = () => {
   const validateStep = () => {
     if (step === 1) {
       const isTeamValid = teamMembers.every(member => 
-        member.name && member.email && member.whatsapp
+        member.name && 
+        member.email && 
+        member.whatsapp && 
+        member.whatsapp.length === 10
       );
       if (!isTeamValid) {
         Swal.fire({
           icon: 'error',
           title: 'Incomplete Details',
-          text: 'Please fill all team member details'
+          text: 'Please fill all team member details. WhatsApp number must be 10 digits.'
         });
         return false;
       }
@@ -213,9 +233,16 @@ const Form = () => {
                       />
                       <input
                         type="tel"
-                        placeholder="WhatsApp Number"
+                        placeholder="WhatsApp Number (10 digits)"
                         value={member.whatsapp}
                         onChange={(e) => handleTeamMemberChange(index, 'whatsapp', e.target.value)}
+                        pattern="[0-9]{10}"
+                        maxLength="10"
+                        onKeyPress={(e) => {
+                          if (!/[0-9]/.test(e.key)) {
+                            e.preventDefault();
+                          }
+                        }}
                         className="bg-white/5 border border-purple-500/20 rounded-lg px-4 py-2"
                       />
                     </div>
