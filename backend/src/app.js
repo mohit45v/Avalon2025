@@ -10,19 +10,26 @@ app.use(express.json());
 
 app.use(
     cors({
-        origin: 'https://avalon2025.vercel.app',  // Allow frontend origin
-        methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allowed HTTP methods
-        allowedHeaders: ['Content-Type', 'Authorization'], // Allowed headers
-        credentials: true, // Allow cookies/auth headers if needed
+        origin: ['https://avalon2025.vercel.app', 'https://avalontechfest.in'],  // Allow both origins
+        methods: ['GET', 'POST', 'PUT', 'DELETE'],
+        allowedHeaders: ['Content-Type', 'Authorization'],
+        credentials: true,
     })
 );
 
 app.options('*', (req, res) => {
-    res.setHeader('Access-Control-Allow-Origin', 'https://avalon2025.vercel.app');
+    // Update OPTIONS handler to handle both origins
+    const allowedOrigins = ['https://avalon2025.vercel.app', 'https://avalontechfest.in'];
+    const origin = req.headers.origin;
+    
+    if (allowedOrigins.includes(origin)) {
+        res.setHeader('Access-Control-Allow-Origin', origin);
+    }
+    
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
     res.setHeader('Access-Control-Allow-Credentials', 'true');
-    res.sendStatus(204); // No Content
+    res.sendStatus(204);
 });
 app.use(cookieParser());
 
