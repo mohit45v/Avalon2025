@@ -49,7 +49,7 @@ const QueryManager = () => {
   // Add delete handler
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:3000/api/v1/queries/${id}`);
+      await axios.delete(`${import.meta.env.VITE_BASE_URL}/api/v1/queries/${id}`);
       setQueries(queries.filter(q => q._id !== id));
     } catch (error) {
       console.error('Delete error:', error);
@@ -103,7 +103,7 @@ const QueryManager = () => {
           `
         };
     
-        await axios.post(`http://localhost:3000/api/v1/queries/reply/${id}`, {
+        await axios.post(`${import.meta.env.VITE_BASE_URL}/api/v1/queries/reply/${id}`, {
           reply,
           emailTemplate
         });
