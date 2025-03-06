@@ -19,7 +19,7 @@ import { Link } from "react-scroll";
 import {Link as RouterLink} from "react-router-dom";
 
 const Home = () => {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [progress, setProgress] = useState(0);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
