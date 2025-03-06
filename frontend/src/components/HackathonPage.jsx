@@ -1,5 +1,5 @@
 import React from 'react';
-import { BsCode, BsLightbulb, BsTrophy, BsPeople } from 'react-icons/bs';
+import { BsCode, BsLightbulb, BsTrophy, BsPeople, BsArrowLeft } from 'react-icons/bs';
 import { motion } from 'framer-motion';
 import Contact from './Contact';
 import { useNavigate } from 'react-router-dom';
@@ -8,7 +8,10 @@ import { useInView } from 'react-intersection-observer';
 
 const HackathonPage = () => {
     const navigate = useNavigate();
-    const { ref, inView } = useInView();
+    const [ref, inView] = useInView({
+        threshold: 0.2,
+        triggerOnce: false,
+    });
 
     // Add useEffect to handle scroll on component mount
     React.useEffect(() => {
@@ -38,28 +41,43 @@ const HackathonPage = () => {
         }
     ];
 
-    // Add prizes array after existing domains array
+    // Update the prizes array
     const prizes = [
         {
-            position: "1st",
+            position: "1st Prize",
             prize: "₹25,000",
-            benefits: ["Cash Prize", "Internship Opportunities", "Industry Mentorship", "Startup Support"],
+            benefits: [
+                "Cash Prize: ₹25,000",
+                "Internship Opportunities",
+                "Industry Mentorship",
+                "Startup Support"
+            ],
             gradient: "from-yellow-400 via-yellow-500 to-orange-500",
             scale: 1.1,
             trophy: "🏆"
         },
         {
-            position: "2nd",
+            position: "2nd Prize",
             prize: "₹15,000",
-            benefits: ["Cash Prize", "Industry Recognition", "Networking Events"],
+            benefits: [
+                "Cash Prize: ₹15,000",
+                "Industry Recognition",
+                "Networking Events",
+                "Certificate of Excellence"
+            ],
             gradient: "from-gray-300 via-gray-400 to-gray-500",
             scale: 1,
             trophy: "🥈"
         },
         {
-            position: "3rd",
+            position: "3rd Prize",
             prize: "₹10,000",
-            benefits: ["Cash Prize", "Certificate of Excellence"],
+            benefits: [
+                "Cash Prize: ₹10,000",
+                "Certificate of Excellence",
+                "Special Recognition",
+                "Goodies & Swag"
+            ],
             gradient: "from-amber-700 via-amber-800 to-amber-900",
             scale: 0.95,
             trophy: "🥉"
@@ -87,6 +105,14 @@ const HackathonPage = () => {
 
     return (
         <div className="w-full min-h-screen bg-[#030014]">
+            {/* Back Button */}
+            <button
+                onClick={() => navigate('/')}
+                className="fixed top-8 left-8 flex items-center gap-2 text-purple-400 hover:text-purple-300 z-50 group"
+            >
+                <BsArrowLeft className="group-hover:-translate-x-1 transition-transform" />
+                Back to Home
+            </button>
             {/* Background Effects */}
             <div className="absolute inset-0">
                 <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-10" />
@@ -175,10 +201,18 @@ const HackathonPage = () => {
             </section>
 
             {/* Prize Section */}
-            <section className="mb-24 mx-4 sm:mx-6 lg:mx-8">
+            <section ref={ref} className="mb-24 mx-4 sm:mx-6 lg:mx-8">
                 <h2 className="text-3xl font-bold mb-8 text-center bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-orange-400">
                     Prizes & Rewards
                 </h2>
+                
+                {/* Total Prize Pool Banner */}
+                <div className="text-center mb-12">
+                    <h3 className="text-5xl font-bold bg-gradient-to-r from-purple-400 to-orange-400 bg-clip-text text-transparent mb-4">
+                        Total Prize Pool: ₹50,000
+                    </h3>
+                </div>
+
                 <div className="grid md:grid-cols-3 gap-8 items-center">
                     {prizes.map((prize, index) => (
                         <motion.div
@@ -214,6 +248,12 @@ const HackathonPage = () => {
                             </Tilt>
                         </motion.div>
                     ))}
+                </div>
+
+                {/* Additional Prizes Note */}
+                <div className="text-center mt-12 text-gray-400">
+                    <p>Additional special mentions and category prizes</p>
+                    <p className="mt-2 text-sm">* Terms and conditions apply</p>
                 </div>
             </section>
 

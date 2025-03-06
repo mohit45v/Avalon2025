@@ -1,13 +1,17 @@
 import React from 'react';
-import { BsTools, BsLightbulb, BsTrophy, BsPeople } from 'react-icons/bs';
+import { BsTools, BsLightbulb, BsTrophy, BsPeople, BsArrowLeft } from 'react-icons/bs';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { Tilt } from 'react-tilt';
 import { useInView } from 'react-intersection-observer';
+import {useRef} from 'react';
 
 const ProjectCompetitionPage = () => {
     const navigate = useNavigate();
-    const { inView } = useInView();
+    const [ref, inView] = useInView({
+        threshold: 0.2,
+        triggerOnce: false,
+    });
 
     React.useEffect(() => {
         window.scrollTo(0, 0);
@@ -31,28 +35,43 @@ const ProjectCompetitionPage = () => {
         navigate('/register');
     };
 
-    // Add prizes array after existing constants
+    // Update the prizes array with new amounts
     const prizes = [
         {
-            position: "1st",
-            prize: "₹10,000",
-            benefits: ["Cash Prize", "Industry Recognition", "Technical Mentorship", "Project Support"],
+            position: "1st Prize",
+            prize: "₹2,500",
+            benefits: [
+                "Cash Prize: ₹2,500",
+                "Certificate of Excellence",
+                "Technical Mentorship",
+                "Project Support"
+            ],
             gradient: "from-yellow-400 via-yellow-500 to-orange-500",
             scale: 1.1,
             trophy: "🏆"
         },
         {
-            position: "2nd",
-            prize: "₹7,000",
-            benefits: ["Cash Prize", "Technical Resources", "Recognition"],
+            position: "2nd Prize",
+            prize: "₹2,000",
+            benefits: [
+                "Cash Prize: ₹2,000",
+                "Certificate of Merit",
+                "Technical Resources",
+                "Recognition"
+            ],
             gradient: "from-gray-300 via-gray-400 to-gray-500",
             scale: 1,
             trophy: "🥈"
         },
         {
-            position: "3rd",
-            prize: "₹3,000",
-            benefits: ["Cash Prize", "Certificate of Excellence"],
+            position: "3rd Prize",
+            prize: "₹500",
+            benefits: [
+                "Cash Prize: ₹500",
+                "Certificate of Achievement",
+                "Special Mention",
+                "Goodies"
+            ],
             gradient: "from-amber-700 via-amber-800 to-amber-900",
             scale: 0.95,
             trophy: "🥉"
@@ -61,6 +80,15 @@ const ProjectCompetitionPage = () => {
 
     return (
         <div className="w-full min-h-screen bg-[#030014]">
+            {/* Back Button */}
+            <button
+                onClick={() => navigate('/')}
+                className="fixed top-8 left-8 flex items-center gap-2 text-purple-400 hover:text-purple-300 z-50 group"
+            >
+                <BsArrowLeft className="group-hover:-translate-x-1 transition-transform" />
+                Back to Home
+            </button>
+
             {/* Background Effects */}
             <div className="absolute inset-0">
                 <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-10" />
@@ -123,10 +151,18 @@ const ProjectCompetitionPage = () => {
                 </section>
 
                 {/* Prize Section */}
-                <section className="mb-24 mx-4 sm:mx-6 lg:mx-8">
+                <section ref={ref} className="mb-24 mx-4 sm:mx-6 lg:mx-8">
                     <h2 className="text-3xl font-bold mb-8 text-center bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-orange-400">
                         Prizes & Rewards
                     </h2>
+                    
+                    {/* Total Prize Pool Banner */}
+                    <div className="text-center mb-12">
+                        <h3 className="text-5xl font-bold bg-gradient-to-r from-purple-400 to-orange-400 bg-clip-text text-transparent mb-4">
+                            Total Prize Pool: ₹5,000
+                        </h3>
+                    </div>
+
                     <div className="grid md:grid-cols-3 gap-8 items-center">
                         {prizes.map((prize, index) => (
                             <motion.div
@@ -162,6 +198,12 @@ const ProjectCompetitionPage = () => {
                                 </Tilt>
                             </motion.div>
                         ))}
+                    </div>
+
+                    {/* Additional Prizes Note */}
+                    <div className="text-center mt-12 text-gray-400">
+                        <p>Additional special mentions and category prizes</p>
+                        <p className="mt-2 text-sm">* Terms and conditions apply</p>
                     </div>
                 </section>
 
