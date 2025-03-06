@@ -4,7 +4,7 @@ import axios from 'axios';
 import Swal from 'sweetalert2';
 import { BsPlus, BsTrash } from 'react-icons/bs';
 import { useLocation, useSearchParams } from 'react-router-dom';
-import QR from "frontend/public/QR.jpg"
+import QR from "../public/QR.jpg"
 const Form = () => {
   const [step, setStep] = useState(1);
   const [teamMembers, setTeamMembers] = useState([
