@@ -15,29 +15,19 @@ const Form = () => {
     collegeName: '',
     collegeAddress: '',
     competition: '',
-    workshop: '',
     transactionId: '',
     paymentScreenshot: null
   });
   const [loading, setLoading] = useState(false);
   const [imagePreview, setImagePreview] = useState(null);
   const location = useLocation();
-  const [workshopData, setWorkshopData] = useState(null);
   const [searchParams] = useSearchParams();
-  const workshopType = searchParams.get('workshop');
-  const workshopFee = searchParams.get('fee');
   const navigate = useNavigate();
 
   const competitions = [
     { value: 'hackathon', label: 'Hackathon', maxTeam: 4 },
     { value: 'project', label: 'Project Competition', maxTeam: 3 },
     { value: 'robotics', label: 'Robotics Competition', maxTeam: 4 }
-  ];
-
-  const workshops = [
-    { value: 'ai_ml', label: 'AI/ML Workshop' },
-    { value: 'web3', label: 'Web3 Development' },
-    { value: 'robotics', label: 'Robotics Workshop' }
   ];
 
   const addTeamMember = () => {
@@ -98,28 +88,6 @@ const Form = () => {
     };
   }, [imagePreview]);
 
-  useEffect(() => {
-    // Get workshop data from localStorage
-    const savedWorkshop = localStorage.getItem('selectedWorkshop');
-    if (savedWorkshop) {
-      setWorkshopData(JSON.parse(savedWorkshop));
-      // Update form data with workshop selection
-      setFormData(prev => ({
-        ...prev,
-        workshop: JSON.parse(savedWorkshop).name.toLowerCase()
-      }));
-    }
-  }, []);
-
-  useEffect(() => {
-    if (workshopType) {
-      setFormData(prev => ({
-        ...prev,
-        workshop: workshopType
-      }));
-    }
-  }, [workshopType]);
-
   const validateStep = () => {
     if (step === 1) {
       const isTeamValid = teamMembers.every(member => 
@@ -139,14 +107,13 @@ const Form = () => {
 
   const handleSubmit = async (e) => {
     try {
-      setLoading(true); // Start loading
+      setLoading(true);
 
       const formDataToSend = new FormData();
       formDataToSend.append('teamMembers', JSON.stringify(teamMembers));
       formDataToSend.append('collegeName', formData.collegeName);
       formDataToSend.append('collegeAddress', formData.collegeAddress);
       formDataToSend.append('competition', formData.competition);
-      formDataToSend.append('workshop', formData.workshop);
       formDataToSend.append('transactionId', formData.transactionId);
       formDataToSend.append('paymentScreenshot', formData.paymentScreenshot);
 
@@ -174,7 +141,6 @@ const Form = () => {
         collegeName: '',
         collegeAddress: '',
         competition: '',
-        workshop: '',
         transactionId: '',
         paymentScreenshot: null
       });
@@ -204,23 +170,8 @@ const Form = () => {
         </button>
 
         <h1 className="text-4xl font-bold text-center mb-8 bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-orange-400">
-          {workshopData ? `${workshopData.name} Workshop Registration` : 'Event Registration'}
+          Event Registration
         </h1>
-
-        {workshopData && (
-          <div className="mb-8 p-4 bg-white/5 rounded-lg">
-            <p className="text-xl font-bold text-purple-400">Entry Fee: {workshopData.fee}</p>
-            <p className="text-gray-300">Difficulty: {workshopData.difficulty}</p>
-            <div className="mt-2">
-              <p className="font-semibold text-gray-300">Includes:</p>
-              <ul className="list-disc list-inside text-gray-400">
-                {workshopData.includes.map((item, index) => (
-                  <li key={index}>{item}</li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        )}
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -302,16 +253,6 @@ const Form = () => {
                   <option value="" className="bg-[#030014]">Select Competition</option>
                   {competitions.map(comp => (
                     <option key={comp.value} value={comp.value} className="bg-white">{comp.label}</option>
-                  ))}
-                </select>
-                <select
-                  value={formData.workshop}
-                  onChange={(e) => setFormData({ ...formData, workshop: e.target.value })}
-                  className="bg-white/5 border border-purple-500/20 rounded-lg px-4 py-2 text-white [&>option]:text-black"
-                >
-                  <option value="" className="bg-[#030014]">Select Workshop (Optional)</option>
-                  {workshops.map(workshop => (
-                    <option key={workshop.value} value={workshop.value} className="bg-white">{workshop.label}</option>
                   ))}
                 </select>
               </div>
