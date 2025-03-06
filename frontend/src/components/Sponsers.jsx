@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 
 const sponsors = [
-  "https://cdn.iconscout.com/icon/free/png-256/free-devfolio-logo-icon-download-in-svg-png-gif-file-formats--brand-logos-icons-1399882.png?f=webp",
+  "../../public/idp.jpeg",
   "https://icoanalytics.org/wp-content/uploads/2023/11/Devfolio.png",
   "https://devfolio.co/blog/content/images/2021/04/ethindia-1.jpg",
   "https://logowik.com/content/uploads/images/replit4759.logowik.com.webp",
