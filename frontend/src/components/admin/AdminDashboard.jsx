@@ -10,7 +10,9 @@ const AdminDashboard = () => {
     totalRegistrations: 0,
     verifiedParticipants: 0,
     pendingReview: 0,
-    activeQueries: 0,
+    totalQueries: 0,
+    pendingQueries: 0,
+    solvedQueries: 0
   });
   const [isLoading, setIsLoading] = useState(true);
 
@@ -117,7 +119,7 @@ const AdminDashboard = () => {
           ))}
         </div>
 
-        {/* Quick Stats */}
+        {/* Updated Quick Stats */}
         <div className="mt-12 grid grid-cols-1 md:grid-cols-4 gap-6">
           <div className="p-6 rounded-xl bg-white/5 backdrop-blur-sm border border-purple-500/20">
             <h3 className="text-gray-400">Total Registrations</h3>
@@ -132,8 +134,34 @@ const AdminDashboard = () => {
             <p className="text-3xl font-bold mt-2">{stats.pendingReview}</p>
           </div>
           <div className="p-6 rounded-xl bg-white/5 backdrop-blur-sm border border-purple-500/20">
-            <h3 className="text-gray-400">Active Queries</h3>
-            <p className="text-3xl font-bold mt-2">{stats.activeQueries}</p>
+            <h3 className="text-gray-400">Total Queries</h3>
+            <p className="text-3xl font-bold mt-2">{stats.totalQueries}</p>
+          </div>
+        </div>
+
+        {/* New Query Stats Section */}
+        <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="p-6 rounded-xl bg-white/5 backdrop-blur-sm border border-purple-500/20">
+            <div className="flex items-center gap-3">
+              <div className="p-2 rounded-lg bg-yellow-500/20">
+                <BsInbox size={20} className="text-yellow-400" />
+              </div>
+              <div>
+                <h3 className="text-gray-400">Pending Queries</h3>
+                <p className="text-3xl font-bold mt-1">{stats.pendingQueries}</p>
+              </div>
+            </div>
+          </div>
+          <div className="p-6 rounded-xl bg-white/5 backdrop-blur-sm border border-purple-500/20">
+            <div className="flex items-center gap-3">
+              <div className="p-2 rounded-lg bg-green-500/20">
+                <BsCheckCircle size={20} className="text-green-400" />
+              </div>
+              <div>
+                <h3 className="text-gray-400">Solved Queries</h3>
+                <p className="text-3xl font-bold mt-1">{stats.solvedQueries}</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
