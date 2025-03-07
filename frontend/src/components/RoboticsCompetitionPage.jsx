@@ -1,13 +1,18 @@
 import React from 'react';
-import { BsSpeedometer, BsGear, BsTools, BsTrophy } from 'react-icons/bs';
+import { BsSpeedometer, BsGear, BsTools, BsTrophy, BsArrowLeft } from 'react-icons/bs';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { Tilt } from 'react-tilt';
 import { useInView } from 'react-intersection-observer';
+import image from "../../dist/assets/roborace.jpg"
+import Contact from './Contact';
 
 const RoboticsCompetitionPage = () => {
     const navigate = useNavigate();
-    const { inView } = useInView();
+    const [ref, inView] = useInView({
+        threshold: 0.2,
+        triggerOnce: false,
+    });
 
     React.useEffect(() => {
         window.scrollTo(0, 0);
@@ -61,6 +66,15 @@ const RoboticsCompetitionPage = () => {
 
     return (
         <div className="w-full min-h-screen bg-[#030014]">
+            {/* Back Button */}
+            <button
+                onClick={() => navigate('/')}
+                className="fixed top-8 left-8 flex items-center gap-2 text-purple-400 hover:text-purple-300 z-50 group"
+            >
+                <BsArrowLeft className="group-hover:-translate-x-1 transition-transform" />
+                Back to Home
+            </button>
+
             {/* Background Effects */}
             <div className="absolute inset-0">
                 <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-10" />
@@ -98,6 +112,21 @@ const RoboticsCompetitionPage = () => {
                                     </motion.button>
                                 </div>
                             </div>
+                            <div className="md:w-1/3">
+                                <div className="relative rounded-lg overflow-hidden">
+                                    <div className="absolute inset-0 bg-gradient-to-r from-purple-500/20 to-orange-500/20 mix-blend-overlay"></div>
+                                    <img
+                                        src={image}
+                                        alt="Robo Race"
+                                        className="w-full h-full object-cover rounded-lg shadow-xl"
+                                        style={{
+                                            maxHeight: '300px',
+                                            objectFit: 'cover',
+                                            objectPosition: 'center'
+                                        }}
+                                    />
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -123,16 +152,17 @@ const RoboticsCompetitionPage = () => {
                 </section>
 
                 {/* Prize Section */}
-                <section className="mb-24 mx-4 sm:mx-6 lg:mx-8">
+                <section ref={ref} className="mb-24 mx-4 sm:mx-6 lg:mx-8">
                     <h2 className="text-3xl font-bold mb-8 text-center bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-orange-400">
                         Prizes & Rewards
                     </h2>
+
                     <div className="grid md:grid-cols-3 gap-8 items-center">
                         {prizes.map((prize, index) => (
                             <motion.div
                                 key={index}
                                 initial={{ opacity: 0, y: 50 }}
-                                animate={inView ? { opacity: 1, y: 0 } : {}}
+                                animate={{ opacity: 1, y: 0 }}
                                 transition={{ duration: 0.6, delay: index * 0.2 }}
                             >
                                 <Tilt
@@ -147,7 +177,7 @@ const RoboticsCompetitionPage = () => {
                                     <div className="relative p-8 bg-black/40 backdrop-blur-sm rounded-lg border border-white/10">
                                         <div className="text-6xl mb-6">{prize.trophy}</div>
                                         <h3 className={`text-4xl font-bold bg-gradient-to-r ${prize.gradient} bg-clip-text text-transparent mb-4`}>
-                                            {prize.position}
+                                            {prize.position} Prize
                                         </h3>
                                         <div className="text-3xl font-bold text-white mb-6">{prize.prize}</div>
                                         <ul className="space-y-3">
@@ -238,6 +268,11 @@ const RoboticsCompetitionPage = () => {
                         Register Now - ₹300 per team
                     </motion.button>
                 </section>
+
+                {/* Add Contact Section */}
+                <div id="contact" className="w-full">
+                    <Contact />
+                </div>
             </div>
         </div>
     );

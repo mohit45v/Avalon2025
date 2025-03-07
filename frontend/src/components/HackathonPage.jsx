@@ -5,7 +5,7 @@ import Contact from './Contact';
 import { useNavigate } from 'react-router-dom';
 import { Tilt } from 'react-tilt';
 import { useInView } from 'react-intersection-observer';
-
+import image from "../../dist/assets/hackathon1.jpg"
 const HackathonPage = () => {
     const navigate = useNavigate();
     const [ref, inView] = useInView({
@@ -153,9 +153,14 @@ const HackathonPage = () => {
                             <div className="relative rounded-lg overflow-hidden">
                                 <div className="absolute inset-0 bg-gradient-to-r from-purple-500/20 to-orange-500/20 mix-blend-overlay"></div>
                                 <img
-                                    src="/hackathon-hero.jpg"
-                                    alt="Hackathon illustration"
-                                    className="w-full h-full object-cover rounded-lg"
+                                    src={image}
+                                    alt="Students collaborating on code"
+                                    className="w-full h-full object-cover rounded-lg shadow-xl"
+                                    style={{
+                                        maxHeight: '300px',
+                                        objectFit: 'cover',
+                                        objectPosition: 'center'
+                                    }}
                                 />
                             </div>
                         </div>

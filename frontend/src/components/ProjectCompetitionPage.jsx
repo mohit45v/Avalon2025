@@ -5,6 +5,9 @@ import { useNavigate } from 'react-router-dom';
 import { Tilt } from 'react-tilt';
 import { useInView } from 'react-intersection-observer';
 import {useRef} from 'react';
+import image from "../../dist/assets/cubecasting.jpg"
+import Contact from './Contact';
+
 
 const ProjectCompetitionPage = () => {
     const navigate = useNavigate();
@@ -124,6 +127,21 @@ const ProjectCompetitionPage = () => {
                                     >
                                         Register Now - ₹150/team
                                     </motion.button>
+                                </div>
+                            </div>
+                            <div className="md:w-1/3">
+                                <div className="relative rounded-lg overflow-hidden">
+                                    <div className="absolute inset-0 bg-gradient-to-r from-purple-500/20 to-orange-500/20 mix-blend-overlay"></div>
+                                    <img
+                                        src={image}
+                                        alt="Cube Casting Challenge"
+                                        className="w-full h-full object-cover rounded-lg shadow-xl"
+                                        style={{
+                                            maxHeight: '300px',
+                                            objectFit: 'cover',
+                                            objectPosition: 'center'
+                                        }}
+                                    />
                                 </div>
                             </div>
                         </div>
@@ -264,6 +282,11 @@ const ProjectCompetitionPage = () => {
                         Register Now - ₹150 per team
                     </motion.button>
                 </section>
+
+                {/* Add Contact Section at the bottom, just before the closing div */}
+                <div id="contact" className="w-full">
+                    <Contact />
+                </div>
             </div>
         </div>
     );
