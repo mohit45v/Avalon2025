@@ -8,7 +8,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { BsThreeDotsVertical, BsCheckCircle, BsXCircle, BsEnvelope, BsFlag } from 'react-icons/bs';
+import { BsThreeDotsVertical, BsCheckCircle, BsXCircle, BsEnvelope } from 'react-icons/bs';
 import { useNavigate } from 'react-router-dom';
 
 const ParticipantManager = () => {
@@ -251,11 +251,6 @@ const ParticipantManager = () => {
                           Pending
                         </span>
                       )}
-                      {participant.markedForReview && (
-                        <span className="text-xs bg-red-500/20 text-red-400 px-2 py-1 rounded">
-                          Under Review
-                        </span>
-                      )}
                     </div>
                     <BsThreeDotsVertical />
                   </div>
@@ -301,19 +296,25 @@ const ParticipantManager = () => {
                         onClick={() => handleAction(participant._id, 'verify')}
                         className="bg-green-500/20 text-green-400 px-4 py-2 rounded-lg hover:bg-green-500/30"
                       >
-                        Verify
+                        <span className="flex items-center gap-1">
+                          <BsCheckCircle /> Verify
+                        </span>
                       </button>
                       <button
-                        onClick={() => handleAction(participant._id, 'markForReview')}
-                        className="bg-yellow-500/20 text-yellow-400 px-4 py-2 rounded-lg hover:bg-yellow-500/30"
+                        onClick={() => handleAction(participant._id, 'reject')}
+                        className="bg-red-500/20 text-red-400 px-4 py-2 rounded-lg hover:bg-red-500/30"
                       >
-                        Mark for Review
+                        <span className="flex items-center gap-1">
+                          <BsXCircle /> Reject
+                        </span>
                       </button>
                       <button
                         onClick={() => handleAction(participant._id, 'sendEmail')}
                         className="bg-blue-500/20 text-blue-400 px-4 py-2 rounded-lg hover:bg-blue-500/30"
                       >
-                        Send Email
+                        <span className="flex items-center gap-1">
+                          <BsEnvelope /> Send Email
+                        </span>
                       </button>
                     </div>
                   </motion.div>

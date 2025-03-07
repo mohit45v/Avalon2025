@@ -10,7 +10,9 @@ app.use(express.json());
 
 app.use(
     cors({
-        origin: ['https://avalon2025.vercel.app', 'https://avalontechfest.in'],  // Allow both origins
+        origin: ['https://avalon2025.vercel.app', 'https://avalontechfest.in',
+            'http://localhost:5173'
+        ],  // Allow both origins
         methods: ['GET', 'POST', 'PUT', 'DELETE'],
         allowedHeaders: ['Content-Type', 'Authorization'],
         credentials: true,
@@ -19,7 +21,9 @@ app.use(
 
 app.options('*', (req, res) => {
     // Update OPTIONS handler to handle both origins
-    const allowedOrigins = ['https://avalon2025.vercel.app', 'https://avalontechfest.in'];
+    const allowedOrigins = ['https://avalon2025.vercel.app', 'https://avalontechfest.in',
+        'http://localhost:5173'
+    ];
     const origin = req.headers.origin;
     
     if (allowedOrigins.includes(origin)) {

@@ -71,30 +71,57 @@ const getDashboardStats = async (req, res) => {
 const verifyParticipant = async (req, res) => {
     try {
         const { id } = req.params;
-        console.log('Verifying participant:', id);
-
         const participant = await Registration.findByIdAndUpdate(
             id,
             { status: 'verified' },
             { new: true }
         );
 
-        console.log('Updated participant:', participant);
-
         if (!participant) {
             return res.status(404).json({ message: 'Participant not found' });
         }
 
-        // Send verification email
+        // Enhanced verification email template
         await sendEmail(
             participant.teamMembers[0].email,
-            'Registration Verified',
+            'Registration Verified - Avalon 2025',
             {
                 text: `Congratulations! Your registration for ${participant.competition} has been verified.`,
-                html: `<div style="font-family: Arial, sans-serif;">
-                    <h2>Registration Verified</h2>
-                    <p>Congratulations! Your registration for ${participant.competition} has been verified.</p>
-                </div>`
+                html: `
+                    <div style="background-color: #030014; color: #ffffff; padding: 20px; font-family: Arial, sans-serif; border-radius: 10px; max-width: 600px; margin: 0 auto;">
+                        <div style="text-align: center; margin-bottom: 30px;">
+                            <img src="https://avalontechfest.in/logo.png" alt="Avalon Logo" style="width: 150px; margin-bottom: 20px;">
+                            <h1 style="color: #a855f7; margin: 0;">Registration Verified!</h1>
+                        </div>
+                        
+                        <div style="background-color: rgba(255, 255, 255, 0.1); padding: 20px; border-radius: 8px; margin-bottom: 20px;">
+                            <h2 style="color: #f97316; margin-top: 0;">Hello ${participant.teamMembers[0].name},</h2>
+                            <p style="font-size: 16px; line-height: 1.5;">Congratulations! Your registration for <span style="color: #a855f7; font-weight: bold;">${participant.competition}</span> has been successfully verified.</p>
+                            
+                            <div style="margin: 20px 0; padding: 15px; background-color: rgba(168, 85, 247, 0.1); border-radius: 8px;">
+                                <h3 style="color: #f97316; margin-top: 0;">Event Details:</h3>
+                                <ul style="list-style: none; padding: 0;">
+                                    <li style="margin-bottom: 10px;">🏆 Event: ${participant.competition}</li>
+                                    <li style="margin-bottom: 10px;">📍 Venue: Terna Engineering College, Nerul</li>
+                                    <li style="margin-bottom: 10px;">📅 Date: March 15-17, 2025</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div style="text-align: center; margin-top: 30px;">
+                            <p style="color: #a855f7;">Follow us for updates:</p>
+                            <div style="margin-top: 15px;">
+                                <a href="https://instagram.com/avalonterna" style="color: #f97316; text-decoration: none; margin: 0 10px;">Instagram</a>
+                                <a href="https://x.com/avalon_tec" style="color: #f97316; text-decoration: none; margin: 0 10px;">Twitter</a>
+                                <a href="https://youtube.com/@avalontechfest8898" style="color: #f97316; text-decoration: none; margin: 0 10px;">YouTube</a>
+                            </div>
+                        </div>
+
+                        <div style="text-align: center; margin-top: 30px; font-size: 12px; color: #666;">
+                            <p>© 2025 Avalon TechFest. All rights reserved.</p>
+                        </div>
+                    </div>
+                `
             }
         );
 
@@ -118,15 +145,50 @@ const rejectParticipant = async (req, res) => {
             return res.status(404).json({ message: 'Participant not found' });
         }
 
+        // Enhanced rejection email template
         await sendEmail(
             participant.teamMembers[0].email,
-            'Registration Update Required',
+            'Registration Update Required - Avalon 2025',
             {
                 text: `Your registration for ${participant.competition} needs attention. Please check your details and resubmit.`,
-                html: `<div style="font-family: Arial, sans-serif;">
-                    <h2>Registration Update Required</h2>
-                    <p>Your registration for ${participant.competition} needs attention. Please check your details and resubmit.</p>
-                </div>`
+                html: `
+                    <div style="background-color: #030014; color: #ffffff; padding: 20px; font-family: Arial, sans-serif; border-radius: 10px; max-width: 600px; margin: 0 auto;">
+                        <div style="text-align: center; margin-bottom: 30px;">
+                            <img src="https://avalontechfest.in/logo.png" alt="Avalon Logo" style="width: 150px; margin-bottom: 20px;">
+                            <h1 style="color: #a855f7; margin: 0;">Registration Update Required</h1>
+                        </div>
+                        
+                        <div style="background-color: rgba(255, 255, 255, 0.1); padding: 20px; border-radius: 8px; margin-bottom: 20px;">
+                            <h2 style="color: #f97316; margin-top: 0;">Hello ${participant.teamMembers[0].name},</h2>
+                            <p style="font-size: 16px; line-height: 1.5;">We noticed some issues with your registration for <span style="color: #a855f7; font-weight: bold;">${participant.competition}</span>.</p>
+                            
+                            <div style="margin: 20px 0; padding: 15px; background-color: rgba(239, 68, 68, 0.1); border-radius: 8px;">
+                                <h3 style="color: #f97316; margin-top: 0;">Required Actions:</h3>
+                                <ul style="list-style: none; padding: 0;">
+                                    <li style="margin-bottom: 10px;">📝 Review your registration details</li>
+                                    <li style="margin-bottom: 10px;">🔍 Verify your payment information</li>
+                                    <li style="margin-bottom: 10px;">📤 Resubmit your registration</li>
+                                </ul>
+                            </div>
+
+                            <p style="margin-top: 20px;">For any queries, please contact:</p>
+                            <p style="color: #a855f7;">avalon@ternaengg.ac.in</p>
+                        </div>
+
+                        <div style="text-align: center; margin-top: 30px;">
+                            <p style="color: #a855f7;">Follow us for updates:</p>
+                            <div style="margin-top: 15px;">
+                                <a href="https://instagram.com/avalonterna" style="color: #f97316; text-decoration: none; margin: 0 10px;">Instagram</a>
+                                <a href="https://x.com/avalon_tec" style="color: #f97316; text-decoration: none; margin: 0 10px;">Twitter</a>
+                                <a href="https://youtube.com/@avalontechfest8898" style="color: #f97316; text-decoration: none; margin: 0 10px;">YouTube</a>
+                            </div>
+                        </div>
+
+                        <div style="text-align: center; margin-top: 30px; font-size: 12px; color: #666;">
+                            <p>© 2025 Avalon TechFest. All rights reserved.</p>
+                        </div>
+                    </div>
+                `
             }
         );
 
