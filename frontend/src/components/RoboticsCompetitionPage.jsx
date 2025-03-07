@@ -36,34 +36,6 @@ const RoboticsCompetitionPage = () => {
         navigate('/register');
     };
 
-    // Add prizes array after existing constants
-    const prizes = [
-        {
-            position: "1st",
-            prize: "₹5,000",
-            benefits: ["Cash Prize", "Robotics Kit", "Technical Mentorship", "Industry Recognition"],
-            gradient: "from-yellow-400 via-yellow-500 to-orange-500",
-            scale: 1.1,
-            trophy: "🏆"
-        },
-        {
-            position: "2nd",
-            prize: "₹3,000",
-            benefits: ["Cash Prize", "Technical Resources", "Recognition"],
-            gradient: "from-gray-300 via-gray-400 to-gray-500",
-            scale: 1,
-            trophy: "🥈"
-        },
-        {
-            position: "3rd",
-            prize: "₹2,000",
-            benefits: ["Cash Prize", "Certificate of Excellence"],
-            gradient: "from-amber-700 via-amber-800 to-amber-900",
-            scale: 0.95,
-            trophy: "🥉"
-        }
-    ];
-
     return (
         <div className="w-full min-h-screen bg-[#030014]">
             {/* Back Button */}
@@ -148,50 +120,6 @@ const RoboticsCompetitionPage = () => {
                             <p className="text-gray-400">₹300 per team</p>
                             <p className="text-gray-400">2-5 members per team</p>
                         </div>
-                    </div>
-                </section>
-
-                {/* Prize Section */}
-                <section ref={ref} className="mb-24 mx-4 sm:mx-6 lg:mx-8">
-                    <h2 className="text-3xl font-bold mb-8 text-center bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-orange-400">
-                        Prizes & Rewards
-                    </h2>
-
-                    <div className="grid md:grid-cols-3 gap-8 items-center">
-                        {prizes.map((prize, index) => (
-                            <motion.div
-                                key={index}
-                                initial={{ opacity: 0, y: 50 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.6, delay: index * 0.2 }}
-                            >
-                                <Tilt
-                                    options={{
-                                        max: 25,
-                                        scale: prize.scale,
-                                        speed: 450,
-                                    }}
-                                    className="relative group"
-                                >
-                                    <div className={`absolute -inset-0.5 bg-gradient-to-r ${prize.gradient} rounded-lg blur opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200`} />
-                                    <div className="relative p-8 bg-black/40 backdrop-blur-sm rounded-lg border border-white/10">
-                                        <div className="text-6xl mb-6">{prize.trophy}</div>
-                                        <h3 className={`text-4xl font-bold bg-gradient-to-r ${prize.gradient} bg-clip-text text-transparent mb-4`}>
-                                            {prize.position} Prize
-                                        </h3>
-                                        <div className="text-3xl font-bold text-white mb-6">{prize.prize}</div>
-                                        <ul className="space-y-3">
-                                            {prize.benefits.map((benefit, idx) => (
-                                                <li key={idx} className="flex items-center text-gray-300">
-                                                    <span className="mr-2">✨</span>
-                                                    {benefit}
-                                                </li>
-                                            ))}
-                                        </ul>
-                                    </div>
-                                </Tilt>
-                            </motion.div>
-                        ))}
                     </div>
                 </section>
 
