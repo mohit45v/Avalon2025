@@ -123,5 +123,29 @@ const deleteQuery = async (req, res) => {
     }
 };
 
-// Add deleteQuery to your exports
-export { submitQuery, getAllQueries, replyToQuery, deleteQuery };
+// Add this new function to query.controller.js
+const getQueryStats = async (req, res) => {
+    try {
+        const totalQueries = await Query.countDocuments();
+        const pendingQueries = await Query.countDocuments({ status: 'Pending' });
+        const solvedQueries = await Query.countDocuments({ status: 'Replied' });
+
+        res.status(200).json({
+            success: true,
+            stats: {
+                totalQueries,
+                pendingQueries,
+                solvedQueries
+            }
+        });
+    } catch (error) {
+        console.error("Query stats error:", error);
+        res.status(500).json({
+            success: false,
+            message: "Failed to fetch query statistics"
+        });
+    }
+};
+
+// Add getQueryStats to your exports
+export { submitQuery, getAllQueries, replyToQuery, deleteQuery, getQueryStats };

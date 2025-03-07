@@ -54,17 +54,24 @@ const getDashboardStats = async (req, res) => {
         const totalRegistrations = await Registration.countDocuments();
         const verifiedParticipants = await Registration.countDocuments({ status: 'verified' });
         const pendingReview = await Registration.countDocuments({ status: 'pending' });
-        const activeQueries = await Query.countDocuments({ status: 'active' });
+        const totalQueries = await Query.countDocuments();
+        const pendingQueries = await Query.countDocuments({ status: 'Pending' });
+        const solvedQueries = await Query.countDocuments({ status: 'Replied' });
 
         res.status(200).json({
             totalRegistrations,
             verifiedParticipants,
             pendingReview,
-            activeQueries
+            totalQueries,
+            pendingQueries,
+            solvedQueries
         });
     } catch (error) {
-        console.error('Error fetching dashboard stats:', error);
-        res.status(500).json({ message: 'Error fetching dashboard statistics' });
+        console.error("Dashboard stats error:", error);
+        res.status(500).json({
+            success: false,
+            message: "Failed to fetch dashboard statistics"
+        });
     }
 };
 

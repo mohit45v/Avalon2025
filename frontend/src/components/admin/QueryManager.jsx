@@ -22,6 +22,8 @@ const QueryManager = () => {
   const [replyStatus, setReplyStatus] = useState({ show: false, isSuccess: false, queryId: null });
   // Add new state for sorting
   const [sortByPending, setSortByPending] = useState(true);
+  // Add loading state for email sending
+  const [sendingEmail, setSendingEmail] = useState({});
   // Add useEffect for fetching queries
   useEffect(() => {
     const fetchQueries = async () => {
@@ -58,6 +60,9 @@ const QueryManager = () => {
   // Add this after your handleDelete function
     const handleReply = async (id, reply) => {
       try {
+        // Set loading state for this specific query
+        setSendingEmail(prev => ({ ...prev, [id]: true }));
+        
         const query = queries.find(q => q._id === id);
         const emailTemplate = {
           subject: `Re: Your Query - Avalon 2025`,
@@ -117,6 +122,9 @@ const QueryManager = () => {
         console.error('Reply error:', error);
         setReplyStatus({ show: true, isSuccess: false, queryId: id });
         setTimeout(() => setReplyStatus({ show: false, isSuccess: false, queryId: null }), 3000);
+      } finally {
+        // Clear loading state for this specific query
+        setSendingEmail(prev => ({ ...prev, [id]: false }));
       }
     };
   // Modify the return statement to add sorting toggle and delete button
@@ -206,9 +214,21 @@ const QueryManager = () => {
                         </button>
                         <button
                           onClick={() => handleReply(query._id, query.reply)}
-                          className="px-4 py-2 bg-gradient-to-r from-purple-600 to-orange-600 rounded-lg text-white hover:opacity-90 transition-opacity"
+                          disabled={sendingEmail[query._id]}
+                          className="px-4 py-2 bg-gradient-to-r from-purple-600 to-orange-600 rounded-lg text-white hover:opacity-90 transition-opacity disabled:opacity-50 flex items-center gap-2"
                         >
-                          Send Reply
+                          {sendingEmail[query._id] ? (
+                            <>
+                              <motion.div
+                                animate={{ rotate: 360 }}
+                                transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+                                className="w-4 h-4 border-2 border-white/20 border-t-white/100 rounded-full"
+                              />
+                              Sending...
+                            </>
+                          ) : (
+                            'Send Reply'
+                          )}
                         </button>
                       </div>
                     {replyStatus.show && replyStatus.queryId === query._id && (

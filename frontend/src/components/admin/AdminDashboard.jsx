@@ -31,7 +31,13 @@ const AdminDashboard = () => {
         const response = await axios.get(
           `${import.meta.env.VITE_BASE_URL}/api/v1/admin/dashboard-stats`
         );
-        setStats(response.data);
+        
+        setStats({
+          ...stats,
+          totalQueries: response.data.totalQueries || 0,
+          pendingQueries: response.data.pendingQueries || 0,
+          solvedQueries: response.data.solvedQueries || 0
+        });
         setIsLoading(false);
       } catch (error) {
         console.error('Error fetching dashboard stats:', error);
