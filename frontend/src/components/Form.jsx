@@ -25,9 +25,9 @@ const Form = () => {
   const navigate = useNavigate();
 
   const competitions = [
-    { value: 'hackathon', label: 'Hackathon', maxTeam: 4 },
-    { value: 'project', label: 'Cube Casting', maxTeam: 3 },
-    { value: 'robotics', label: 'Robo Race', maxTeam: 4 }
+    { value: 'hackathon', label: 'Hackathon', maxTeam: 4, qrCode: 'https://res.cloudinary.com/dgf0khv5f/image/upload/v1741373364/800QR_f6jrs3.jpg', amount: 800 },
+    { value: 'project', label: 'Cube Casting', maxTeam: 3, qrCode: 'https://res.cloudinary.com/dgf0khv5f/image/upload/v1741373364/150QR_u1e9aj.jpg', amount: 150 },
+    { value: 'robotics', label: 'Robo Race', maxTeam: 4, qrCode: 'https://res.cloudinary.com/dgf0khv5f/image/upload/v1741373527/300QR_pzro4z.jpg', amount: 300 }
   ];
 
   const addTeamMember = () => {
@@ -178,6 +178,18 @@ const Form = () => {
     }
   };
 
+  // Get the current competition's QR code
+  const getCurrentQR = () => {
+    const selectedComp = competitions.find(comp => comp.value === formData.competition);
+    return selectedComp ? selectedComp.qrCode : null;
+  };
+
+  // Get the current competition's amount
+  const getCurrentAmount = () => {
+    const selectedComp = competitions.find(comp => comp.value === formData.competition);
+    return selectedComp ? selectedComp.amount : null;
+  };
+
   return (
     <div className="min-h-screen bg-[#030014] text-white py-12 px-4">
       <div className="max-w-4xl mx-auto">
@@ -289,14 +301,23 @@ const Form = () => {
           {step === 2 && (
             <div className="space-y-6">
               <div className="text-center">
-                <img
-                  src= {QR}
-                  alt="Payment QR"
-                  className="mx-auto w-64 h-64"
-                />
-                <p className="mt-4 text-gray-400">
-                  Scan QR code to pay or use UPI ID: sarthakpawar275@oksbi
-                </p>
+                {formData.competition ? (
+                  <>
+                    <img
+                      src={getCurrentQR()}
+                      alt="Payment QR"
+                      className="mx-auto w-64 h-64"
+                    />
+                    <p className="mt-4 text-gray-400">
+                      Amount to pay: ₹{getCurrentAmount()}
+                    </p>
+                    <p className="mt-2 text-gray-400">
+                      Scan QR code to pay or use UPI ID: sarthakpawar275@oksbi
+                    </p>
+                  </>
+                ) : (
+                  <p className="text-red-400">Please select a competition first</p>
+                )}
               </div>
 
               <div className="space-y-4">
