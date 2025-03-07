@@ -127,8 +127,8 @@ const Home = () => {
         </div>
 
         {/* Main Content */}
-        <div className="relative z-[3] flex flex-col items-center px-4 pt-16 sm:pt-20 text-center w-full max-w-6xl min-h-screen">
-          {/* Logo with enhanced effects */}
+        <div className="relative z-[3] flex flex-col items-center px-4 pt-16 sm:pt-20 text-center w-full max-w-6xl">
+          {/* Logo Section */}
           <motion.div
             className="relative h-24 w-40 mb-8 sm:mb-12"
             initial={{ scale: 0.8, opacity: 0 }}
@@ -143,7 +143,7 @@ const Home = () => {
             />
           </motion.div>
 
-          {/* Main Title with enhanced styling */}
+          {/* Title Section */}
           <motion.h1
             className="font-['Orbitron'] text-4xl sm:text-6xl lg:text-7xl font-bold mb-4 sm:mb-8 tracking-wider"
             initial={{ opacity: 0, y: 20 }}
@@ -165,7 +165,7 @@ const Home = () => {
             Where Technology Meets Innovation
           </motion.p>
 
-          {/* Type Animation with enhanced container */}
+          {/* Type Animation */}
           <motion.div
             className="mb-8 sm:mb-12 px-4 py-4 sm:py-6 backdrop-blur-sm bg-white/5 rounded-2xl border border-white/10"
             initial={{ opacity: 0, y: 20 }}
@@ -188,12 +188,35 @@ const Home = () => {
             />
           </motion.div>
 
-          {/* CTA Buttons */}
+          {/* Tech Keywords */}
           <motion.div
-            className="flex flex-col sm:flex-row gap-4 items-center mb-16 sm:mb-32"
+            className="w-full px-4 mb-8"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.8 }}
+          >
+            <div className="flex flex-wrap justify-center gap-2 sm:gap-3 max-w-3xl mx-auto">
+              {['AI', 'Blockchain', 'IoT', 'Cloud', 'ML', 'Web3'].map((tech, index) => (
+                <motion.span
+                  key={tech}
+                  initial={{ scale: 0.9, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  transition={{ duration: 0.3, delay: index * 0.1 }}
+                  whileHover={{ scale: 1.05, y: -2 }}
+                  className="px-3 sm:px-6 py-1.5 sm:py-2.5 text-xs sm:text-sm font-medium text-white bg-gradient-to-r from-purple-600/20 to-orange-600/20 rounded-full border border-purple-500/30 backdrop-blur-md hover:border-purple-500/50 transition-all duration-300 shadow-lg shadow-purple-500/5"
+                >
+                  {tech}
+                </motion.span>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* CTA Buttons */}
+          <motion.div
+            className="flex flex-col sm:flex-row gap-4 items-center mb-12"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 1 }}
           >
             <Link
               to="about"
@@ -213,30 +236,32 @@ const Home = () => {
             </RouterLink>
           </motion.div>
 
-          {/* Tech Keywords */}
+          {/* 3D Robot Container */}
           <motion.div
-            className="w-full px-4 mb-8 sm:mb-0"
+            className="w-full max-w-3xl h-[600px] mb-12"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 1 }}
+            transition={{ duration: 0.8, delay: 1.2 }}
           >
-            <div className="flex flex-wrap justify-center gap-2 sm:gap-3 max-w-3xl mx-auto">
-              {['AI', 'Blockchain', 'IoT', 'Cloud', 'ML', 'Web3'].map((tech, index) => (
-                <motion.span
-                  key={tech}
-                  initial={{ scale: 0.9, opacity: 0 }}
-                  animate={{ scale: 1, opacity: 1 }}
-                  transition={{ duration: 0.3, delay: index * 0.1 }}
-                  whileHover={{ scale: 1.05, y: -2 }}
-                  className="px-3 sm:px-6 py-1.5 sm:py-2.5 text-xs sm:text-sm font-medium text-white bg-gradient-to-r from-purple-600/20 to-orange-600/20 rounded-full border border-purple-500/30 backdrop-blur-md hover:border-purple-500/50 transition-all duration-300 shadow-lg shadow-purple-500/5"
-                >
-                  {tech}
-                </motion.span>
-              ))}
-            </div>
+            <iframe 
+              src='https://my.spline.design/robotfollowcursorforlandingpage-b4abc1ba480ce1aac09d84d665499122/' 
+              frameBorder='0' 
+              width='100%' 
+              height='100%'
+              className="w-full h-full"
+              title="3D Robot"
+              style={{
+                minHeight: '600px',
+                maxHeight: '600px',
+                width: '100%',
+                objectFit: 'contain'
+              }}
+            />
           </motion.div>
         </div>
       </div>
+
+      {/* Other Sections */}
       <div id="techboxes">
         <TechBoxes/>
       </div>
@@ -255,11 +280,9 @@ const Home = () => {
       <div id="sponsors">
         <Sponsers />
       </div>
-      
       <div id="contact" className="w-full">
         <Contact />
       </div>
-      
     </>
   );
 };
