@@ -40,31 +40,25 @@ const Contact = () => {
   const socialLinks = [
     {
       icon: FaInstagram,
-      url: "https://instagram.com/avalon2025",
+      url: "https://www.instagram.com/avalonterna",
       color: "hover:text-pink-500",
       label: "Instagram"
     },
     {
       icon: FaTwitter,
-      url: "https://twitter.com/avalon2025",
+      url: "https://x.com/avalon_tec",
       color: "hover:text-blue-400",
       label: "Twitter"
     },
     {
-      icon: FaLinkedin,
-      url: "https://linkedin.com/company/avalon2025",
-      color: "hover:text-blue-600",
-      label: "LinkedIn"
-    },
-    {
       icon: FaYoutube,
-      url: "https://youtube.com/avalon2025",
+      url: "https://youtube.com/@avalontechfest8898",
       color: "hover:text-red-600",
       label: "YouTube"
     },
     {
       icon: PiThreadsLogoFill,
-      url: "https://threads.net/avalon2025",
+      url: "https://www.threads.net/@avalonterna",
       color: "hover:text-gray-200",
       label: "Threads"
     },
