@@ -40,6 +40,7 @@ const About = () => {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+    window.open(brochureUrl, '_blank');
   };
 
   return (
