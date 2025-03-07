@@ -60,20 +60,20 @@ const RoboticsCompetitionPage = () => {
                     </h1>
                     <p className="text-xl text-gray-400 max-w-3xl mx-auto">
                         Speed. Precision. Innovation.
-                    </p>
-                </header>
+                </p>
+            </header>
 
-                {/* Hero section */}
+            {/* Hero section */}
                 <div className="relative p-8 mb-16 rounded-lg overflow-hidden mx-4 sm:mx-6 lg:mx-8">
                     <div className="absolute -inset-0.5 bg-gradient-to-r from-purple-600 to-orange-600 rounded-lg blur opacity-75"></div>
                     <div className="relative bg-black/40 backdrop-blur-sm rounded-lg p-8">
-                        <div className="flex flex-col md:flex-row items-center">
-                            <div className="md:w-2/3 mb-6 md:mb-0 md:pr-8">
+                <div className="flex flex-col md:flex-row items-center">
+                    <div className="md:w-2/3 mb-6 md:mb-0 md:pr-8">
                                 <h2 className="text-3xl font-bold mb-4 text-white">Race to Victory!</h2>
                                 <p className="text-lg mb-6 text-gray-300">
                                     Design and program a robot that can complete the given track quickly while overcoming various hurdles. The fastest and most efficient bot wins!
-                                </p>
-                                <div className="flex flex-wrap gap-4">
+                        </p>
+                        <div className="flex flex-wrap gap-4">
                                     <motion.button
                                         whileHover={{ scale: 1.05 }}
                                         whileTap={{ scale: 0.95 }}
@@ -104,7 +104,7 @@ const RoboticsCompetitionPage = () => {
                 </div>
 
                 {/* Key Details Section */}
-                <section className="mb-24 mx-4 sm:mx-6 lg:mx-8">
+            <section className="mb-24 mx-4 sm:mx-6 lg:mx-8">
                     <h2 className="text-3xl font-bold mb-8 text-center bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-orange-400">
                         Event Details
                     </h2>
@@ -113,22 +113,22 @@ const RoboticsCompetitionPage = () => {
                             <h3 className="text-xl font-bold text-gray-300 mb-2">Date & Time</h3>
                             <p className="text-gray-400">March 16, 2025</p>
                             <p className="text-gray-400">Prize Pool: ₹10,000/-</p>
-                        </div>
+                    </div>
 
                         <div className="glass-effect p-6 rounded-lg border border-purple-500/20 hover:border-purple-500/40 transition-all duration-300">
                             <h3 className="text-xl font-bold text-gray-300 mb-2">Registration</h3>
                             <p className="text-gray-400">₹300 per team</p>
                             <p className="text-gray-400">2-5 members per team</p>
-                        </div>
                     </div>
-                </section>
+                </div>
+            </section>
 
                 {/* Features Section */}
-                <section className="mb-24 mx-4 sm:mx-6 lg:mx-8">
+            <section className="mb-24 mx-4 sm:mx-6 lg:mx-8">
                     <h2 className="text-3xl font-bold mb-8 text-center bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-orange-400">
                         Competition Highlights
                     </h2>
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                         <div className="glass-effect p-6 rounded-lg border border-purple-500/20 hover:border-purple-500/40 transition-all duration-300">
                             <div className="text-4xl text-purple-500 mb-4">
                                 <BsSpeedometer />
@@ -140,7 +140,7 @@ const RoboticsCompetitionPage = () => {
                         <div className="glass-effect p-6 rounded-lg border border-purple-500/20 hover:border-purple-500/40 transition-all duration-300">
                             <div className="text-4xl text-purple-500 mb-4">
                                 <BsGear />
-                            </div>
+                    </div>
                             <h3 className="text-xl text-gray-300 font-bold mb-2">Obstacles</h3>
                             <p className="text-gray-400">Navigate through challenging obstacles and terrain.</p>
                         </div>
@@ -148,7 +148,7 @@ const RoboticsCompetitionPage = () => {
                         <div className="glass-effect p-6 rounded-lg border border-purple-500/20 hover:border-purple-500/40 transition-all duration-300">
                             <div className="text-4xl text-purple-500 mb-4">
                                 <BsTools />
-                            </div>
+                    </div>
                             <h3 className="text-xl text-gray-300 font-bold mb-2">Technical Support</h3>
                             <p className="text-gray-400">Get guidance from experienced mentors throughout the event.</p>
                         </div>
@@ -156,15 +156,15 @@ const RoboticsCompetitionPage = () => {
                         <div className="glass-effect p-6 rounded-lg border border-purple-500/20 hover:border-purple-500/40 transition-all duration-300">
                             <div className="text-4xl text-purple-500 mb-4">
                                 <BsTrophy />
-                            </div>
+                    </div>
                             <h3 className="text-xl text-gray-300 font-bold mb-2">Prizes</h3>
                             <p className="text-gray-400">Compete for a prize pool of ₹10,000 and recognition.</p>
-                        </div>
                     </div>
-                </section>
+                </div>
+            </section>
 
                 {/* Rules Section */}
-                <section className="mb-24 mx-4 sm:mx-6 lg:mx-8">
+            <section className="mb-24 mx-4 sm:mx-6 lg:mx-8">
                     <h2 className="text-3xl font-bold mb-8 text-center bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-orange-400">
                         Competition Rules
                     </h2>
@@ -176,8 +176,8 @@ const RoboticsCompetitionPage = () => {
                             <li>• Robot completing the track in shortest time wins</li>
                             <li>• All robots must be self-contained and autonomous</li>
                         </ul>
-                    </div>
-                </section>
+                </div>
+            </section>
 
                 {/* Call to Action */}
                 <section className="text-center pb-24 mx-4 sm:mx-6 lg:mx-8">
@@ -195,13 +195,13 @@ const RoboticsCompetitionPage = () => {
                     >
                         Register Now - ₹300 per team
                     </motion.button>
-                </section>
+            </section>
 
                 {/* Add Contact Section */}
                 <div id="contact" className="w-full">
                     <Contact />
+                    </div>
                 </div>
-            </div>
         </div>
     );
 };

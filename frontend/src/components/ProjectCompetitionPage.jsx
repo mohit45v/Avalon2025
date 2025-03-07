@@ -56,40 +56,40 @@ const ProjectCompetitionPage = () => {
             </div>
 
             <div className="max-w-[2000px] mx-auto px-6 sm:px-8 lg:px-12 py-12 relative">
-                <header className="mb-12 text-center relative">
+            <header className="mb-12 text-center relative">
                     <h1 className="text-4xl font-bold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-orange-400">
                         Cube Casting Challenge
                     </h1>
-                    <p className="text-xl text-gray-400 max-w-3xl mx-auto">
+                <p className="text-xl text-gray-400 max-w-3xl mx-auto">
                         The ultimate test of precision and engineering mastery
-                    </p>
-                </header>
+                </p>
+            </header>
 
-                {/* Hero section */}
+            {/* Hero section */}
                 <div className="relative p-8 mb-16 rounded-lg overflow-hidden mx-4 sm:mx-6 lg:mx-8">
-                    <div className="absolute -inset-0.5 bg-gradient-to-r from-purple-600 to-orange-600 rounded-lg blur opacity-75"></div>
-                    <div className="relative bg-black/40 backdrop-blur-sm rounded-lg p-8">
-                        <div className="flex flex-col md:flex-row items-center">
-                            <div className="md:w-2/3 mb-6 md:mb-0 md:pr-8">
+                <div className="absolute -inset-0.5 bg-gradient-to-r from-purple-600 to-orange-600 rounded-lg blur opacity-75"></div>
+                <div className="relative bg-black/40 backdrop-blur-sm rounded-lg p-8">
+                    <div className="flex flex-col md:flex-row items-center">
+                        <div className="md:w-2/3 mb-6 md:mb-0 md:pr-8">
                                 <h2 className="text-3xl font-bold mb-4 text-white">Master the Art of Precision</h2>
-                                <p className="text-lg mb-6 text-gray-300">
+                            <p className="text-lg mb-6 text-gray-300">
                                     Design and fabricate intricate structures within strict constraints. Showcase your technical expertise and innovation in this thrilling competition that tests your engineering prowess.
-                                </p>
-                                <div className="flex flex-wrap gap-4">
-                                    <motion.button
-                                        whileHover={{ scale: 1.05 }}
-                                        whileTap={{ scale: 0.95 }}
+                            </p>
+                            <div className="flex flex-wrap gap-4">
+                                <motion.button
+                                    whileHover={{ scale: 1.05 }}
+                                    whileTap={{ scale: 0.95 }}
                                         onClick={handleRegister}
                                         className="bg-gradient-to-r from-purple-600 to-orange-600 px-6 py-2 rounded-full text-white font-bold hover:opacity-90 transition"
                                     >
                                         Register Now - ₹150/team
-                                    </motion.button>
-                                </div>
+                                </motion.button>
                             </div>
-                            <div className="md:w-1/3">
-                                <div className="relative rounded-lg overflow-hidden">
-                                    <div className="absolute inset-0 bg-gradient-to-r from-purple-500/20 to-orange-500/20 mix-blend-overlay"></div>
-                                    <img
+                        </div>
+                        <div className="md:w-1/3">
+                            <div className="relative rounded-lg overflow-hidden">
+                                <div className="absolute inset-0 bg-gradient-to-r from-purple-500/20 to-orange-500/20 mix-blend-overlay"></div>
+                                <img
                                         src={image}
                                         alt="Cube Casting Challenge"
                                         className="w-full h-full object-cover rounded-lg shadow-xl"
@@ -106,7 +106,7 @@ const ProjectCompetitionPage = () => {
                 </div>
 
                 {/* Key Details Section */}
-                <section className="mb-24 mx-4 sm:mx-6 lg:mx-8">
+            <section className="mb-24 mx-4 sm:mx-6 lg:mx-8">
                     <h2 className="text-3xl font-bold mb-8 text-center bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-orange-400">
                         Event Details
                     </h2>
@@ -121,12 +121,12 @@ const ProjectCompetitionPage = () => {
                             <h3 className="text-xl font-bold text-gray-300 mb-2">Registration</h3>
                             <p className="text-gray-400">₹150 per team</p>
                             <p className="text-gray-400">1-3 members per team</p>
-                        </div>
                     </div>
-                </section>
+                </div>
+            </section>
 
                 {/* What to Expect Section */}
-                <section className="mb-24 mx-4 sm:mx-6 lg:mx-8">
+            <section className="mb-24 mx-4 sm:mx-6 lg:mx-8">
                     <h2 className="text-3xl font-bold mb-8 text-center bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-orange-400">
                         What to Expect
                     </h2>
@@ -162,8 +162,8 @@ const ProjectCompetitionPage = () => {
                             <h3 className="text-xl text-gray-300 font-bold mb-2">Recognition</h3>
                             <p className="text-gray-400">Win exciting prizes and gain industry recognition.</p>
                         </div>
-                    </div>
-                </section>
+                </div>
+            </section>
 
                 {/* Call to Action */}
                 <section className="text-center pb-24 mx-4 sm:mx-6 lg:mx-8">
