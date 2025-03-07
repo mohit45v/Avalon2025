@@ -33,15 +33,9 @@ const About = () => {
 
   const handleDownloadBrochure = () => {
     const brochureUrl = "https://drive.google.com/file/d/1eGanS-DwnjTJg5t5ljgMQnPdEgdouH7s/view?usp=sharing";
-    
-    const link = document.createElement('a');
-    link.href = brochureUrl;
-    link.download = 'Avalon2025_Brochure.pdf';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    window.open(brochureUrl, '_blank');
+    window.open(brochureUrl, '_blank'); // Opens in a new tab
   };
+
 
   return (
     <section ref={ref} className="relative py-20 overflow-hidden bg-[#030014]">
