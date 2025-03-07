@@ -32,7 +32,7 @@ const About = () => {
   };
 
   const handleDownloadBrochure = () => {
-    const brochureUrl = "../../public/AVALON_2025_Brochure[1].pdf";
+    const brochureUrl = "https://drive.google.com/file/d/1eGanS-DwnjTJg5t5ljgMQnPdEgdouH7s/view?usp=sharing";
     
     const link = document.createElement('a');
     link.href = brochureUrl;
