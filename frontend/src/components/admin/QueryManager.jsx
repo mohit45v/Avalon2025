@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import axios from 'axios';
+import { emailTemplates } from '../../utils/emailTemplates';
 
 const StatusMessage = ({ queryId, replyStatus }) => (
   <motion.div
@@ -64,53 +65,16 @@ const QueryManager = () => {
         setSendingEmail(prev => ({ ...prev, [id]: true }));
         
         const query = queries.find(q => q._id === id);
-        const emailTemplate = {
-          subject: `Re: Your Query - Avalon 2025`,
-          html: `
-            <!DOCTYPE html>
-            <html>
-            <head>
-              <meta charset="utf-8">
-              <meta name="viewport" content="width=device-width, initial-scale=1.0">
-              <title>Avalon 2025 Response</title>
-            </head>
-            <body style="margin: 0; padding: 0; background-color: #f4f4f4;">
-              <table role="presentation" cellspacing="0" cellpadding="0" border="0" align="center" width="100%" style="max-width: 600px; margin: 0 auto; font-family: Arial, sans-serif; background-color: #ffffff; border-radius: 8px; overflow: hidden; margin-top: 20px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
-                <tr>
-                  <td style="padding: 30px 0; background: linear-gradient(135deg, #9333ea 0%, #ea580c 100%); text-align: center;">
-                    <h1 style="color: #ffffff; margin: 0; font-size: 24px;">Avalon 2025 Response</h1>
-                  </td>
-                </tr>
-                <tr>
-                  <td style="padding: 30px;">
-                    <p style="color: #333; margin-bottom: 20px;">Dear ${query.name},</p>
-                    
-                    <div style="background-color: #f8f9fa; padding: 20px; border-left: 4px solid #9333ea; margin-bottom: 20px; border-radius: 4px;">
-                      <p style="color: #666; margin: 0 0 10px 0; font-size: 14px;">Your original query:</p>
-                      <p style="color: #333; margin: 0; font-size: 16px;">${query.message}</p>
-                    </div>
-                    
-                    <div style="margin-bottom: 30px;">
-                      <p style="color: #666; margin-bottom: 10px; font-size: 14px;">Our response:</p>
-                      <p style="color: #333; margin: 0; font-size: 16px; line-height: 1.6;">${reply}</p>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td style="background-color: #f8f9fa; padding: 20px; text-align: center; border-top: 1px solid #eee;">
-                    <p style="color: #666; margin: 0 0 10px 0; font-size: 14px;">Thank you for contacting Avalon 2025</p>
-                    <p style="color: #999; margin: 0; font-size: 12px;">© 2024 Terna Engineering College</p>
-                  </td>
-                </tr>
-              </table>
-            </body>
-            </html>
-          `
-        };
-    
+        
+        const template = emailTemplates.queryResponse(
+          query.name,
+          query.message,
+          reply
+        );
+
         await axios.post(`${import.meta.env.VITE_BASE_URL}/api/v1/queries/reply/${id}`, {
           reply,
-          emailTemplate
+          emailTemplate: template
         });
     
         setQueries(queries.map(q => 

@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { BsThreeDotsVertical, BsCheckCircle, BsXCircle, BsEnvelope } from 'react-icons/bs';
 import { useNavigate } from 'react-router-dom';
+import { emailTemplates } from '../../utils/emailTemplates';
 
 const ParticipantManager = () => {
   const [participants, setParticipants] = useState([]);
@@ -71,7 +72,16 @@ const ParticipantManager = () => {
             }
           });
 
-          await axios.post(`${import.meta.env.VITE_BASE_URL}/api/v1/admin/verify/${participantId}`);
+          const participant = participants.find(p => p._id === participantId);
+          const template = emailTemplates.registrationVerified(
+            participant.teamMembers[0].name,
+            participant.competition,
+            participant
+          );
+
+          await axios.post(`${import.meta.env.VITE_BASE_URL}/api/v1/admin/verify/${participantId}`, {
+            emailTemplate: template
+          });
           
           // Show success alert
           await Swal.fire({
