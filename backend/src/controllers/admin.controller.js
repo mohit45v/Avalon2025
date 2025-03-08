@@ -50,10 +50,13 @@ const adminLogin = async (req, res) => {
 
 const getDashboardStats = async (req, res) => {
     try {
-        // Get counts from your database
+        // Get registration stats
         const totalRegistrations = await Registration.countDocuments();
         const verifiedParticipants = await Registration.countDocuments({ status: 'verified' });
         const pendingReview = await Registration.countDocuments({ status: 'pending' });
+        const rejectedParticipants = await Registration.countDocuments({ status: 'rejected' });
+
+        // Get query stats
         const totalQueries = await Query.countDocuments();
         const pendingQueries = await Query.countDocuments({ status: 'Pending' });
         const solvedQueries = await Query.countDocuments({ status: 'Replied' });
@@ -62,6 +65,7 @@ const getDashboardStats = async (req, res) => {
             totalRegistrations,
             verifiedParticipants,
             pendingReview,
+            rejectedParticipants,
             totalQueries,
             pendingQueries,
             solvedQueries
