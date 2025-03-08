@@ -164,15 +164,15 @@ const ParticipantManager = () => {
   );
 
   return (
-    <div className="min-h-screen bg-[#030014] text-white p-8">
+    <div className="min-h-screen bg-[#030014] text-white p-4 sm:p-8">
       <div className="max-w-7xl mx-auto">
-        <div className="flex justify-between items-center mb-8">
-          <h1 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-orange-400">
+        <div className="flex flex-col sm:flex-row justify-between items-center gap-4 mb-8">
+          <h1 className="text-2xl sm:text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-orange-400">
             Participant Management
           </h1>
-          <div className="flex gap-4">
+          <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
             <select
-              className="bg-white/10 border border-purple-500/20 rounded-lg px-4 py-2"
+              className="w-full sm:w-auto bg-white/10 border border-purple-500/20 rounded-lg px-3 py-2 text-sm"
               onChange={(e) => setFilter(e.target.value)}
               value={filter}
             >
@@ -183,7 +183,7 @@ const ParticipantManager = () => {
               <option value="workshop">Workshops</option>
             </select>
             <select
-              className="bg-white/10 border border-purple-500/20 rounded-lg px-4 py-2"
+              className="w-full sm:w-auto bg-white/10 border border-purple-500/20 rounded-lg px-3 py-2 text-sm"
               onChange={(e) => setSortBy(e.target.value)}
               value={sortBy}
             >
@@ -192,33 +192,41 @@ const ParticipantManager = () => {
               <option value="pending">Pending Review</option>
               <option value="verified">Verified</option>
             </select>
-            <button
-              onClick={() => navigate('/admin')}
-              className="px-4 py-2 bg-purple-500/20 text-purple-400 rounded-lg hover:bg-purple-500/30"
-            >
-              Dashboard
-            </button>
-            <button
-              onClick={() => {
-                localStorage.clear();
-                navigate('/admin/login');
-              }}
-              className="px-4 py-2 bg-red-500/20 text-red-400 rounded-lg hover:bg-red-500/30"
-            >
-              Logout
-            </button>
+            <div className="flex gap-2 w-full sm:w-auto">
+              <button
+                onClick={() => navigate('/admin')}
+                className="flex-1 sm:flex-none px-4 py-2 bg-purple-500/20 text-purple-400 rounded-lg hover:bg-purple-500/30 text-sm"
+              >
+                Dashboard
+              </button>
+              <button
+                onClick={() => {
+                  localStorage.clear();
+                  navigate('/admin/login');
+                }}
+                className="flex-1 sm:flex-none px-4 py-2 bg-red-500/20 text-red-400 rounded-lg hover:bg-red-500/30 text-sm"
+              >
+                Logout
+              </button>
+            </div>
           </div>
         </div>
 
         <input
           type="text"
           placeholder="Search participants..."
-          className="w-full mb-8 px-4 py-2 bg-white/10 border border-purple-500/20 rounded-lg"
+          className="w-full mb-6 px-4 py-2 bg-white/10 border border-purple-500/20 rounded-lg text-sm"
           onChange={(e) => setSearchTerm(e.target.value)}
         />
 
         {loading ? (
-          <div className="text-center">Loading...</div>
+          <div className="flex items-center justify-center py-8">
+            <motion.div
+              animate={{ rotate: 360 }}
+              transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
+              className="w-8 h-8 border-2 border-purple-500/20 border-t-purple-500 rounded-full"
+            />
+          </div>
         ) : (
           <div className="grid gap-4">
             {filteredParticipants.map((participant) => (
@@ -229,17 +237,17 @@ const ParticipantManager = () => {
                 className="bg-white/5 border border-purple-500/20 rounded-lg p-4"
               >
                 <div
-                  className="flex justify-between items-center cursor-pointer"
+                  className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 cursor-pointer"
                   onClick={() => setExpandedId(expandedId === participant._id ? null : participant._id)}
                 >
-                  <div>
-                    <h3 className="font-semibold">{participant.teamMembers[0].name}</h3>
+                  <div className="w-full sm:w-auto">
+                    <h3 className="font-semibold text-base">{participant.teamMembers[0].name}</h3>
                     <p className="text-sm text-gray-400">{participant.teamMembers[0].email}</p>
                     <p className="text-sm text-gray-400">
                       Event: {participant.competition.charAt(0).toUpperCase() + participant.competition.slice(1)}
                     </p>
                   </div>
-                  <div className="flex items-center gap-4">
+                  <div className="flex items-center gap-2 w-full sm:w-auto justify-between sm:justify-end">
                     <div className="flex gap-2">
                       {participant.status === 'verified' && (
                         <span className="text-xs bg-green-500/20 text-green-400 px-2 py-1 rounded">
@@ -263,14 +271,14 @@ const ParticipantManager = () => {
                     exit={{ height: 0, opacity: 0 }}
                     className="mt-4 pt-4 border-t border-purple-500/20"
                   >
-                    <div className="grid grid-cols-2 gap-4">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
                       <div>
-                        <h4 className="font-semibold mb-2">College Details</h4>
+                        <h4 className="font-semibold mb-2 text-sm">College Details</h4>
                         <p className="text-sm text-gray-400">Name: {participant.collegeName}</p>
                         <p className="text-sm text-gray-400">Address: {participant.collegeAddress}</p>
                       </div>
                       <div>
-                        <h4 className="font-semibold mb-2">Event Details</h4>
+                        <h4 className="font-semibold mb-2 text-sm">Event Details</h4>
                         <p className="text-sm text-gray-400">Competition: {participant.competition}</p>
                         {participant.workshop && (
                           <p className="text-sm text-gray-400">Workshop: {participant.workshop}</p>
@@ -278,8 +286,8 @@ const ParticipantManager = () => {
                       </div>
                     </div>
 
-                    <div className="mt-4">
-                      <h4 className="font-semibold mb-2">Payment Details</h4>
+                    <div className="mb-4">
+                      <h4 className="font-semibold mb-2 text-sm">Payment Details</h4>
                       <p className="text-sm text-gray-400">Transaction ID: {participant.transactionId}</p>
                       {participant.paymentScreenshot && (
                         <img
@@ -291,28 +299,28 @@ const ParticipantManager = () => {
                       )}
                     </div>
 
-                    <div className="mt-4 flex gap-2">
+                    <div className="flex flex-wrap gap-2">
                       <button
                         onClick={() => handleAction(participant._id, 'verify')}
-                        className="bg-green-500/20 text-green-400 px-4 py-2 rounded-lg hover:bg-green-500/30"
+                        className="flex-1 sm:flex-none bg-green-500/20 text-green-400 px-4 py-2 rounded-lg hover:bg-green-500/30 text-sm"
                       >
-                        <span className="flex items-center gap-1">
+                        <span className="flex items-center justify-center gap-1">
                           <BsCheckCircle /> Verify
                         </span>
                       </button>
                       <button
                         onClick={() => handleAction(participant._id, 'reject')}
-                        className="bg-red-500/20 text-red-400 px-4 py-2 rounded-lg hover:bg-red-500/30"
+                        className="flex-1 sm:flex-none bg-red-500/20 text-red-400 px-4 py-2 rounded-lg hover:bg-red-500/30 text-sm"
                       >
-                        <span className="flex items-center gap-1">
+                        <span className="flex items-center justify-center gap-1">
                           <BsXCircle /> Reject
                         </span>
                       </button>
                       <button
                         onClick={() => handleAction(participant._id, 'sendEmail')}
-                        className="bg-blue-500/20 text-blue-400 px-4 py-2 rounded-lg hover:bg-blue-500/30"
+                        className="flex-1 sm:flex-none bg-blue-500/20 text-blue-400 px-4 py-2 rounded-lg hover:bg-blue-500/30 text-sm"
                       >
-                        <span className="flex items-center gap-1">
+                        <span className="flex items-center justify-center gap-1">
                           <BsEnvelope /> Send Email
                         </span>
                       </button>
@@ -324,15 +332,14 @@ const ParticipantManager = () => {
           </div>
         )}
 
-        {/* Image Preview Modal */}
         {selectedImage && (
           <div
-            className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50"
+            className="fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center z-50 p-4"
             onClick={() => setSelectedImage(null)}
           >
-            <div className="relative bg-gray-900 p-4 rounded-lg max-w-4xl max-h-[90vh]">
+            <div className="relative bg-gray-900 p-4 rounded-lg max-w-4xl max-h-[90vh] w-full">
               <button
-                className="absolute top-2 right-2 text-white bg-red-500 px-3 py-1 rounded-full"
+                className="absolute top-2 right-2 text-white bg-red-500 px-3 py-1 rounded-full text-sm"
                 onClick={() => setSelectedImage(null)}
               >
                 ✖
