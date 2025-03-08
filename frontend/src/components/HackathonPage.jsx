@@ -60,6 +60,8 @@ const HackathonPage = () => {
         navigate('/register'); // Navigate to registration form
     };
 
+    const [activeDay, setActiveDay] = React.useState("day1");
+
     return (
         <div className="w-full min-h-screen bg-[#030014]">
             {/* Back Button */}
@@ -190,6 +192,98 @@ const HackathonPage = () => {
                 </div>
             </section>
 
+            {/* Timeline Section */}
+            <section ref={ref} className="relative mb-24 mx-4 sm:mx-6 lg:mx-8">
+                <h2 className="text-3xl font-bold mb-12 text-center bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-orange-400">
+                    Event Timeline
+                </h2>
+
+                {/* Day Tabs */}
+                <div className="flex justify-center gap-4 mb-12">
+                    <motion.button
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        onClick={() => setActiveDay("day1")}
+                        className={`px-8 py-3 rounded-full text-lg font-bold transition-all duration-300 ${
+                            activeDay === "day1"
+                                ? "bg-gradient-to-r from-purple-600 to-orange-600 text-white"
+                                : "border border-purple-500/20 text-gray-400 hover:border-purple-500/40"
+                        }`}
+                    >
+                        Day 1 (15th Feb)
+                    </motion.button>
+                    <motion.button
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        onClick={() => setActiveDay("day2")}
+                        className={`px-8 py-3 rounded-full text-lg font-bold transition-all duration-300 ${
+                            activeDay === "day2"
+                                ? "bg-gradient-to-r from-purple-600 to-orange-600 text-white"
+                                : "border border-purple-500/20 text-gray-400 hover:border-purple-500/40"
+                        }`}
+                    >
+                        Day 2 (16th Feb)
+                    </motion.button>
+                </div>
+
+                <div className="relative max-w-6xl mx-auto w-full px-4">
+                    {/* Timeline Line */}
+                    <div className="absolute left-8 md:left-1/2 transform md:-translate-x-1/2 w-1 h-full">
+                        <motion.div
+                            initial={{ height: 0 }}
+                            animate={inView ? { height: "100%" } : {}}
+                            transition={{ duration: 1.5 }}
+                            className="h-full w-full bg-gradient-to-b from-purple-500 via-fuchsia-500 to-orange-500"
+                        />
+                    </div>
+
+                    {/* Timeline Events */}
+                    {(activeDay === "day1" ? [
+                        { time: "8:30 AM", title: "Check-in", description: "Registration and setup" },
+                        { time: "10:00 AM", title: "Inauguration and Briefing", description: "Opening ceremony and rules explanation" },
+                        { time: "11:00 AM", title: "Hackathon Begins", description: "Start your innovation journey" },
+                        { time: "3:00 PM", title: "Lunch Break", description: "Recharge and network" },
+                        { time: "4:00 PM", title: "Special Session", description: "TBA" },
+                        { time: "6:00 PM", title: "Tea Time", description: "Evening refreshments" },
+                        { time: "9:00 PM", title: "Dinner", description: "Night fuel for coding" },
+                    ] : [
+                        { time: "12:00 AM", title: "Midnight Interaction", description: "Network with fellow hackers" },
+                        { time: "9:00 AM", title: "Breakfast", description: "Morning refreshments" },
+                        { time: "12:00 PM", title: "Hackathon Ends", description: "Final submissions" },
+                        { time: "12:30 PM", title: "Judging Begins", description: "Project evaluations" },
+                        { time: "2:00 PM", title: "Prize Distribution", description: "Winners announcement and awards" },
+                    ]).map((event, index) => (
+                        <motion.div
+                            key={index}
+                            initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ duration: 0.6, delay: index * 0.2 }}
+                            className={`relative flex flex-col md:flex-row items-start mb-12 ${
+                                index % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
+                            }`}
+                        >
+                            <div className={`pl-20 md:pl-0 w-full md:w-1/2 ${
+                                index % 2 === 0 ? "md:pr-12" : "md:pl-12"
+                            }`}>
+                                <motion.div
+                                    whileHover={{ scale: 1.02 }}
+                                    className="relative p-4 md:p-6 rounded-xl backdrop-blur-sm bg-black/40 border border-white/10 group hover:border-purple-500/50 transition-all duration-300"
+                                >
+                                    <div className="absolute left-0 md:left-auto top-1/2 md:top-0 transform -translate-x-full md:-translate-y-1/2 md:translate-x-0 bg-gradient-to-r from-purple-600 to-orange-600 px-3 md:px-4 py-1 rounded-full">
+                                        <span className="text-sm md:text-base text-white font-medium">{event.time}</span>
+                                    </div>
+                                    <h3 className="text-lg md:text-xl font-bold text-white mt-2 md:mt-4 group-hover:text-purple-400 transition-colors">
+                                        {event.title}
+                                    </h3>
+                                    <p className="text-sm md:text-base text-gray-400 mt-2">{event.description}</p>
+                                </motion.div>
+                            </div>
+                        </motion.div>
+                    ))}
+                </div>
+            </section>
+
+            {/* Contact Section */}
             <Contact/>
             {/* Call to Action */}
             <section className="text-center pb-24 mx-4 sm:mx-6 lg:mx-8">
