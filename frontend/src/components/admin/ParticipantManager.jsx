@@ -173,6 +173,9 @@ const ParticipantManager = () => {
       participant?.teamMembers[0]?.email?.toLowerCase().includes(searchTerm.toLowerCase())) ?? false
   );
 
+
+ 
+
   return (
     <div className="min-h-screen bg-[#030014] text-white p-4 sm:p-8">
       <div className="max-w-7xl mx-auto">
@@ -286,6 +289,7 @@ const ParticipantManager = () => {
                         <h4 className="font-semibold mb-2 text-sm">College Details</h4>
                         <p className="text-sm text-gray-400">Name: {participant.collegeName}</p>
                         <p className="text-sm text-gray-400">Address: {participant.collegeAddress}</p>
+                        <p className="text-sm text-gray-400">WhatsApp: {participant.teamMembers[0].whatsapp}</p>
                       </div>
                       <div>
                         <h4 className="font-semibold mb-2 text-sm">Event Details</h4>
