@@ -289,7 +289,6 @@ const ParticipantManager = () => {
                         <h4 className="font-semibold mb-2 text-sm">College Details</h4>
                         <p className="text-sm text-gray-400">Name: {participant.collegeName}</p>
                         <p className="text-sm text-gray-400">Address: {participant.collegeAddress}</p>
-                        <p className="text-sm text-gray-400">WhatsApp: {participant.teamMembers[0].whatsapp}</p>
                       </div>
                       <div>
                         <h4 className="font-semibold mb-2 text-sm">Event Details</h4>
@@ -297,6 +296,29 @@ const ParticipantManager = () => {
                         {participant.workshop && (
                           <p className="text-sm text-gray-400">Workshop: {participant.workshop}</p>
                         )}
+                      </div>
+                    </div>
+
+                    {/* Add Team Members Details */}
+                    <div className="mb-4">
+                      <h4 className="font-semibold mb-2 text-sm">Team Members</h4>
+                      <div className="grid gap-3">
+                        {participant.teamMembers.map((member, index) => (
+                          <div key={index} className="bg-white/5 p-3 rounded-lg">
+                            <p className="text-sm text-gray-400">
+                              Member {index + 1}: {member.name}
+                            </p>
+                            <p className="text-sm text-gray-400">
+                              Phone: {member.phone || 'N/A'}
+                            </p>
+                            <p className="text-sm text-gray-400">
+                              WhatsApp: {member.whatsapp || 'N/A'}
+                            </p>
+                            <p className="text-sm text-gray-400">
+                              Email: {member.email}
+                            </p>
+                          </div>
+                        ))}
                       </div>
                     </div>
 
