@@ -26,7 +26,7 @@ const Form = () => {
 
   const competitions = [
     { value: 'hackathon', label: 'Hackathon', maxTeam: 4, qrCode: 'https://res.cloudinary.com/dgf0khv5f/image/upload/v1741373364/800QR_f6jrs3.jpg', amount: 800 },
-    { value: 'project', label: 'Cube Casting', maxTeam: 3, qrCode: 'https://res.cloudinary.com/dgf0khv5f/image/upload/v1741373364/150QR_u1e9aj.jpg', amount: 150 },
+    { value: 'project', label: 'Robo Soccer', maxTeam: 3, qrCode: 'https://res.cloudinary.com/dgf0khv5f/image/upload/v1741373364/150QR_u1e9aj.jpg', amount: 150 },
     { value: 'robotics', label: 'Robo Race', maxTeam: 4, qrCode: 'https://res.cloudinary.com/dgf0khv5f/image/upload/v1741373527/300QR_pzro4z.jpg', amount: 300 }
   ];
 

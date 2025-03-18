@@ -3,19 +3,6 @@ import { HeadsetIcon as VrHeadset, Cpu, Gamepad2, ShieldCheck } from "lucide-rea
 
 const techAreas = [
   {
-    title: "AR/VR",
-    subtitle: "Reality Redefined",
-    description: "Push the boundaries between real and virtual. Create immersive experiences that transform how we perceive and interact with digital worlds. Learn about spatial computing, 3D modeling, and interactive design principles.",
-    icon: VrHeadset,
-    color: "from-purple-600 to-fuchsia-600",
-    keyPoints: [
-      "Immersive Technologies",
-      "3D Visualization",
-      "Interactive Design",
-      "Spatial Computing"
-    ]
-  },
-  {
     title: "AI-ML",
     subtitle: "Intelligence Evolved",
     description: "Forge the future of artificial intelligence. Build systems that think, learn, and revolutionize how machines understand our world. Explore neural networks, deep learning, and data science.",
