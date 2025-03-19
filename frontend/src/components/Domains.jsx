@@ -1,31 +1,16 @@
 import React, { useState, Suspense } from "react";
 import { motion } from "framer-motion";
-// Remove these imports as they're no longer needed
-import { Canvas } from "@react-three/fiber";
-import { OrbitControls, useGLTF, Float, Environment } from "@react-three/drei";
 import { useNavigate } from "react-router-dom";
 import { Helmet } from 'react-helmet';
 import Hackathon from "./HackathonPage";
 import ProjectCompetitions from "./ProjectCompetitionPage";
 import Robotics from "./RoboticsCompetitionPage";
 
-const Model = ({ path }) => {
-  const { scene } = useGLTF(path);
-  return <primitive object={scene} scale={1.5} />;
-};
-<div className="flex flex-col md:flex-row gap-8 px-4 sm:px-6 lg:px-8">
-  <div className="w-full md:w-1/2">
-    
-  </div>
-  <div className="w-full md:w-1/2 space-y-6">
-    
-  </div>
-</div>
-// Update the domains array
+// Remove unused Model component and imports
 const domains = [
   {
-    title: "Innovate 3.0",
-    description: "Dive into a whirlwind of creativity, problem-solving, and innovation at Avalon's flagship 24-hour hackathon! Bring your coding skills, ideas – it's going to be an adrenaline-fueled journey into the world of technology. Whether you're a seasoned developer or a coding enthusiast, this hackathon is your chance to collaborate, create and code your way to victory.",
+    title: "Innovate 3.0 (CLOSED)",
+    description: "Registrations are now closed for our flagship 24-hour hackathon. Thank you for your interest!",
     icon: "💻",
     gradient: "from-purple-600 to-blue-500",
     path: "/hackathon",
@@ -38,12 +23,13 @@ const domains = [
       "Industry Recognition"
     ],
     highlights: [
-      "Tackle real-world challenges",
+      "Registrations Closed",
       "24 hours to ideate and build",
       "Expert mentor guidance",
       "Networking opportunities",
       "Team size: 2-4 members"
-    ]
+    ],
+    closed: true
   },
   {
     title: "Robo Soccer",
@@ -91,7 +77,6 @@ const domains = [
   }
 ];
 
-// Update the DomainCard component
 const DomainCard = ({ domain, onClick }) => {
   return (
     <motion.div
@@ -102,12 +87,10 @@ const DomainCard = ({ domain, onClick }) => {
     >
       <div className="absolute -inset-0.5 bg-gradient-to-r from-purple-600 to-orange-600 rounded-lg blur opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-tilt"></div>
       <div className="relative p-6 bg-black/40 backdrop-blur-sm rounded-lg border border-white/10">
-        {/* Icon Section */}
         <div className="flex justify-center mb-6">
           <span className="text-7xl mb-4 animate-bounce-slow">{domain.icon}</span>
         </div>
 
-        {/* Title & Description */}
         <h3 
           className={`text-2xl font-bold bg-gradient-to-r ${domain.gradient} bg-clip-text text-transparent mb-4`}
           itemProp="name"
@@ -116,7 +99,6 @@ const DomainCard = ({ domain, onClick }) => {
         </h3>
         <p className="text-gray-400 mb-6" itemProp="description">{domain.description}</p>
 
-        {/* Features List */}
         <div className="mb-6">
           <h4 className="text-lg font-semibold text-purple-400 mb-2">Key Features:</h4>
           <ul className="space-y-2">
@@ -129,7 +111,6 @@ const DomainCard = ({ domain, onClick }) => {
           </ul>
         </div>
 
-        {/* Highlights List */}
         <div className="mb-6">
           <h4 className="text-lg font-semibold text-purple-400 mb-2">Competition Highlights:</h4>
           <ul className="space-y-2">
@@ -142,55 +123,28 @@ const DomainCard = ({ domain, onClick }) => {
           </ul>
         </div>
 
-        {/* Button */}
         <motion.button
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          onClick={() => onClick()}
-          className={`w-full py-3 bg-gradient-to-r ${domain.gradient} rounded-lg text-white font-semibold 
-            transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/20`}
+          whileHover={{ scale: domain.closed ? 1 : 1.05 }}
+          whileTap={{ scale: domain.closed ? 1 : 0.95 }}
+          onClick={() => !domain.closed && onClick()}
+          className={`w-full py-3 rounded-lg text-white font-semibold transition-all duration-300 
+            ${domain.closed 
+              ? 'bg-gray-600 cursor-not-allowed opacity-75' 
+              : `bg-gradient-to-r ${domain.gradient} hover:shadow-lg hover:shadow-purple-500/20`
+            }`}
+          disabled={domain.closed}
         >
-          Learn More
+          {domain.closed ? 'Registrations Closed' : 'Learn More'}
         </motion.button>
       </div>
     </motion.div>
   );
 };
 
-// Add this to your existing CSS or tailwind.config.js
-const customStyles = `
-  @keyframes bounce-slow {
-    0%, 100% {
-      transform: translateY(0);
-    }
-    50% {
-      transform: translateY(-10px);
-    }
-  }
-  .animate-bounce-slow {
-    animation: bounce-slow 3s infinite;
-  }
-`;
-
-// Update the grid layout in the Domains component
-<div 
-  className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 px-4 sm:px-6 lg:px-8"
-  itemProp="subEvents"
->
-  {domains.map((domain) => (
-    <DomainCard
-      key={domain.title}
-      domain={domain}
-      onClick={() => handleDomainClick(domain.path)}
-      className="w-full"
-    />
-  ))}
-</div>
 const Domains = () => {
   const navigate = useNavigate();
 
   const handleDomainClick = (path) => {
-    // Add window.scrollTo to ensure page starts from top
     window.scrollTo(0, 0);
     navigate(path);
   };
@@ -235,13 +189,11 @@ const Domains = () => {
         itemScope 
         itemType="https://schema.org/Event"
       >
-        {/* Background Effects */}
         <div className="absolute inset-0">
           <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-10" />
           <div className="absolute inset-0 bg-gradient-to-b from-purple-900/20 via-transparent to-orange-900/20" />
         </div>
 
-        {/* Content */}
         <div className="relative max-w-7xl mx-auto">
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
@@ -261,7 +213,6 @@ const Domains = () => {
                 key={domain.title}
                 domain={domain}
                 onClick={() => handleDomainClick(domain.path)}
-                className="w-full"
               />
             ))}
           </div>

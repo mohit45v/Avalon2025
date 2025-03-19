@@ -24,12 +24,42 @@ const Form = () => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
 
+  // Update the competitions array
   const competitions = [
-    { value: 'hackathon', label: 'Hackathon', maxTeam: 4, qrCode: 'https://res.cloudinary.com/dgf0khv5f/image/upload/v1741373364/800QR_f6jrs3.jpg', amount: 800 },
+    { value: 'hackathon', label: 'Hackathon (REGISTRATIONS CLOSED)', maxTeam: 4, qrCode: 'https://res.cloudinary.com/dgf0khv5f/image/upload/v1741373364/800QR_f6jrs3.jpg', amount: 800, closed: true },
     { value: 'project', label: 'Robo Soccer', maxTeam: 5, qrCode: 'https://res.cloudinary.com/dgf0khv5f/image/upload/v1741373364/150QR_u1e9aj.jpg', amount: 150 },
     { value: 'robotics', label: 'Robo Race', maxTeam: 4, qrCode: 'https://res.cloudinary.com/dgf0khv5f/image/upload/v1741373527/300QR_pzro4z.jpg', amount: 300 }
   ];
-
+  
+  // Update the select element to disable hackathon option
+  <select
+    value={formData.competition}
+    onChange={(e) => {
+      const selected = competitions.find(c => c.value === e.target.value);
+      if (selected?.closed) {
+        Swal.fire({
+          icon: 'info',
+          title: 'Registrations Closed',
+          text: 'Hackathon registrations are now closed.'
+        });
+        return;
+      }
+      setFormData({ ...formData, competition: e.target.value })
+    }}
+    className="bg-white/5 border border-purple-500/20 rounded-lg px-4 py-2 text-white [&>option]:text-black"
+  >
+    <option value="" className="bg-[#030014]">Select Competition</option>
+    {competitions.map(comp => (
+      <option 
+        key={comp.value} 
+        value={comp.value} 
+        className="bg-white"
+        disabled={comp.closed}
+      >
+        {comp.label}
+      </option>
+    ))}
+  </select>
   const addTeamMember = () => {
     const selectedComp = competitions.find(c => c.value === formData.competition);
     if (!formData.competition) {
