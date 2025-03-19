@@ -28,7 +28,7 @@ const RoboticsCompetitionPage = () => {
                 "Access to race track for practice",
                 "Technical support",
                 "Certificate of participation",
-                "Chance to win from ₹10,000 prize pool",
+                "Chance to win from ₹8,000 prize pool",
                 "Networking opportunities"
             ]
         };
@@ -112,7 +112,7 @@ const RoboticsCompetitionPage = () => {
                         <div className="glass-effect p-6 rounded-lg border border-purple-500/20 hover:border-purple-500/40 transition-all duration-300">
                             <h3 className="text-xl font-bold text-gray-300 mb-2">Date & Time</h3>
                             <p className="text-gray-400">March 16, 2025</p>
-                            <p className="text-gray-400">Prize Pool: ₹10,000/-</p>
+                            <p className="text-gray-400">Prize Pool: ₹8,000/-</p>
                         </div>
 
                         <div className="glass-effect p-6 rounded-lg border border-purple-500/20 hover:border-purple-500/40 transition-all duration-300">

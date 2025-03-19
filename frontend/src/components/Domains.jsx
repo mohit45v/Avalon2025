@@ -46,25 +46,25 @@ const domains = [
     ]
   },
   {
-    title: "Cube Casting",
-    description: "Cube Casting is the ultimate test of precision and engineering mastery, where participants must design and fabricate intricate structures within strict constraints. This competition is a thrilling blend of creativity, strategy, and hands-on skills, pushing contestants to showcase their technical expertise and innovation.",
-    icon: "🎯",
+    title: "Robo Soccer",
+    description: "Experience the thrill of robotic football in this exciting competition! Teams build and control robots to compete in intense soccer matches, combining engineering skills with strategic gameplay. Test your robot's agility, control, and scoring abilities in this unique sporting challenge.",
+    icon: "⚽",
     gradient: "from-orange-500 to-red-500",
     path: "/project",
     component: ProjectCompetitions,
     features: [
-      "Precision Engineering",
-      "Material Optimization",
+      "Strategic Gameplay",
+      "Robot Engineering",
       "Technical Innovation",
-      "Industry Evaluation",
-      "Professional Guidance"
+      "Professional Judging",
+      "Live Competition"
     ],
     highlights: [
-      "Balance strength & accuracy",
-      "Showcase fabrication skills",
-      "Test precision under pressure",
-      "Win industry recognition",
-      "Team size: 1-3 members"
+      "2-minute halves in knockouts",
+      "3-minute halves in quarters/semis",
+      "4-minute halves in finals",
+      "Team registration: ₹300",
+      "Event Date: 21 March 2025"
     ]
   },
   {
