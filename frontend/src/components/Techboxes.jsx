@@ -107,17 +107,6 @@ export default function TechBoxes() {
         </div>
       </div>
 
-      <style jsx>{`
-        @keyframes gradient {
-          0% { background-position: 0% 50%; }
-          50% { background-position: 100% 50%; }
-          100% { background-position: 0% 50%; }
-        }
-        .animate-gradient {
-          background-size: 200% auto;
-          animation: gradient 4s linear infinite;
-        }
-      `}</style>
     </section>
   );
 }

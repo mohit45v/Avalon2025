@@ -16,7 +16,7 @@ import Navbar from "./navbar";
 import Contact from "./Contact";
 
 import { Link } from "react-scroll";
-import {Link as RouterLink} from "react-router-dom";
+import { Link as RouterLink } from "react-router-dom";
 
 const Home = () => {
   const [loading, setLoading] = useState(false);
@@ -45,6 +45,17 @@ const Home = () => {
     }
   }, [loading]);
 
+  useEffect(() => {
+    const script = document.createElement('script');
+    script.src = 'https://apply.devfolio.co/v2/sdk.js';
+    script.async = true;
+    script.defer = true;
+    document.body.appendChild(script);
+    return () => {
+      document.body.removeChild(script);
+    }
+  }, []);
+
   const fadeIn = {
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
@@ -55,7 +66,7 @@ const Home = () => {
   }, []);
   // Replace multiple messages with one cool tech message
   const loadingMessage = "Compiling future, please wait...";
-  
+
   if (loading) {
     return (
       <div className="flex flex-col items-center justify-center min-h-screen bg-[#030014] relative overflow-hidden">
@@ -63,7 +74,7 @@ const Home = () => {
           <div className="absolute inset-0 bg-grid-white/10 bg-[size:20px] opacity-10 animate-grid-flow" />
           <div className="absolute inset-0 bg-gradient-to-b from-purple-900/20 via-transparent to-orange-900/20" />
         </div>
-        
+
         <motion.div className="relative z-10 flex flex-col items-center">
           <motion.div
             initial={{ scale: 0.8, opacity: 0 }}
@@ -78,7 +89,7 @@ const Home = () => {
               className="h-32 py-4 w-auto relative drop-shadow-[0_0_15px_rgba(147,51,234,0.5)]"
             />
           </motion.div>
-  
+
           <div className="relative w-64 mb-6">
             <motion.div
               className="absolute -top-10 left-1/2 transform -translate-x-1/2"
@@ -89,7 +100,7 @@ const Home = () => {
                 {progress}%
               </span>
             </motion.div>
-  
+
             <div className="h-1 w-full bg-purple-900/20 rounded-full overflow-hidden">
               <motion.div
                 className="h-full bg-gradient-to-r from-purple-600 via-fuchsia-500 to-orange-500"
@@ -99,19 +110,20 @@ const Home = () => {
               />
             </div>
           </div>
-  
+
           <p className="text-gray-400 text-lg font-mono">
             {loadingMessage}
             <span className="animate-pulse">...</span>
           </p>
         </motion.div>
+
       </div>
     );
   }
-  
-    
-  
-    
+
+
+
+
 
   return (
     <>
@@ -136,10 +148,10 @@ const Home = () => {
             transition={{ duration: 0.8, ease: "easeOut" }}
           >
             <div className="absolute inset-0 blur-3xl bg-purple-500/30 rounded-full animate-pulse" />
-            <img 
-              src={logo} 
-              alt="TechFest Logo" 
-              className="relative h-full w-auto object-contain drop-shadow-[0_0_25px_rgba(147,51,234,0.5)]" 
+            <img
+              src={logo}
+              alt="TechFest Logo"
+              className="relative h-full w-auto object-contain drop-shadow-[0_0_25px_rgba(147,51,234,0.5)]"
             />
           </motion.div>
 
@@ -228,12 +240,17 @@ const Home = () => {
             >
               Know More
             </Link>
-            <RouterLink
-              to="/register"
-              className="w-full sm:w-auto px-6 py-3 sm:py-4 border border-purple-500/50 rounded-full text-white text-md font-medium hover:bg-purple-500/10 transition-all cursor-pointer text-center"
-            >
-              Register Now
-            </RouterLink>
+            <div
+              className="apply-button"
+              data-hackathon-slug="innov-77"
+              data-button-theme="light"
+              style={{ height: '44px', width: '312px', display: 'none' }}
+            ></div>
+            <iframe
+              src="https://apply.devfolio.co/v2/button?hackathonSlug=innov-77&buttonTheme=light"
+              style={{ height: '44px', width: '312px', border: 'none', borderRadius: '4px' }}
+              title="Apply with Devfolio"
+            ></iframe>
           </motion.div>
 
           {/* 3D Robot Container */}
@@ -243,10 +260,10 @@ const Home = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 1.2 }}
           >
-            <iframe 
-              src='https://my.spline.design/robotfollowcursorforlandingpage-b4abc1ba480ce1aac09d84d665499122/' 
-              frameBorder='0' 
-              width='100%' 
+            <iframe
+              src='https://my.spline.design/robotfollowcursorforlandingpage-b4abc1ba480ce1aac09d84d665499122/'
+              frameBorder='0'
+              width='100%'
               height='100%'
               className="w-full h-full"
               title="3D Robot"
@@ -259,11 +276,12 @@ const Home = () => {
             />
           </motion.div>
         </div>
+
       </div>
 
       {/* Other Sections */}
       <div id="techboxes">
-        <TechBoxes/>
+        <TechBoxes />
       </div>
       <div id="about">
         <About />
@@ -275,7 +293,7 @@ const Home = () => {
         <Timeline />
       </div>
       <div id="prizes">
-        <Prizes/>
+        <Prizes />
       </div>
       <div id="sponsors">
         <Sponsers />

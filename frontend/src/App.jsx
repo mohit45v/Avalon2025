@@ -14,17 +14,16 @@ import { Analytics } from "@vercel/analytics/react"
 function App() {
   return (
     <div className="relative w-full min-h-screen overflow-y-auto bg-black">
-<Analytics/>
+      <Analytics />
       <Navbar />
       <Home />
-     <TechBoxes/>
+      <TechBoxes />
       <About />
       <Domains />
       <Timeline />
-      <Prizes/>
+      <Prizes />
       <Sponsers />
       <Galary />
-      
     </div>
   );
 }
