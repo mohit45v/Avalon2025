@@ -2,10 +2,14 @@ import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 
 const sponsors = [
-
-  "https://icoanalytics.org/wp-content/uploads/2023/11/Devfolio.png",
-  "https://devfolio.co/blog/content/images/2021/04/ethindia-1.jpg",
-
+  {
+    url: "https://icoanalytics.org/wp-content/uploads/2023/11/Devfolio.png",
+    alt: "DEVFOLIO LOGO"
+  },
+  {
+    url: "https://devfolio.co/blog/content/images/2021/04/ethindia-1.jpg",
+    alt: "ETHINDIA LOGO"
+  },
 ];
 
 const Sponsors = () => {
@@ -82,8 +86,8 @@ const Sponsors = () => {
               className="flex items-center justify-center p-4"
             >
               <motion.img
-                src={sponsor}
-                alt={`Sponsor ${index + 1}`}
+                src={sponsor.url}
+                alt={sponsor.alt}
                 className="w-32 sm:w-36 md:w-40 object-contain drop-shadow-[0_0_15px_rgba(147,51,234,0.2)]"
                 animate={{
                   filter: ["brightness(1)", "brightness(1.2)", "brightness(1)"],
